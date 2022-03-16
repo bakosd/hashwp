@@ -15,7 +15,6 @@ function toggleNav(){
     }
 }
 
-
 function mediaqueryFunction(x) {
     if (x.matches) {
         navbarShown = false;
