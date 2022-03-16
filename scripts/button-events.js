@@ -6,11 +6,13 @@ function toggleNav(){
         document.getElementById("navToggle").style.maxHeight = "3.5rem";
         document.getElementById("navToggle").style.overflowY = "hidden";
         document.getElementById("navToggle").style.transition = "max-height 500ms ease-out";
+        document.getElementById("navToggle").scrollTo(0, 0);
         navbarShown = true;
     } else {
         document.getElementById("navToggle").style.maxHeight = "100vh";
         document.getElementById("navToggle").style.overflowY = "auto";
         document.getElementById("navToggle").style.transition = "max-height 500ms ease-in";
+        document.getElementById("navToggle").scrollTo(0, 0);
         navbarShown = false;
     }
 }
