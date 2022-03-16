@@ -52,7 +52,7 @@ nav a {
   text-decoration: none;
 }
 nav a:hover, nav a:focus {
-  color: #646464;
+  color: #d2d1d1;
   transform: translate(2px);
   transition: all 150ms ease-in-out;
 }
@@ -78,14 +78,24 @@ nav .active-page {
 nav .search-wrap {
   min-width: 200px;
 }
-nav .search-wrap .search-bar {
+nav #nav-toggle {
+  display: none !important;
+}
+nav #user-data {
+  border-radius: 50%;
+}
+nav #user-name {
+  display: none;
+}
+
+.input-with-icon {
   background: #94868633;
   padding: 0.5rem 0 0.5rem 0.5rem;
   border-radius: 0.5rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-nav .search-wrap .search-bar input {
+.input-with-icon input {
   background: none;
   border: none;
   outline: none;
@@ -95,23 +105,14 @@ nav .search-wrap .search-bar input {
   width: 13vw;
   min-width: 150px;
 }
-nav .search-wrap .search-bar:hover {
+.input-with-icon:hover {
   transform: scale(1.005);
-  box-shadow: 0 0 4px black;
+  box-shadow: 0 0 4px black !important;
   transition: all 150ms;
 }
-nav .search-wrap .search-bar:focus-within {
-  box-shadow: 0 0 4px black;
+.input-with-icon:focus-within {
+  box-shadow: 0 0 4px black !important;
   transition: all 150ms;
-}
-nav #nav-toggle {
-  display: none !important;
-}
-nav #user-data {
-  border-radius: 50%;
-}
-nav #user-name {
-  display: none;
 }
 
 .user-avatar {
@@ -132,7 +133,22 @@ nav #user-name {
 }
 .button:hover, .button:focus-visible {
   box-shadow: 0 0 4px black;
-  color: #646464;
+  color: #d2d1d1;
+  transform: scale(1.025);
+  transition: all 150ms ease-in-out;
+}
+
+.button-2 {
+  background: transparent;
+  min-width: 3rem !important;
+  min-height: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+  margin: 0.25rem 0;
+}
+.button-2:hover, .button-2:focus-visible {
+  box-shadow: 0 0 4px black;
+  color: #d2d1d1;
   transform: scale(1.025);
   transition: all 150ms ease-in-out;
 }
@@ -178,6 +194,14 @@ nav #user-name {
   height: 8rem;
   border-radius: 50%;
 }
+#sub-menu #sub-contents #login-content .login-input {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+#sub-menu #sub-contents #login-content a {
+  width: fit-content;
+  margin-left: auto;
+}
 #sub-menu a {
   padding: 0.5rem 1rem;
   background-color: #94868633;
@@ -192,7 +216,7 @@ nav #user-name {
   text-decoration: none;
 }
 #sub-menu a:hover, #sub-menu a:focus {
-  color: #646464;
+  color: #d2d1d1;
   transform: translate(2px);
   transition: all 150ms ease-in-out;
 }
