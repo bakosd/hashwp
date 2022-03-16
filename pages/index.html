@@ -50,20 +50,25 @@
         </div>
     </nav>
     <div id="sub-menu" class="align-items-start justify-content-center d-none flex-column">
-        <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center"><i class="fa-solid fa-xmark"></i></button>
+        <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center me-4 top-0 end-0"><i class="fa-solid fa-xmark"></i></button>
         <div id="sub-menu-text" class=""></div>
         <div id="sub-contents">
             <div id="search-options-content" class="">Search-options-content</div>
-            <div id="user-data-content" class="justify-content-between align-items-center">
-                <div class="d-flex flex-column gap-3 align-items-center">
-                    <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
-                    <label id="user-name-sb" for="user-data-link" class="user-select-none">Tarossza Irén&nbsp;<i class="text-success fa-solid fa-circle-check"></i></label>
-                    <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
+                <div id="user-data-content" class="justify-content-between align-items-start flex-wrap-reverse gap-2">
+                    <div class="d-flex flex-column gap-2 align-items-center px-1 py-1">
+                        <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
+                        <label id="user-name-sb" for="user-data-link" class="user-select-none">Tarossza Irén&nbsp;<i class="text-success fa-solid fa-circle-check"></i></label>
+
+                        <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
+                    </div>
+                    <div class="d-flex flex-column gap-2 align-items-center justify-content-start px-1 py-1">
+                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-heart"></i><span>Kedvencek</span></a>
+                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-chart-line"></i><span>Előzmények</span></a>
+                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-star-half-stroke"></i><span>Értékelések</span></a>
+                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-user-pen"></i><span>Profilom</span></a>
+                            <a href="#" class=" sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-gear"></i><span>Beállítások</span></a>
+                    </div>
                 </div>
-                <div>
-                    <a href="#" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-star"></i><span>Kedvencek</span></a>
-                </div>
-            </div>
             <div id="checkout-content" class="">Checkout-content</div>
         </div>
     </div>

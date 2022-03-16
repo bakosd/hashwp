@@ -143,33 +143,49 @@ nav #user-name {
   background: linear-gradient(240deg, #ac5a5a 10%, #bc8931 47%, #e98944 100%);
   position: fixed;
   top: 3.5rem;
-  padding: 2rem;
-  width: 100vw;
+  right: 0;
+  width: min-content;
+  height: 100vh;
+  padding: 2.5rem 5rem;
   transform-origin: top;
   color: #2a2929;
 }
 #sub-menu #close-sub-menu {
   position: absolute;
-  top: 2rem;
-  right: 1rem;
+  margin-top: 2.25rem;
 }
 #sub-menu #sub-menu-text {
   height: 2.5rem;
+  position: absolute;
+  top: 3.5rem;
+  left: 2rem;
 }
 #sub-menu #sub-contents {
-  margin: 3rem;
+  margin: 3rem auto;
 }
 #sub-menu #sub-contents #user-data-content {
   flex-wrap: wrap;
 }
 #sub-menu #sub-contents #user-data-content #user-data-link {
   border-radius: 50%;
-  margin: 1rem;
 }
 #sub-menu #sub-contents #user-data-content #user-data-link #user-image {
-  width: 10rem;
-  height: 10rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
+}
+#sub-menu .sub-link {
+  padding: 0.5rem 1rem;
+  background-color: #94868633;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-width: fit-content;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  color: #323232;
+  width: 100%;
 }
 
 @media only screen and (min-width: 1919px) {
@@ -193,6 +209,11 @@ nav #user-name {
   nav .search-wrap .search-bar input {
     width: 50px;
     padding: 0.25rem 0;
+  }
+
+  #sub-menu {
+    width: 100vw;
+    overflow-y: auto !important;
   }
 }
 @media only screen and (max-width: 1199.99px) {
