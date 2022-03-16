@@ -47,19 +47,19 @@ function toggleSubmenu(menu){
                 case 1:
                     document.getElementById('sub-menu-text').innerHTML = 'Keresési beállítások';
                     document.getElementById("user-data-content").style.display = "none";
-                    document.getElementById("checkout-content").style.display = "none";
+                    document.getElementById("login-content").style.display = "none";
                     document.getElementById("search-options-content").style.display = "flex";
                     break;
                 case 2:
                     document.getElementById('sub-menu-text').innerHTML = 'Felhasználói felület';
                     document.getElementById("user-data-content").style.display = "flex";
-                    document.getElementById("checkout-content").style.display = "none";
+                    document.getElementById("login-content").style.display = "none";
                     document.getElementById("search-options-content").style.display = "none";
                     break;
                 case 3:
-                    document.getElementById('sub-menu-text').innerHTML = 'Kosár tartalma';
+                    document.getElementById('sub-menu-text').innerHTML = 'Bejelentkezés';
                     document.getElementById("user-data-content").style.display = "none";
-                    document.getElementById("checkout-content").style.display = "flex";
+                    document.getElementById("login-content").style.display = "flex";
                     document.getElementById("search-options-content").style.display = "none";
                     break;
             }

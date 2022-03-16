@@ -26,14 +26,14 @@
                     </div>
                 </a>
                 <div  class="d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1">
-                    <a href="index.html" class="nav-item d-flex align-items-center link active"><i class="me-1 fa-solid fa-house"></i><span>Kezdőoldal</span></a>
+                    <a href="index.html" class="nav-item d-flex align-items-center link active-page"><i class="me-1 fa-solid fa-house"></i><span>Kezdőoldal</span></a>
                     <a href="cars.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-car"></i><span>Járművek</span></a>
                     <a href="contact.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-comment"></i><span>Kapcsolat</span></a>
                     <a href="destinations.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-location-dot"></i><span>Átvételi pontok</span></a>
                 </div>
                 <div class="search-wrap d-flex flex-nowrap align-items-center gap-2 px-1 py-1">
                     <div class="search-bar nav-item">
-                        <form class="d-flex align-items-center flex-nowrap"><label for="search-input" class="text-center me-3 fa-solid fa-magnifying-glass"></label><input
+                        <form class="d-flex align-items-center flex-nowrap"><label for="search-input" class="text-center mx-2 fa-solid fa-magnifying-glass"></label><input
                                 name="search-input" id="search-input" type="search" aria-label="Search" placeholder="Keresés..">
                         </form>
                     </div>
@@ -42,34 +42,33 @@
 
                 <div id="nav-right" class="d-flex flex-nowrap align-items-center justify-content-center gap-2 px-1 py-1">
                     <button id="theme-changer" class="button nav-item d-flex align-items-center justify-content-center"><i class="fa-solid fa-moon"></i></button>
-                    <button id="checkout" class="button nav-item d-flex align-items-center justify-content-center" onclick="toggleSubmenu(3)"><i class="fa-solid fa-bell"></i></button>
-                    <button id="user-data" onclick="toggleSubmenu(2)" class="button"><img class="user-avatar" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
-                    <label id="user-name" for="user-data" class="user-select-none">Tarossza Irén</label>
+                    <button id="login-button" class="button nav-item d-flex align-items-center justify-content-center px-3" onclick="toggleSubmenu(3)"><i class="me-1 fa-solid fa-user"></i>Belépés</button>
+                   <!-- <button id="user-data" onclick="toggleSubmenu(2)" class="button"><img class="user-avatar" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
+                    <label id="user-name" for="user-data" class="user-select-none">Tarossza Irén</label>-->
                             <!--Hosszú név: AÁBCCsDDzH DzsEÉFGGyHH-->
                 </div>
         </div>
     </nav>
-    <div id="sub-menu" class="align-items-start justify-content-center d-none flex-column">
-        <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center me-4 top-0 end-0"><i class="fa-solid fa-xmark"></i></button>
-        <div id="sub-menu-text" class=""></div>
+    <div id="sub-menu" class="align-items-start justify-content-start d-none flex-column">
+        <div id="wrap-to-top" class="d-flex align-items-center justify-content-between gap-5 px-3">
+            <div id="sub-menu-text" class="fs-5"></div>
+            <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center"><i class="fa-solid fa-xmark"></i></button>
+        </div>
         <div id="sub-contents">
             <div id="search-options-content" class="">Search-options-content</div>
-                <div id="user-data-content" class="justify-content-between align-items-start flex-wrap-reverse gap-2">
-                    <div class="d-flex flex-column gap-2 align-items-center px-1 py-1">
-                        <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
-                        <label id="user-name-sb" for="user-data-link" class="user-select-none">Tarossza Irén&nbsp;<i class="text-success fa-solid fa-circle-check"></i></label>
-
-                        <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
-                    </div>
-                    <div class="d-flex flex-column gap-2 align-items-center justify-content-start px-1 py-1">
-                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-heart"></i><span>Kedvencek</span></a>
-                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-chart-line"></i><span>Előzmények</span></a>
-                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-star-half-stroke"></i><span>Értékelések</span></a>
-                            <a href="#" class="col-lg sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-user-pen"></i><span>Profilom</span></a>
-                            <a href="#" class=" sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-gear"></i><span>Beállítások</span></a>
-                    </div>
+                    <!--LOGGED USER-->
+                <div id="user-data-content" class="justify-content-center align-items-center flex-wrap flex-column gap-2">
+                    <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
+                    <label id="user-name-sb" class="user-select-none">Tarossza Irén<i class="ms-2 fa-solid fa-circle-check"></i></label>
+                    <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
+                    <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-heart"></i><span>Kedvencek</span></a>
+                    <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-chart-line"></i><span>Előzmények</span></a>
+                    <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-star-half-stroke"></i><span>Értékelések</span></a>
+                    <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-user-pen"></i><span>Profilom</span></a>
+                    <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-gear"></i><span>Beállítások</span></a>
                 </div>
-            <div id="checkout-content" class="">Checkout-content</div>
+
+            <div id="login-content" class="">Bejelentkezés</div>
         </div>
     </div>
 
