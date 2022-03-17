@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="../images/logo.png">
+    <link rel="icon" type="image/x-icon" href="../images/logo-50.png">
     <link rel="stylesheet" href="../styles/global.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,15 +21,15 @@
         <div id="navToggle" class="container-fluid d-flex user-select-none ">
                 <a id="logo-wrap" href="index.html">
                     <div class="logo navbar-brand d-flex align-items-center mx-2 my-1">
-                        <img class="user-select-none" src="../images/logo.png" alt="logo">
+                        <img class="user-select-none" src="../images/logo-100.png" alt="logo">
                         <span class="fw-bold fs-6">Hash</span>
                     </div>
                 </a>
                 <div  class="d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1">
                     <a href="index.html" class="nav-item d-flex align-items-center link active-page"><i class="me-1 fa-solid fa-house"></i><span>Kezdőoldal</span></a>
                     <a href="cars.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-car"></i><span>Járművek</span></a>
-                    <a href="contact.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-comment"></i><span>Kapcsolat</span></a>
                     <a href="destinations.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-location-dot"></i><span>Átvételi pontok</span></a>
+                    <a href="contact.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-comment"></i><span>Kapcsolat</span></a>
                 </div>
                 <div class="search-wrap d-flex flex-nowrap align-items-center gap-2 px-1 py-1">
                     <div class="input-with-icon search-bar nav-item">
@@ -55,9 +55,12 @@
             <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div id="sub-contents">
-            <div id="search-options-content" class="">Search-options-content</div>
+                    <!--SEARCH OPTIONS-->
+            <div id="search-options-content" class="justify-content-center align-items-center flex-wrap flex-column">
+
+            </div>
                     <!--LOGGED USER-->
-                <div id="user-data-content" class="justify-content-center align-items-center flex-wrap flex-column gap-2">
+            <div id="user-data-content" class="justify-content-center align-items-center flex-wrap flex-column gap-2">
                     <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
                     <label id="user-name-sb" class="user-select-none">Tarossza Irén<i class="ms-2 fa-solid fa-circle-check"></i></label>
                     <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
@@ -67,7 +70,7 @@
                     <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-user-pen"></i><span>Profilom</span></a>
                     <a href="#" class="sub-link d-flex align-items-center link"><i class="me-1 fa-solid fa-gear"></i><span>Beállítások</span></a>
                 </div>
-
+                    <!--NOT LOGGED USER-->
             <div id="login-content" class="justify-content-center align-items-center ">
                 <form class="d-flex flex-column px-4 py-4 gap-3" action="">
                     <div class="px-1 py-1">

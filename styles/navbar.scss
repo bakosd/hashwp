@@ -1,7 +1,7 @@
 @import "variables";
 ::selection {
-  color: $color-2;
-  background: $color-p;
+  color: $color9;
+  background: $color2;
   opacity: .4;
 }
 
@@ -14,9 +14,9 @@ p{
 }
 nav{
   z-index: 1000;
-  background: $background-lin;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, .4);
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  background: $linear1;
+  box-shadow: 0 2px 15px $color11;
+  border-bottom: 1px solid $color12;
 
   #navToggle{
     transform-origin: top;
@@ -28,14 +28,14 @@ nav{
     .logo {
       width: fit-content;
       gap: .5rem;
-      background-color: $color-6;
+      background-color: $color11;
       border-radius: $border-rad-1;
-      box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-      border: 1px solid rgba(0, 0, 0, .25);
+      box-shadow: 0 0 4px $color12;
+      border: 1px solid $color14;
       padding: .5rem 1rem;
       img {
         width: 2rem;
-        background-color: $color-2;
+        background-color: $color7;
         padding: .1rem;
         border-radius: $border-rad-5;
       }
@@ -46,38 +46,38 @@ nav{
     }
     &:hover .logo, &:focus .logo, &:active .logo{
       transform: scale(1.025);
-      box-shadow: 0 0 4px rgba(0, 0, 0, 1);
+      box-shadow: 0 0 4px $color15;
     }
   }
 
   a{
-    color: $text-color-1;
+    color: $color7;
     text-decoration: none;
     &:hover, &:focus{
-      color: $text-color-2;
+      color: $color9;
       transform: translate(2px);
       transition: all $transition-1 ease-in-out;
     }
     &:active{
-      box-shadow: 0 0 4px rgba(0, 0, 0, 1);
+      box-shadow: 0 0 4px $color15;
     }
   }
 
   .nav-item{
     min-width: fit-content;
     border-radius: $border-rad-1;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-    border: 1px solid rgba(0, 0, 0, .25);
+    box-shadow: 0 0 4px $color12;
+    border: 1px solid $color14;
   }
 
   .link{
     padding: .5rem 1rem;
-    background-color: $color-6;
+    background-color: $color11;
     backdrop-filter: blur( 12px );-webkit-backdrop-filter: blur( 12px );
   }
   .active-page{
-    background-color: $color-4;
-    border: 3px solid rgba(0, 0, 0, .25);
+    background-color: $color10;
+    border: 3px solid $color14;
   }
 
   .search-wrap {
@@ -97,7 +97,7 @@ nav{
 }
 
 .input-with-icon {
-  background: $color-6;
+  background: $color11;
   padding: .5rem 0 .5rem .5rem;
   border-radius: $border-rad-1;
   backdrop-filter: blur( 12px );-webkit-backdrop-filter: blur( 12px );
@@ -107,17 +107,17 @@ nav{
     outline: none;
     padding: .15rem !important;
     border-left: 1px solid rgba(73, 73, 73, 0.25);
-    color: $text-color-1;
+    color: $color7;
     width: 13vw;
     min-width: 150px;
   }
   &:hover{
     transform: scale(1.005);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 1) !important;
+    box-shadow: 0 0 4px $color15 !important;
     transition: all $transition-1;
   }
   &:focus-within {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 1) !important;
+    box-shadow: 0 0 4px $color15 !important;
     transition: all $transition-1;
   }
 }
@@ -131,16 +131,16 @@ nav{
 }
 
 .button{
-  background: $color-6;
+  background: $color11;
   min-width: 3rem !important;
   min-height: 3rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-  border: 1px solid rgba(0, 0, 0, .25);
+  box-shadow: 0 0 4px $color12;
+  border: 1px solid $color14;
   border-radius: $border-rad-2;
   margin: .25rem 0;
   &:hover, &:focus-visible{
-    box-shadow: 0 0 4px rgba(0, 0, 0, 1);
-    color: $text-color-2;
+    box-shadow: 0 0 4px $color15;
+    color: $color9;
     transform: scale(1.025);
     transition: all $transition-1 ease-in-out;
   }
@@ -149,12 +149,12 @@ nav{
   background: transparent;
   min-width: 3rem !important;
   min-height: 3rem;
-  border: 1px solid rgba(0, 0, 0, .25);
+  border: 1px solid $color14;
   border-radius: $border-rad-2;
   margin: .25rem 0;
   &:hover, &:focus-visible{
-    box-shadow: 0 0 4px rgba(0, 0, 0, 1);
-    color: $text-color-2;
+    box-shadow: 0 0 4px $color15;
+    color: $color9;
     transform: scale(1.025);
     transition: all $transition-1 ease-in-out;
   }
@@ -162,8 +162,8 @@ nav{
 
 #sub-menu{
   z-index: 1000;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-  background: $background-lin;
+  box-shadow: 0 0 4px $color12;
+  background: $linear2;
   position: fixed;
   right: 0;
   top: 0;
@@ -172,7 +172,7 @@ nav{
   min-width: fit-content;
   padding: 1rem 0 0 0;
   transform-origin: top;
-  color: $color-2;
+  color: $color7;
   #wrap-to-top {
     min-width: fit-content;
     height: 6rem;
@@ -185,7 +185,6 @@ nav{
     }
   }
   #sub-contents {
-    //margin: 3rem auto;
     width: 100%;
     #user-data-content{
       display: flex;
@@ -204,8 +203,8 @@ nav{
     }
     #login-content{
       .login-input{
-        box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-        border: 1px solid rgba(0, 0, 0, .25);
+        box-shadow: 0 0 4px $color12;
+        border: 1px solid $color14;
       }
       a{
         width: fit-content;
@@ -215,28 +214,28 @@ nav{
   }
   a{
     padding: .5rem 1rem;
-    background-color: $color-6;
+    background-color: $color11;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: $border-rad-1;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .4);
-    border: 1px solid rgba(0, 0, 0, .25);
+    box-shadow: 0 0 4px $color12;
+    border: 1px solid $color14;
     min-width: fit-content;
     width: 97%;
-    color: $text-color-1;
+    color: $color7;
     text-decoration: none;
     &:hover, &:focus{
-      color: $text-color-2;
+      color: $color9;
       transform: translate(2px);
       transition: all $transition-1 ease-in-out;
     }
     &:active{
-      box-shadow: 0 0 4px rgba(0, 0, 0, 1);
+      box-shadow: 0 0 4px $color15;
     }
   }
   .active-page{
-    background-color: $color-4;
-    border: 3px solid rgba(0, 0, 0, .25);
+    background-color: $color10;
+    border: 3px solid $color14;
   }
 }
 
