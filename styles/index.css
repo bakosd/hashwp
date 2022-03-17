@@ -1,0 +1,52 @@
+.header-wrap {
+  padding: 0;
+  overflow-y: hidden;
+  margin: 6.5rem auto 2rem auto;
+  position: relative;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.4);
+}
+.header-wrap .video-bg {
+  z-index: -1 !important;
+  filter: brightness(50%);
+  transform: scale(1.05);
+}
+.header-wrap .wrap-header-content {
+  padding: 0 2rem;
+}
+.header-wrap .wrap-header-content #header-text-content h6 {
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 2px #d2d1d1;
+  font-size: 10rem;
+  overflow: hidden;
+  text-align: center;
+}
+.header-wrap .wrap-header-content #header-text-content p {
+  font-size: 2rem;
+  color: #d2d1d1;
+  font-weight: 500;
+  text-shadow: 2px 2px #152B3c;
+  text-align: center;
+}
+.header-wrap .wrap-header-content .header-card {
+  height: 15rem;
+  z-index: 1;
+  width: 100%;
+  background-color: rgba(210, 209, 209, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+@media only screen and (max-width: 1199.99px) {
+  .video-bg {
+    height: 80vh;
+    background-color: #152B3c;
+    object-fit: cover;
+    object-position: left;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

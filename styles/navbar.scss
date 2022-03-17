@@ -9,9 +9,7 @@ p{
   font-family: 'Lora', serif;
   text-align: justify;
 }
-.container{
-  margin-top: 6rem;
-}
+
 nav{
   z-index: 1000;
   background: $linear1;
@@ -76,7 +74,7 @@ nav{
     backdrop-filter: blur( 12px );-webkit-backdrop-filter: blur( 12px );
   }
   .active-page{
-    background-color: $color10;
+    background-color: $color13;
     border: 3px solid $color14;
   }
 

@@ -9,13 +9,9 @@ p {
   text-align: justify;
 }
 
-.container {
-  margin-top: 6rem;
-}
-
 nav {
   z-index: 1000;
-  background: linear-gradient(90deg, #4380b1 0%, #d2d1d1 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #d2d1d1 100%);
   box-shadow: 0 2px 15px #94868633;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
@@ -72,7 +68,7 @@ nav .link {
   -webkit-backdrop-filter: blur(12px);
 }
 nav .active-page {
-  background-color: #98cbea;
+  background-color: rgba(0, 0, 0, 0.3);
   border: 3px solid rgba(0, 0, 0, 0.25);
 }
 nav .search-wrap {
@@ -156,7 +152,7 @@ nav #user-name {
 #sub-menu {
   z-index: 1000;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(45deg, #4380b1 0%, #d2d1d1 100%);
+  background: linear-gradient(45deg, #ffffff 0%, #d2d1d1 100%);
   position: fixed;
   right: 0;
   top: 0;
