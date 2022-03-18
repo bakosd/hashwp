@@ -6,6 +6,13 @@
   box-sizing: border-box;
   overflow-x: hidden;
   outline: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }
 
 /*# sourceMappingURL=global.css.map */

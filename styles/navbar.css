@@ -91,7 +91,7 @@ nav #user-name {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-.input-with-icon input {
+.input-with-icon input, .input-with-icon button {
   background: none;
   border: none;
   outline: none;

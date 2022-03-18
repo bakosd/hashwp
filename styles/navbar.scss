@@ -99,7 +99,7 @@ nav{
   padding: .5rem 0 .5rem .5rem;
   border-radius: $border-rad-1;
   backdrop-filter: blur( 12px );-webkit-backdrop-filter: blur( 12px );
-  input {
+  input, button {
     background: none;
     border: none;
     outline: none;

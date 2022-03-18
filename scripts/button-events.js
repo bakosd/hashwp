@@ -68,3 +68,24 @@ function toggleSubmenu(menu){
         }
     }
 }
+
+function dropdownList(dropID, buttonID){
+    document.getElementById('droplist-toggle').classList.toggle("droplist-btn-clear-bottom");
+    document.getElementById(buttonID).children[1].classList.toggle("fa-angle-up");
+    document.getElementById(dropID).classList.toggle("d-none");
+}
+
+var selected = {varosi:1, elektromos:1, szedan:1, terepjaro:1, limuzin:1, kabrio:1};
+var str = ["Városi", "Elektromos", "Szedán", "Terepjáró", "Limuzin", "Kabrió"];
+$(function() {
+    $(".category-checkbox").click(function() {
+        if($(this).hasClass("active-checkbox")) {
+            $(this).removeClass("active-checkbox");
+            selected[$(this).name] = 0;
+        }
+        else{
+            $(this).addClass("active-checkbox");
+            selected[$(this).name] = 1;
+        }
+    });
+});
