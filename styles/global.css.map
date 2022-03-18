@@ -1,1 +1,10 @@
-{"version":3,"sourceRoot":"","sources":["global.scss"],"names":[],"mappings":"AAAQ;AAER;EACE;EAGA;EACA;EACA;EACA;EACA","file":"global.css"}
+{
+    "version": 3,
+    "mappings": "AAAA,OAAO,CAAC,8GAAI;AAEZ,AAAA,CAAC,CAAA;EACC,WAAW,EAAE,qBAAqB;EAGlC,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,UAAU,EAAE,UAAU;EACtB,UAAU,EAAE,MAAM;EAClB,OAAO,EAAE,IAAI;CACd",
+    "sources": [
+        "global.scss",
+        "variables.scss"
+    ],
+    "names": [],
+    "file": "global.css"
+}

@@ -1,0 +1,49 @@
+.row > * {
+  overflow-y: hidden;
+}
+
+#width-270 {
+  min-width: 270px;
+}
+
+.col img {
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.card {
+  border: none;
+}
+
+.row h2 {
+  font-weight: 600;
+}
+
+.text {
+  height: 3.6rem;
+  position: absolute;
+  color: #152B3c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0 0 5px 5px;
+  padding: .2rem 2rem .2rem 2rem;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.text img {
+  background-color: #152B3c;
+}
+
+@media only screen and (max-width: 767px) {
+  #width-270 {
+    min-width: 100%;
+  }
+}
+/*# sourceMappingURL=cards.css.map */
