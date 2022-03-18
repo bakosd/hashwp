@@ -140,6 +140,7 @@
     .droplist-button {
       position: relative;
     }
+
     .droplist-button:hover ~ .droplist{
       transform: scale(1.005) translateX(1px) translateY(1px);
       box-shadow: 0 0 4px $color15 !important;
