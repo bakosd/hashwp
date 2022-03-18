@@ -224,6 +224,10 @@ nav #user-name {
   border: 3px solid rgba(0, 0, 0, 0.25);
 }
 
+#wrap-nav-height {
+  height: 4.593rem;
+}
+
 @media only screen and (min-width: 1919px) {
   nav .search-wrap .search-bar {
     width: 20vw;

@@ -2,41 +2,40 @@
 .header-wrap{
   padding: 0;
   overflow-y: hidden;
-  margin: 6.5rem auto 2rem auto;
-  //margin: 4.5rem auto 0 auto;
+  margin-bottom: 4.5rem;
   position: relative;
   box-shadow: 10px 0 30px $color12;
-  .video-bg{
+  background-color: #0f1719;
+  .image-bg{
     z-index: -1 !important;
-    filter: brightness(50%);
+    filter: blur(5px);
     transform: scale(1.05);
+    object-fit: contain;
+    height: 80vh;
   }
   .wrap-header-content{
-    padding: 0 2rem;
+    padding: 1rem;
     #header-text-content{
       h6{
         -webkit-background-clip: text;
         color: transparent;
         -webkit-text-stroke: 2px $color2;
-        font-size: 10rem;
+        font-size: 15vw;
         overflow: hidden;
         text-align: center;
       }
       p{
-        font-size: 2rem;
-        //text-align: left;
+        font-size: 2vw;
         color: $color2;
         font-weight: 500;
         text-shadow: 2px 2px $color7;
-        text-align: center;
+        text-align: left;
       }
     }
     .header-card{
-      //height: 90%;
       height: 15rem;
       z-index: 1;
       width: 100%;
-      //background-color: rgba(22, 30, 53, 0.60);
       background-color: rgba(210, 209, 209, 0.6);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -48,15 +47,11 @@
 }
 
 @media only screen and (max-width: 1199.99px) {
-  .video-bg{
-    height: 80vh;
-    background-color: $color7;
-    object-fit: cover;
-    object-position: left;
+  .image-bg{
   }
 }
 
 @media only screen and (max-width: 700px) {
-  .video-bg {
+  .image-bg {
   }
 }

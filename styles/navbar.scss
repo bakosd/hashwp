@@ -236,7 +236,9 @@ nav{
     border: 3px solid $color14;
   }
 }
-
+#wrap-nav-height{
+  height: 4.593rem;
+}
 @media only screen and (min-width: 1919px) {
   nav {
     .search-wrap{
