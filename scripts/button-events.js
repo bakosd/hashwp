@@ -1,18 +1,21 @@
 $(window).on("load", mediaqueryFunction);
 
+const NAVBAR = document.getElementById("navToggle");
 var navbarShown = false;
+
 function toggleNav(){
+
     if (!navbarShown) {
-        document.getElementById("navToggle").style.maxHeight = "3.5rem";
-        document.getElementById("navToggle").style.overflowY = "hidden";
-        document.getElementById("navToggle").style.transition = "max-height 500ms ease-out";
-        document.getElementById("navToggle").scrollTo(0, 0);
+        NAVBAR.style.maxHeight = "3.5rem";
+        NAVBAR.style.overflowY = "hidden";
+        NAVBAR.style.transition = "max-height 500ms ease-out";
+        NAVBAR.scrollTo(0, 0);
         navbarShown = true;
     } else {
-        document.getElementById("navToggle").style.maxHeight = "100vh";
-        document.getElementById("navToggle").style.overflowY = "auto";
-        document.getElementById("navToggle").style.transition = "max-height 500ms ease-in";
-        document.getElementById("navToggle").scrollTo(0, 0);
+        NAVBAR.style.maxHeight = "100vh";
+        NAVBAR.style.overflowY = "auto";
+        NAVBAR.style.transition = "max-height 500ms ease-in";
+        NAVBAR.scrollTo(0, 0);
         navbarShown = false;
     }
 }
@@ -29,7 +32,7 @@ x.addListener(mediaqueryFunction); // Attach listener function on state changes
 
 // Navon kívülre kattintásnál eltünjön a nav
 window.addEventListener('click', function(e){
-    if (!document.getElementById('navToggle').contains(e.target) && !document.getElementById('nav-toggle').contains(e.target)){
+    if (!NAVBAR.contains(e.target) && !document.getElementById('nav-toggle').contains(e.target)){
         navbarShown = false;
         toggleNav();
     }
@@ -37,32 +40,37 @@ window.addEventListener('click', function(e){
 
 // Almenük nyitása/csukása
 var submenuToggled = true;
+const SUBMENU = document.getElementById("sub-menu");
+const SUBMENUTEXT = document.getElementById("sub-menu-text");
+const USERDATASUB = document.getElementById("user-data-content");
+const USERLOGINSUB = document.getElementById("login-content");
+const SEARCHOPTIONSSUB = document.getElementById("search-options-content");
 function toggleSubmenu(menu){
     if(submenuToggled){
-        document.getElementById("sub-menu").classList.toggle("d-none");
-        document.getElementById("sub-menu").classList.toggle("d-flex");
+        SUBMENU.classList.toggle("d-none");
+        SUBMENU.classList.toggle("d-flex");
         submenuToggled = true;
         navbarShown = false;
         toggleNav();
         if(menu !== 0) {
             switch (menu) {
                 case 1:
-                    document.getElementById('sub-menu-text').innerHTML = 'Keresési beállítások';
-                    document.getElementById("user-data-content").style.display = "none";
-                    document.getElementById("login-content").style.display = "none";
-                    document.getElementById("search-options-content").style.display = "flex";
+                    SUBMENUTEXT.innerHTML = 'Keresési beállítások';
+                    USERDATASUB.style.display = "none";
+                    USERLOGINSUB.style.display = "none";
+                    SEARCHOPTIONSSUB.style.display = "flex";
                     break;
                 case 2:
-                    document.getElementById('sub-menu-text').innerHTML = 'Felhasználói felület';
-                    document.getElementById("user-data-content").style.display = "flex";
-                    document.getElementById("login-content").style.display = "none";
-                    document.getElementById("search-options-content").style.display = "none";
+                    SUBMENUTEXT.innerHTML = 'Felhasználói felület';
+                    USERDATASUB.style.display = "flex";
+                    USERLOGINSUB.style.display = "none";
+                    SEARCHOPTIONSSUB.style.display = "none";
                     break;
                 case 3:
-                    document.getElementById('sub-menu-text').innerHTML = 'Bejelentkezés';
-                    document.getElementById("user-data-content").style.display = "none";
-                    document.getElementById("login-content").style.display = "flex";
-                    document.getElementById("search-options-content").style.display = "none";
+                    SUBMENUTEXT.innerHTML = 'Bejelentkezés';
+                    USERDATASUB.style.display = "none";
+                    USERLOGINSUB.style.display = "flex";
+                    SEARCHOPTIONSSUB.style.display = "none";
                     break;
             }
         }
@@ -103,7 +111,7 @@ function updateDropdownText(buttonID, buttonTextID, buttonCounter, buttonArr, bu
     /* HEADER FORM'S DROPDOWN */
 //
 var selected = {varosi:1, elektromos:1, szedan:1, terepjaro:1, limuzin:1, kabrio:1};
-var selectedStr = {varosi:"Városi", elektromos:"Elektromos", szedan:"Szedán", terepjaro:"Terepjáró", limuzin:"Limuzin", kabrio:"Kabrió"};
+const selectedStr = {varosi:"Városi", elektromos:"Elektromos", szedan:"Szedán", terepjaro:"Terepjáró", limuzin:"Limuzin", kabrio:"Kabrió"};
 var count = 6;
 $(function() {
     $(".droplist-checkbox").click(function() {

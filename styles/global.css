@@ -9,6 +9,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  color: #040a0e;
+  background: #d2d1d1;
+  opacity: 0.4;
+}
+
+p {
+  font-family: "Lora", serif;
+  text-align: justify;
+}
+
 input[type=date]::-webkit-inner-spin-button,
 input[type=date]::-webkit-calendar-picker-indicator {
   display: none;
@@ -17,6 +28,185 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .invalid-data {
   outline: #d32d2d 2px solid !important;
+}
+
+a {
+  color: #152B3c;
+  text-decoration: none;
+}
+a:hover, a:focus {
+  color: #040a0e;
+  transform: translate(2px);
+  transition: all 150ms ease-in-out;
+}
+a:active {
+  box-shadow: 0 0 4px black;
+}
+
+.link {
+  padding: 0.5rem 1rem;
+  background-color: #94868633;
+  min-width: fit-content;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.input-with-icon {
+  background: #94868633;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+.input-with-icon input, .input-with-icon button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0.15rem !important;
+  border-left: 1px solid rgba(73, 73, 73, 0.25);
+  color: #152B3c;
+  width: 13vw;
+  min-width: 150px;
+}
+.input-with-icon:hover {
+  transform: scale(1.005);
+  box-shadow: 0 0 4px black !important;
+  transition: all 150ms;
+}
+.input-with-icon:focus-within {
+  box-shadow: 0 0 4px black !important;
+  transition: all 150ms;
+}
+
+.button, .button-2 {
+  background: #94868633;
+  min-width: 3rem !important;
+  min-height: 3rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+  margin: 0.25rem 0;
+}
+.button:hover, .button-2:hover, .button:focus-visible, .button-2:focus-visible {
+  box-shadow: 0 0 4px black;
+  color: #040a0e;
+  transform: scale(1.025);
+  transition: all 150ms ease-in-out;
+}
+
+.button-2 {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+}
+
+.slider {
+  padding: 1rem 0;
+}
+.slider .slider-bg {
+  border: 0.25rem solid #94868633;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
+  top: calc(50% - 0.25rem);
+  border-radius: 0.5rem;
+  z-index: -2;
+}
+.slider .slider-progress {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 0.5rem;
+  background-color: #152B3c;
+  height: 0.5rem;
+  top: calc(50% - 0.25rem);
+  right: 0;
+  left: 0;
+  z-index: -1;
+}
+.slider input[type=range] {
+  background: transparent;
+  -webkit-appearance: none;
+}
+.slider input[type=range]::-moz-range-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  background: #295074;
+  border-radius: 1rem;
+  -moz-appearance: none !important;
+  pointer-events: auto;
+  border: none;
+  cursor: pointer;
+}
+.slider input[type=range]::-webkit-slider-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  background: #295074;
+  border-radius: 1rem;
+  -webkit-appearance: none;
+  pointer-events: auto;
+  border: none;
+  cursor: pointer;
+}
+
+.category-checkbox {
+  border-radius: 0.5rem;
+  color: #152B3c;
+  width: fit-content;
+  overflow-y: hidden !important;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.category-checkbox img {
+  width: 30px;
+  filter: invert(11%) sepia(12%) saturate(4340%) hue-rotate(169deg) brightness(15%) contrast(87%);
+}
+.category-checkbox span {
+  overflow-y: hidden !important;
+}
+.category-checkbox:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 4px black !important;
+  transition: all 150ms;
+}
+.category-checkbox:focus-within {
+  box-shadow: 0 0 4px black !important;
+  transition: all 150ms;
+}
+
+.active-checkbox {
+  background-color: rgba(62, 118, 134, 0.5) !important;
+  border: 3px solid rgba(0, 0, 0, 0.25);
+}
+
+.droplist-button {
+  position: relative;
+}
+.droplist-button .droplist-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.droplist-button:hover ~ .droplist {
+  transform: scale(1.005) translateX(1px) translateY(1px);
+  box-shadow: 0 0 4px black !important;
+  transition: all 150ms;
+}
+
+.droplist-btn-clear-bottom {
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.droplist {
+  position: absolute;
+  width: calc(17rem - 3px);
+  transform: translateX(1px);
+  background-color: #c2c1c1;
+  box-shadow: 0 0 4px black !important;
+  border-radius: 0 0 0.5rem 0.5rem;
+  z-index: 1;
+}
+.droplist label {
+  width: 90%;
+  background-color: transparent;
 }
 
 /*# sourceMappingURL=global.css.map */

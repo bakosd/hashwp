@@ -1,14 +1,3 @@
-::selection {
-  color: #040a0e;
-  background: #d2d1d1;
-  opacity: 0.4;
-}
-
-p {
-  font-family: "Lora", serif;
-  text-align: justify;
-}
-
 nav {
   z-index: 1000;
   background: linear-gradient(90deg, #ffffff 0%, #d2d1d1 100%);
@@ -20,7 +9,7 @@ nav #navToggle {
   max-height: 3.5rem;
   overflow-y: hidden;
 }
-nav #logo-wrap .logo {
+nav #logo-wrap #logo {
   width: fit-content;
   gap: 0.5rem;
   background-color: #94868633;
@@ -29,7 +18,7 @@ nav #logo-wrap .logo {
   border: 1px solid rgba(0, 0, 0, 0.25);
   padding: 0.5rem 1rem;
 }
-nav #logo-wrap .logo img {
+nav #logo-wrap #logo img {
   width: 2rem;
   background-color: #152B3c;
   padding: 0.1rem;
@@ -43,110 +32,27 @@ nav #logo-wrap:hover .logo, nav #logo-wrap:focus .logo, nav #logo-wrap:active .l
   transform: scale(1.025);
   box-shadow: 0 0 4px black;
 }
-nav a {
-  color: #152B3c;
-  text-decoration: none;
+nav #search-wrap {
+  min-width: 70px;
 }
-nav a:hover, nav a:focus {
-  color: #040a0e;
-  transform: translate(2px);
-  transition: all 150ms ease-in-out;
-}
-nav a:active {
-  box-shadow: 0 0 4px black;
-}
-nav .nav-item {
-  min-width: fit-content;
-  border-radius: 0.5rem;
+nav #search-wrap #search-bar {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.25);
-}
-nav .link {
-  padding: 0.5rem 1rem;
-  background-color: #94868633;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-nav .active-page {
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 3px solid rgba(0, 0, 0, 0.25);
-}
-nav .search-wrap {
-  min-width: 200px;
-}
-nav #nav-toggle {
-  display: none !important;
 }
 nav #user-data {
   border-radius: 50%;
 }
-nav #user-name {
-  display: none;
+
+.active-page {
+  background-color: rgba(62, 118, 134, 0.5);
+  border: 3px solid rgba(0, 0, 0, 0.25);
 }
 
-.input-with-icon {
-  background: #94868633;
-  padding: 0.5rem 0 0.5rem 0.5rem;
-  border-radius: 0.5rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.input-with-icon input, .input-with-icon button {
-  background: none;
-  border: none;
-  outline: none;
-  padding: 0.15rem !important;
-  border-left: 1px solid rgba(73, 73, 73, 0.25);
-  color: #152B3c;
-  width: 13vw;
-  min-width: 150px;
-}
-.input-with-icon:hover {
-  transform: scale(1.005);
-  box-shadow: 0 0 4px black !important;
-  transition: all 150ms;
-}
-.input-with-icon:focus-within {
-  box-shadow: 0 0 4px black !important;
-  transition: all 150ms;
-}
-
-.user-avatar {
+#user-data img {
   width: 3rem;
   height: 3rem;
   image-resolution: snap;
   border-radius: 50%;
-}
-
-.button {
-  background: #94868633;
-  min-width: 3rem !important;
-  min-height: 3rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  border-radius: 1rem;
-  margin: 0.25rem 0;
-}
-.button:hover, .button:focus-visible {
-  box-shadow: 0 0 4px black;
-  color: #040a0e;
-  transform: scale(1.025);
-  transition: all 150ms ease-in-out;
-}
-
-.button-2 {
-  background: transparent;
-  min-width: 3rem !important;
-  min-height: 3rem;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  border-radius: 1rem;
-  margin: 0.25rem 0;
-}
-.button-2:hover, .button-2:focus-visible {
-  box-shadow: 0 0 4px black;
-  color: #040a0e;
-  transform: scale(1.025);
-  transition: all 150ms ease-in-out;
 }
 
 #sub-menu {
@@ -172,85 +78,33 @@ nav #user-name {
   min-width: fit-content;
   padding: 0.7rem;
 }
-#sub-menu #sub-contents {
+#sub-menu #sub-menu-content {
   width: 100%;
 }
-#sub-menu #sub-contents #user-data-content {
+#sub-menu #sub-menu-content #user-data-content {
   display: flex;
   width: fit-content;
   padding: 0.25rem 1rem;
   margin: auto;
   flex-wrap: wrap;
 }
-#sub-menu #sub-contents #user-data-content #user-data-link {
+#sub-menu #sub-menu-content #user-data-content #user-data-link {
   border-radius: 50%;
 }
-#sub-menu #sub-contents #user-data-content #user-data-link #user-image {
+#sub-menu #sub-menu-content #user-data-content #user-data-link #user-image {
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
 }
-#sub-menu #sub-contents #login-content .login-input {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
-}
-#sub-menu #sub-contents #login-content a {
+#sub-menu #sub-menu-content a {
   width: fit-content;
   margin-left: auto;
 }
-#sub-menu a {
-  padding: 0.5rem 1rem;
-  background-color: #94868633;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 0.5rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  min-width: fit-content;
-  width: 97%;
-  color: #152B3c;
-  text-decoration: none;
-}
-#sub-menu a:hover, #sub-menu a:focus {
-  color: #040a0e;
-  transform: translate(2px);
-  transition: all 150ms ease-in-out;
-}
-#sub-menu a:active {
-  box-shadow: 0 0 4px black;
-}
-#sub-menu .active-page {
-  background-color: #98cbea;
-  border: 3px solid rgba(0, 0, 0, 0.25);
-}
 
 #wrap-nav-height {
-  height: 4.6rem;
+  height: 4.593rem;
 }
 
-@media only screen and (min-width: 1919px) {
-  nav .search-wrap .search-bar {
-    width: 20vw;
-  }
-  nav .search-wrap .search-bar input {
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 1365px) {
-  nav {
-    justify-content: center;
-  }
-  nav .search-wrap {
-    min-width: 70px;
-  }
-  nav .search-wrap .search-bar {
-    padding-left: 0.25rem;
-  }
-  nav .search-wrap .search-bar input {
-    width: 50px;
-    padding: 0.15rem;
-  }
-}
 @media only screen and (max-width: 1199.99px) {
   nav #nav-toggle {
     display: flex !important;
@@ -258,24 +112,24 @@ nav #user-name {
   nav .link {
     min-width: 90vw;
   }
-  nav .search-wrap {
+  nav #search-wrap {
     min-width: 91vw;
   }
-  nav .search-wrap .search-bar {
+  nav #search-wrap #search-bar {
     width: 100%;
     min-width: 200px;
     padding-left: 1rem;
   }
-  nav .search-wrap .search-bar input {
+  nav #search-wrap #search-bar input {
     width: 100%;
     min-width: 150px;
     padding: 0.25rem 0;
   }
-  nav .search-wrap .search-bar label {
+  nav #search-wrap #search-bar label {
     width: 5vw;
   }
   nav #user-name {
-    display: block;
+    display: block !important;
     width: max-content;
   }
 
@@ -284,9 +138,29 @@ nav #user-name {
     height: auto;
     overflow-y: auto !important;
   }
-  #sub-menu #sub-contents #user-data-content {
+  #sub-menu #sub-menu-content #user-data-content {
     width: 90vw;
     margin: 0;
+  }
+}
+@media only screen and (max-width: 1365px) {
+  nav {
+    justify-content: center;
+  }
+  nav #search-wrap #search-bar {
+    padding-left: 0.25rem;
+  }
+  nav #search-wrap #search-bar input {
+    width: 50px;
+    padding: 0.15rem;
+  }
+}
+@media only screen and (min-width: 1919px) {
+  nav #search-wrap #search-bar {
+    width: 20vw !important;
+  }
+  nav #search-wrap #search-bar input {
+    width: 100%;
   }
 }
 

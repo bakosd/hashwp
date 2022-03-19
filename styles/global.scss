@@ -12,6 +12,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  color: $color9;
+  background: $color2;
+  opacity: .4;
+}
+
+p{
+  font-family: 'Lora', serif;
+  text-align: justify;
+}
+
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
@@ -20,4 +31,192 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .invalid-data{
   outline: #d32d2d 2px solid !important;
+}
+
+a{
+  color: $color7;
+  text-decoration: none;
+  &:hover, &:focus{
+    color: $color9;
+    transform: translate(2px);
+    transition: all $transition-1 ease-in-out;
+  }
+  &:active{
+    box-shadow: 0 0 4px $color15;
+  }
+}
+
+.link{
+  padding: .5rem 1rem;
+  background-color: $color11;
+  min-width: fit-content;
+  border-radius: $border-rad-1;
+  box-shadow: 0 0 4px $color12;
+  border: 1px solid $color14;
+}
+
+.input-with-icon {
+  background: $color11;
+  padding: .5rem 0 .5rem .5rem;
+  border-radius: $border-rad-1;
+  box-shadow: 0 0 4px $color12;
+  border: 1px solid $color14;
+  input, button {
+    background: none;
+    border: none;
+    outline: none;
+    padding: .15rem !important;
+    border-left: 1px solid rgba(73, 73, 73, 0.25);
+    color: $color7;
+    width: 13vw;
+    min-width: 150px;
+  }
+  &:hover{
+    transform: scale(1.005);
+    box-shadow: 0 0 4px $color15 !important;
+    transition: all $transition-1;
+  }
+  &:focus-within {
+    box-shadow: 0 0 4px $color15 !important;
+    transition: all $transition-1;
+  }
+}
+
+.button{
+  background: $color11;
+  min-width: 3rem !important;
+  min-height: 3rem;
+  box-shadow: 0 0 4px $color12;
+  border: 1px solid $color14;
+  border-radius: $border-rad-2;
+  margin: .25rem 0;
+  &:hover, &:focus-visible{
+    box-shadow: 0 0 4px $color15;
+    color: $color9;
+    transform: scale(1.025);
+    transition: all $transition-1 ease-in-out;
+  }
+}
+
+.button-2{
+  @extend .button;
+  background: transparent;
+  border: 1px solid $color14;
+  box-shadow: none;
+}
+
+.slider {
+  padding: 1rem 0;
+  .slider-bg {
+    border: .25rem solid $color11;
+    box-shadow: 0 0 4px $color12 !important;
+    top: calc(50% - .25rem);
+    border-radius: $border-rad-1;
+    z-index: -2;
+  }
+  .slider-progress{
+    box-shadow: 0 0 4px $color12 !important;
+    border-radius: $border-rad-1;
+    background-color: $color7;
+    height: .5rem;
+    top: calc(50% - .25rem);
+    right: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  input[type=range] {
+    background: transparent;
+    -webkit-appearance: none;
+    &::-moz-range-thumb {
+      height: 1.25rem;
+      width: 1.25rem;
+      background: $color6;
+      border-radius: $border-rad-2;
+      -moz-appearance: none !important;
+      pointer-events: auto;
+      border: none;
+      cursor: pointer;
+    }
+    &::-webkit-slider-thumb {
+      height: 1.25rem;
+      width: 1.25rem;
+      background: $color6;
+      border-radius: $border-rad-2;
+      -webkit-appearance: none;
+      pointer-events: auto;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.category-checkbox {
+  //background: $color11;
+  border-radius: $border-rad-1;
+  color: $color7;
+  width: fit-content;
+  overflow-y: hidden !important;
+  box-shadow: 0 0 4px $color12 !important;
+  border: 1px solid $color13;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    filter: invert(11%) sepia(12%) saturate(4340%) hue-rotate(169deg) brightness(15%) contrast(87%);
+  }
+
+  span {
+    overflow-y: hidden !important;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 4px $color15 !important;
+    transition: all $transition-1;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 4px $color15 !important;
+    transition: all $transition-1;
+  }
+}
+
+.active-checkbox {
+  background-color: $color16 !important;
+  border: 3px solid $color14;
+}
+
+.droplist-button {
+  position: relative;
+  .droplist-text{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.droplist-button:hover ~ .droplist{
+  transform: scale(1.005) translateX(1px) translateY(1px);
+  box-shadow: 0 0 4px $color15 !important;
+  transition: all $transition-1;
+}
+
+.droplist-btn-clear-bottom {
+  border-radius: $border-rad-1 $border-rad-1 0 0 !important;
+}
+
+.droplist {
+  position: absolute;
+  width: calc(17rem - 3px);
+  transform: translateX(1px);
+  //background-color: #969595;
+  background-color: #c2c1c1;
+  box-shadow: 0 0 4px $color15 !important;
+  border-radius: 0 0 $border-rad-1 $border-rad-1;
+  z-index: 1;
+
+  label {
+    width: 90%;
+    background-color: transparent;
+  }
 }
