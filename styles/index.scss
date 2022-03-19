@@ -39,14 +39,13 @@
       z-index: 1;
       width: 20rem;
       height: calc(100vh - 4.6rem);
+      min-height: max-content;
       display: flex;
       justify-content: center;
-      //background-color: rgba(210, 209, 209, 0.6);
       background: rgba(210, 209, 209, 0.6);
-      //background: $linear2;
-      //border-radius: $border-rad-1;
       box-shadow: 0 0 4px $color12;
-      //border: 1px solid $color14;
+      border-left: 1px solid $color14;
+      border-right: 1px solid $color14;
 
       .submit-input {
         box-shadow: 0 0 4px $color12;

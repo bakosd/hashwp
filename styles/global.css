@@ -15,4 +15,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
+.invalid-data {
+  outline: #d32d2d 2px solid !important;
+}
+
 /*# sourceMappingURL=global.css.map */

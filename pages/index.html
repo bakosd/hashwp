@@ -10,17 +10,13 @@
     <link rel="stylesheet" href="../styles/global.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/index.css">
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">
-=======
     <link rel="stylesheet" href="../styles/cards.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
->>>>>>> 11ffddd514aadaee29c7a3eeaee5ecab19030a42
     <title>Hash | Járműbérlés egyszerűen, gyorsan.</title>
 </head>
 <body>
 <nav id="navbar" class="navbar navbar-expand-xl position-fixed fixed-top">
-    <!--<nav class="navbar navbar-expand-xl position-relative">-->
     <button id="nav-toggle"
             class="button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center" onclick="toggleNav()"><i class="fa-solid fa-bars"></i></button>
     <div id="navToggle" class="container-fluid d-flex user-select-none ">
@@ -51,10 +47,10 @@
             <button id="login-button" class="button nav-item d-flex align-items-center justify-content-center px-3" onclick="toggleSubmenu(3)"><i class="me-1 fa-solid fa-user"></i>Belépés</button>
             <button id="user-data" onclick="toggleSubmenu(2)" class="button"><img class="user-avatar" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
             <label id="user-name" for="user-data" class="user-select-none">Tarossza Irén</label>
-            <!--Hosszú név: AÁBCCsDDzH DzsEÉFGGyHH-->
         </div>
     </div>
 </nav>
+<div id="wrap-nav-height"></div>
 <div id="sub-menu" class="align-items-start justify-content-start d-none flex-column">
     <div id="wrap-to-top" class="d-flex align-items-center justify-content-between gap-5 px-3">
         <div id="sub-menu-text" class="fs-5"></div>
@@ -101,7 +97,6 @@
         </div>
     </div>
 </div>
-<div id="wrap-nav-height"></div>
 <div class="header-wrap container-fluid position-relative">
     <img class="image-bg w-100 user-select-none" src="../images/bg-image.jpg" alt="bg">
     <div class="wrap-header-content d-flex position-absolute top-0 w-100 h-100 align-items-center justify-content-evenly gap-2">
@@ -133,12 +128,12 @@
                         <i class="me-2 position-absolute end-0 fa-solid fa-angle-down"></i>
                     </button>
                     <div id="droplist-1" class="droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-1" name="varosi" value="Városi" checked>
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-2" name="elektromos" value="Elektromos" checked>
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-3" name="szedan" value="Szedán" checked>
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-4" name="terepjaro" value="Terepjáró" checked>
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-5" name="limuzin" value="Limuzin" checked>
-                        <input class="d-none droplist-checkbox" type="checkbox" id="cat-6" name="kabrio" value="Kabrió" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-1" name="varosi" value="Városi" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-2" name="elektromos" value="Elektromos" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-3" name="szedan" value="Szedán" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-4" name="terepjaro" value="Terepjáró" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-5" name="limuzin" value="Limuzin" checked>
+                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-6" name="kabrio" value="Kabrió" checked>
                         <label for="cat-1"
                                class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox"><img
                                 src="../images/icons/city-50.png" alt="city"><span>Városi</span></label>
@@ -174,7 +169,7 @@
                     </div>
                         <div class="slider position-relative">
                             <div class="slider-bg w-100 position-absolute"></div>
-                            <div class="d-flex">
+                            <div class="d-flex slider-input">
                                 <input id="slider-min" type="range" min="0" max="4999" value="0" class="w-50" step="1">
                                 <input id="slider-max" type="range" min="5000" max="10000" value="10000" class="w-50" step="1">
                             </div>
@@ -195,7 +190,7 @@
     </div>
 
     <div class="row gap-3">
-        <div class="col" id="width-271">
+        <div class="col width-270">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
@@ -226,7 +221,7 @@
               </div>
         </div>
 
-        <div class="col" id="width-270">
+        <div class="col width-270">
             <div class="card">
                 <img src="../images/cars/car2.jpg" width="100%">
 
