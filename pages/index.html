@@ -60,39 +60,71 @@
         <!--SEARCH OPTIONS-->
         <div id="search-options-content" class="justify-content-center align-items-center">
             <form action="" class="d-flex justify-content-center flex-column align-items-center gap-2 container-fluid px-4 py-4">
-<!--                <div class="p-1 w-100">
-                    <label for="droplist-2-toggle" class="user-select-none">Jármű kategóriák</label>
-                    <button type="button" id="droplist-2-toggle" onclick="dropdownList('droplist-2', 'droplist-2-toggle')" class="position-relative w-100 submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
-                        <span id="droplist-toggle-2-text" class="droplist-toggle-text">Minden kategória</span>
+                <div class="p-1 w-100">
+                    <label for="droplist-1-toggle" class="user-select-none">Gyártó</label>
+                    <button type="button" id="droplist-1-toggle" onclick="dropdownList('droplist-1', 'droplist-1-toggle')" class="position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
+                        <span id="droplist-1-toggle-text" class="droplist-toggle-text">Nincs kiválasztott</span>
                         <i class="me-2 position-absolute end-0 fa-solid fa-angle-down"></i>
                     </button>
-                    <div id="droplist-2" class="droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-1" name="varosi" value="Városi" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-2" name="elektromos" value="Elektromos" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-3" name="szedan" value="Szedán" checked>
-                        <input class="d-none droplist-check![](../../../../Users/bakos/Desktop/srch.png)box active-chck" type="checkbox" id="cat-4" name="terepjaro" value="Terepjáró" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-5" name="limuzin" value="Limuzin" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-6" name="kabrio" value="Kabrió" checked>
-                        <label for="cat-1"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                    <div id="droplist-1" class="droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl1-cat-1" name="droplist-1" value="Audi">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl1-cat-2" name="droplist-1" value="BMW">
+                        <label for="dl1-cat-1"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
+                                src="../images/manufacturers/audi.png" alt="city"><span>Audi</span></label>
+                        <label for="dl1-cat-2"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
+                                src="../images/manufacturers/bmw.png" alt="electric"><span>BMW</span></label>
+                    </div>
+                </div>
+                <div class="p-1 w-100">
+                    <label for="droplist-2-toggle" class="user-select-none">Modellek</label>
+                    <button type="button" id="droplist-2-toggle" onclick="dropdownList('droplist-2', 'droplist-2-toggle')" class="position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
+                        <span id="droplist-2-toggle-text" class="droplist-toggle-text">Nincs kiválasztott</span>
+                        <i class="me-2 position-absolute end-0 fa-solid fa-angle-down"></i>
+                    </button>
+                    <div id="droplist-2" class="droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl2-cat-1" name="droplist-2" value="A8">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl2-cat-2" name="droplist-2" value="RS6">
+                        <label for="dl2-cat-1"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><span>A8</span></label>
+                        <label for="dl2-cat-2"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><span>RS6</span></label>
+                    </div>
+                </div>
+                <div class="p-1 w-100">
+                    <label for="droplist-3-toggle" class="user-select-none">Karosszéria</label>
+                    <button type="button" id="droplist-3-toggle" onclick="dropdownList('droplist-3', 'droplist-3-toggle')" class="position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
+                        <span id="droplist-3-toggle-text" class="droplist-toggle-text">Nincs kiválasztott</span>
+                        <i class="me-2 position-absolute end-0 fa-solid fa-angle-down"></i>
+                    </button>
+                    <div id="droplist-3" class="droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-1" name="droplist-3" value="Városi">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-2" name="droplist-3" value="Elektromos">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-3" name="droplist-3" value="Szedán">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-4" name="droplist-3" value="Terepjáró">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-5" name="droplist-3" value="Limuzin">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dl3-cat-6" name="droplist-3" value="Kabrió">
+                        <label for="dl3-cat-1"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/city-50.png" alt="city"><span>Városi</span></label>
-                        <label for="cat-2"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dl3-cat-2"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/electric-50.png" alt="electric"><span>Elektromos</span></label>
-                        <label for="cat-3"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dl3-cat-3"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/sedan-50.png" alt="sedan"><span>Szedán</span></label>
-                        <label for="cat-4"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dl3-cat-4"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/jeep-50.png" alt="jeep"><span>Terepjáró</span></label>
-                        <label for="cat-5"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dl3-cat-5"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/limousine-50.png" alt="limousine"><span>Limuzin</span></label>
-                        <label for="cat-6"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dl3-cat-6"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/convertible-50.png" alt="convertible"><span>Kabrió</span></label>
                     </div>
-                </div>-->
+                </div>
             </form>
         </div>
         <!--LOGGED USER-->
@@ -154,37 +186,36 @@
                         <input type="datetime-local" id="drop-date" name="drop-date">
                     </div>
                 </div>
-
                 <div class="p-1 w-100">
-                    <label for="droplist-1-toggle" class="user-select-none">Jármű kategóriák</label>
-                    <button type="button" id="droplist-1-toggle" onclick="dropdownList('droplist-1', 'droplist-1-toggle')" class="position-relative w-100 submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
-                        <span id="droplist-1-toggle-text" class="droplist-toggle-text">Minden kategória</span>
+                    <label for="droplist-hr-toggle" class="user-select-none">Jármű kategóriák</label>
+                    <button type="button" id="droplist-hr-toggle" onclick="dropdownList('droplist-hr', 'droplist-hr-toggle')" class="position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button">
+                        <span id="droplist-hr-toggle-text" class="droplist-toggle-text">Nincs kiválasztott</span>
                         <i class="me-2 position-absolute end-0 fa-solid fa-angle-down"></i>
                     </button>
-                    <div id="droplist-1" class="droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-1" name="droplist-1" value="Városi" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-2" name="droplist-1" value="Elektromos" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-3" name="droplist-1" value="Szedán" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-4" name="droplist-1" value="Terepjáró" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-5" name="droplist-1" value="Limuzin" checked>
-                        <input class="d-none droplist-checkbox active-chck" type="checkbox" id="cat-6" name="droplist-1" value="Kabrió" checked>
-                        <label for="cat-1"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                    <div id="droplist-hr" class="droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-1" name="droplist-hr" value="Városi">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-2" name="droplist-hr" value="Elektromos">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-3" name="droplist-hr" value="Szedán">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-4" name="droplist-hr" value="Terepjáró">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-5" name="droplist-hr" value="Limuzin">
+                        <input class="d-none droplist-checkbox" type="checkbox" id="dlhr-cat-6" name="droplist-hr" value="Kabrió">
+                        <label for="dlhr-cat-1"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/city-50.png" alt="city"><span>Városi</span></label>
-                        <label for="cat-2"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dlhr-cat-2"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/electric-50.png" alt="electric"><span>Elektromos</span></label>
-                        <label for="cat-3"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dlhr-cat-3"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/sedan-50.png" alt="sedan"><span>Szedán</span></label>
-                        <label for="cat-4"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dlhr-cat-4"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/jeep-50.png" alt="jeep"><span>Terepjáró</span></label>
-                        <label for="cat-5"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dlhr-cat-5"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/limousine-50.png" alt="limousine"><span>Limuzin</span></label>
-                        <label for="cat-6"
-                               class="category-checkbox d-flex px-2 align-items-center gap-1 active-checkbox user-select-none"><img
+                        <label for="dlhr-cat-6"
+                               class="category-checkbox d-flex px-2 align-items-center gap-1 user-select-none"><img
                                 src="../images/icons/convertible-50.png" alt="convertible"><span>Kabrió</span></label>
                     </div>
                 </div>

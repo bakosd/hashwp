@@ -189,8 +189,12 @@ a{
 
 .droplist-button {
   position: relative;
-  .droplist-text{
+  width: 100%;
+  .droplist-toggle-text{
     text-overflow: ellipsis;
+    max-width: calc(80%);
+    text-align: left;
+    overflow: hidden;
     white-space: nowrap;
   }
 }
@@ -207,8 +211,7 @@ a{
 
 .droplist {
   position: absolute;
-  width: calc(17rem - 3px);
-  transform: translateX(1px);
+  min-width: fit-content;
   //background-color: #969595;
   background-color: #c2c1c1;
   box-shadow: 0 0 4px $color15 !important;

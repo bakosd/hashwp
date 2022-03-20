@@ -179,9 +179,13 @@ a:active {
 
 .droplist-button {
   position: relative;
+  width: 100%;
 }
-.droplist-button .droplist-text {
+.droplist-button .droplist-toggle-text {
   text-overflow: ellipsis;
+  max-width: 80%;
+  text-align: left;
+  overflow: hidden;
   white-space: nowrap;
 }
 
@@ -197,8 +201,7 @@ a:active {
 
 .droplist {
   position: absolute;
-  width: calc(17rem - 3px);
-  transform: translateX(1px);
+  min-width: fit-content;
   background-color: #c2c1c1;
   box-shadow: 0 0 4px black !important;
   border-radius: 0 0 0.5rem 0.5rem;
