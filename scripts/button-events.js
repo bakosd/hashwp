@@ -82,52 +82,56 @@ function dropdownList(dropID, buttonID){
     document.getElementById(buttonID).children[1].classList.toggle("fa-angle-up");
     document.getElementById(dropID).classList.toggle("d-none");
 }
-function updateDropdownText(buttonID, buttonTextID, buttonCounter, buttonArr, buttonArrStr){
+
+function updateDropdownText(buttonID, buttonArr){
     let tempStr = "", outStr = "";
-    if(buttonCounter > 3 && buttonCounter < 6){
+    if(buttonArr.length > 3 && buttonArr.length < 6){
         outStr = "Több kategória..";
-        $(buttonID).removeClass("invalid-data");
+        $('#'+buttonID).removeClass("invalid-data");
     }
-    else if(buttonCounter === 6 ){
+    else if(buttonArr.length === 6 ){
         outStr = "Minden kategória";
-        $(buttonID).removeClass("invalid-data");
+        $('#'+buttonID).removeClass("invalid-data");
     }
-    else if(buttonCounter < 4 && buttonCounter > 0){
-        for (let key in buttonArr) {
-            if(buttonArr[key] === 1){
-                tempStr += buttonArrStr[key] + ", ";
-            }
+    else if(buttonArr.length < 4 && buttonArr.length > 0){
+        for (i=0; i<buttonArr.length; i++){
+            tempStr += buttonArr[i] + ", ";
         }
         outStr = tempStr.slice(0, -2);
-        $(buttonID).removeClass("invalid-data");
+        $('#'+buttonID).removeClass("invalid-data");
     }
-    else if(buttonCounter === 0){
+    else if(buttonArr.length === 0){
         outStr = "Nincs kategória :(";
-        $(buttonID).addClass("invalid-data");
+        $('#'+buttonID).addClass("invalid-data");
     }
-    document.getElementById(buttonTextID).innerHTML = outStr;
+    document.getElementById(buttonID+'-text').innerHTML = outStr;
 }
+
 //
     /* HEADER FORM'S DROPDOWN */
 //
-var selected = {varosi:1, elektromos:1, szedan:1, terepjaro:1, limuzin:1, kabrio:1};
-const selectedStr = {varosi:"Városi", elektromos:"Elektromos", szedan:"Szedán", terepjaro:"Terepjáró", limuzin:"Limuzin", kabrio:"Kabrió"};
-var count = 6;
-$(function() {
-    $(".droplist-checkbox").click(function() {
-        if($(this).hasClass("active-chck")) {
-            $(this).removeClass("active-chck");
-            $("label[for='"+$(this).attr("id")+"']").removeClass("active-checkbox");
-            selected[$(this).attr("name")] = 0;
-            count--;
-            updateDropdownText('#droplist-toggle', 'droplist-toggle-text', count, selected, selectedStr);
-        }
-        else{
-            $(this).addClass("active-chck");
-            $("label[for='"+$(this).attr("id")+"']").addClass("active-checkbox");
-            selected[$(this).attr("name")] = 1;
-            count++;
-            updateDropdownText('#droplist-toggle', 'droplist-toggle-text', count, selected, selectedStr);
+
+var HeaderCardDDSelected = Array(); //Index page -> header card's dropdown selected checkboxes array
+
+$(function () {
+    $(".droplist-checkbox").click(function () {
+        const clickedParentButton = $(this).parent().prev('button').attr('id');
+        switch (clickedParentButton) {
+            case "droplist-1-toggle":
+                let temp = Array();
+                $("input:checkbox[name="+$(this).parent().attr('id')+"]:checked").each(function(){
+                    temp.push($(this).val());
+                });
+                HeaderCardDDSelected = temp;
+                if ($(this).hasClass("active-chck")) {
+                    $(this).removeClass("active-chck");
+                    $("label[for='" + $(this).attr("id") + "']").removeClass("active-checkbox");
+                    updateDropdownText(clickedParentButton, HeaderCardDDSelected);
+                } else {
+                    $(this).addClass("active-chck");
+                    $("label[for='" + $(this).attr("id") + "']").addClass("active-checkbox");
+                    updateDropdownText(clickedParentButton, HeaderCardDDSelected);
+                }
         }
     });
 });
