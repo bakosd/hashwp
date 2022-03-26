@@ -1,21 +1,26 @@
-const sliders = document.querySelectorAll(".slider-input input[type='range']");
-const minText = document.getElementById('pick-min');
-const maxText = document.getElementById('pick-max');
-const progress = document.querySelector(".slider-progress");
-sliders.forEach(slider =>{
-    slider.addEventListener("input", ()=>{
-        let minValue = parseInt(sliders[0].value), maxValue = parseInt(sliders[1].value);
-        let leftMax = parseInt(sliders[0].max), rightMax = parseInt(sliders[1].max);
-        minText.value= minValue;
-        maxText.value= maxValue;
-        progress.style.left = ((minValue/leftMax) * 50)+ "%";
-        progress.style.right = (100 - ((maxValue/rightMax) * 100))+ "%";
+$('input[type=range]').on('input', function () {
+    let inputNumMin = $(this).parent().parent().parent().children('.num-input').children('.min').children('input[type=number]');
+    let inputNumMax = $(this).parent().parent().parent().children('.num-input').children('.max').children('input[type=number]');
+    let sliderProgress = $(this).parent().parent().children('.slider-progress');
+    let gap = parseInt($(this).parent().parent().children('input[name=gap]').val());
 
-    });
-});
-minText.addEventListener("input", ()=>{
-    sliders[0].value = minText.value;
-});
-maxText.addEventListener("input", ()=> {
-    sliders[1].value = maxText.value;
+    if($(this).attr('name') === "min"){
+        let sliderMax = parseInt($(this).parent().children('input[name=max]').val());
+        if($(this).val() < sliderMax - gap) {
+            inputNumMin.val($(this).val());
+        }
+        else{
+            $(this).val(sliderMax - gap);
+        }
+        sliderProgress.css("left", ((inputNumMin.val() / inputNumMin.attr('max')) * 100) + "%");
+    }
+    else if($(this).attr('name') === "max"){
+        let sliderMin = parseInt($(this).parent().children('input[name=min]').val());
+        if($(this).val() > sliderMin + gap) {
+            inputNumMax.val($(this).val());
+        }else{
+            $(this).val(sliderMin + gap);
+        }
+        sliderProgress.css("right", "calc( 75% - " + (+(((inputNumMax.val()-gap) / (inputNumMax.attr('max')- (gap/2))) * 100) +"%") + ")" );
+    }
 });

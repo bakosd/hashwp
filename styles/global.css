@@ -66,7 +66,7 @@ a:active {
   padding: 0.15rem !important;
   border-left: 1px solid rgba(73, 73, 73, 0.25);
   color: #152B3c;
-  width: 13vw;
+  width: 15vw;
   min-width: 150px;
 }
 .input-with-icon:hover {
@@ -101,17 +101,21 @@ a:active {
   box-shadow: none;
 }
 
-.slider {
-  padding: 1rem 0;
+.slider-outer-wrap {
+  max-width: 20rem;
 }
-.slider .slider-bg {
+.slider-outer-wrap .slider {
+  padding: 1rem 0;
+  width: 100%;
+}
+.slider-outer-wrap .slider .slider-bg {
   border: 0.25rem solid #94868633;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
   top: calc(50% - 0.25rem);
   border-radius: 0.5rem;
   z-index: -2;
 }
-.slider .slider-progress {
+.slider-outer-wrap .slider .slider-progress {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
   border-radius: 0.5rem;
   background-color: #152B3c;
@@ -121,11 +125,13 @@ a:active {
   left: 0;
   z-index: -1;
 }
-.slider input[type=range] {
+.slider-outer-wrap .slider input[type=range] {
   background: transparent;
   -webkit-appearance: none;
+  pointer-events: none;
+  top: 20%;
 }
-.slider input[type=range]::-moz-range-thumb {
+.slider-outer-wrap .slider input[type=range]::-moz-range-thumb {
   height: 1.25rem;
   width: 1.25rem;
   background: #295074;
@@ -135,7 +141,7 @@ a:active {
   border: none;
   cursor: pointer;
 }
-.slider input[type=range]::-webkit-slider-thumb {
+.slider-outer-wrap .slider input[type=range]::-webkit-slider-thumb {
   height: 1.25rem;
   width: 1.25rem;
   background: #295074;
@@ -179,6 +185,7 @@ a:active {
 
 .droplist-button {
   position: relative;
+  max-width: 100%;
   width: 100%;
 }
 .droplist-button .droplist-toggle-text {

@@ -112,7 +112,7 @@ function updateDropdownText(buttonID, buttonArr) {
 $(function () {
     $(".droplist-button").click(function () {
         let tempWidth = parseInt($(this).width()) + parseInt($(this).css('paddingLeft').slice(0, -2)) + parseInt($(this).css('paddingRight').slice(0, -2));
-        $(this).next().css("cssText", "width: " + tempWidth + "px !important;");
+        $(this).next().css("cssText", "width: " + tempWidth + "px !important; ");
         DroppDownMainArray[$(this).attr('id')] = Array();
 
         $(".droplist-checkbox").click(function () {

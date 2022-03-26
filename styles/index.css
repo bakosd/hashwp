@@ -70,9 +70,6 @@
     flex-direction: row !important;
     flex-wrap: wrap;
   }
-  #header-wrap #wrap-header-content #header-card form div {
-    width: auto !important;
-  }
   #header-wrap #wrap-header-content #header-card form div input[type=datetime-local] {
     min-width: max-content !important;
   }
