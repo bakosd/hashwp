@@ -90,15 +90,15 @@
 }
 
 footer {
-  margin-top: 2rem;
+  margin-top: 4.5rem;
   padding: 2rem 0;
-  background-color: #152B3c;
-  color: white;
+  background: linear-gradient(90deg, #ffffff 0%, #d2d1d1 100%);
+  color: #152B3c;
   position: relative;
 }
 
 footer span {
-  font-size: 25px;
+  font-size: 2rem;
 }
 
 footer ul {
@@ -107,7 +107,6 @@ footer ul {
 }
 
 footer ul li {
-  font-size: 0.9rem;
   line-height: 1.8;
 }
 
@@ -117,20 +116,19 @@ ul i {
 
 .newletter {
   padding-top: 8px;
-  font-size: 0.75rem;
+}
+.newletter span {
+  font-size: 0.85rem;
 }
 
 .newletter button {
-  margin-top: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
+  margin-top: 1rem;
 }
 
 footer .copyright {
-  font-size: 0.6rem;
+  font-size: 1rem;
   position: absolute;
-  bottom: 0;
+  bottom: 1rem;
   left: 0;
   right: 0;
   text-align: center;
