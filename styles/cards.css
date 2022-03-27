@@ -1,14 +1,11 @@
-.row > * {
-  overflow-y: hidden;
-}
-
 .width-270 {
   min-width: 270px;
 }
 
 .col img {
-  border-radius: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
   position: relative;
+  transition: 0.5s;
 }
 
 .card {
@@ -21,12 +18,11 @@
 
 .text {
   height: 3.6rem;
-  position: absolute;
   color: #152B3c;
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 0 0 5px 5px;
+  background-color: #d2d1d1;
+  border-radius: 0 0 0.5rem 0.5rem;
   padding: 0.2rem 2rem 0.2rem 2rem;
   bottom: 0;
   right: 0;
@@ -35,6 +31,114 @@
 
 .text img {
   background-color: #152B3c;
+  border-radius: 0.5rem;
+}
+
+/*.card2 img{
+    border-radius: .5rem;
+    width: 100%;
+}
+
+.card2{
+    width: 32%;
+    min-width: 260px;
+    display: block;
+    padding: 0;
+}
+
+#second-row{
+    gap: .8rem;
+    justify-content: center;
+}*/
+.swiper * {
+  overflow-x: visible !important;
+}
+
+.row * {
+  overflow-x: visible !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+footer {
+  margin-top: 2rem;
+  padding: 2rem 0;
+  background-color: #152B3c;
+  color: white;
+  position: relative;
+}
+
+footer span {
+  font-size: 25px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+footer ul li {
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+ul i {
+  padding-right: 5px;
+}
+
+.newletter {
+  padding-top: 8px;
+  font-size: 0.75rem;
+}
+
+.newletter button {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+footer .copyright {
+  font-size: 0.6rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+footer .col {
+  min-width: 250px;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 767px) {
