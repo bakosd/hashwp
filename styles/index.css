@@ -33,8 +33,7 @@
   width: 20rem;
   height: calc(100vh - 4.6rem);
   min-height: max-content !important;
-  background: #d2d1d1;
-  opacity: 0.8;
+  background: linear-gradient(45deg, #ffffff 0%, #d2d1d1 100%);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   border-left: 1px solid rgba(0, 0, 0, 0.25);
   border-right: 1px solid rgba(0, 0, 0, 0.25);
