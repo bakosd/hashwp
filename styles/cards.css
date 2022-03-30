@@ -3,9 +3,14 @@
 }
 
 .col img {
-  border-radius: 0.5rem 0.5rem 0 0;
   position: relative;
   transition: 0.5s;
+}
+
+.slider-img {
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: #d2d1d1;
+  object-fit: cover;
 }
 
 .card {
@@ -21,9 +26,10 @@
   color: #152B3c;
   display: flex;
   align-items: center;
+  border-top: 0.2rem solid #152B3c;
   background-color: #d2d1d1;
   border-radius: 0 0 0.5rem 0.5rem;
-  padding: 0.2rem 2rem 0.2rem 2rem;
+  padding: 0.4rem 2rem 0.4rem 2rem;
   bottom: 0;
   right: 0;
   left: 0;
@@ -62,11 +68,20 @@
   width: 100%;
   height: 100%;
 }
+.swiper .swiper-button-next, .swiper .swiper-button-prev {
+  color: #ffffff;
+}
+.swiper .swiper-button-next:hover, .swiper .swiper-button-next:active, .swiper .swiper-button-prev:hover, .swiper .swiper-button-prev:active {
+  color: #152B3c;
+  transition: color 450ms;
+}
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  background-color: #d2d1d1;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;

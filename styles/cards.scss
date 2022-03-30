@@ -5,13 +5,18 @@
 }
 
 .col img{
-    border-radius: .5rem .5rem 0 0;
     position: relative;
     transition: .5s;
 }
 
+.slider-img{
+  border-radius: .5rem .5rem 0 0;
+  background: $color2;
+  object-fit: cover;
+}
+
 .card{
-    border: none;
+  border: none;
 }
 
 .row h2{
@@ -23,9 +28,10 @@
     color: $color7;
     display: flex;
     align-items: center;
+    border-top: .2rem solid $color7;
     background-color: $color2;
     border-radius: 0 0 .5rem .5rem;
-    padding: .2rem 2rem .2rem 2rem;
+    padding: .4rem 2rem .4rem 2rem;
     bottom: 0;
     right: 0;
     left: 0;
@@ -59,14 +65,25 @@
   overflow-x: visible !important;
 }
 .swiper {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+
+  .swiper-button-next, .swiper-button-prev {
+    color: $color1;
+    &:hover, &:active{
+      color: $color7;
+      transition: color $transition-1*3;
+    }
   }
+}
 
   .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #fff;
+    //background: #fff;
+    background-color: $color2;
+    padding: 2.5rem;
+    border-radius: $border-rad-1;
 
     /* Center slide text vertically */
     display: -webkit-box;
