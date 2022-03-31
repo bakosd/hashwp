@@ -1,7 +1,8 @@
 @import "variables";
 
 .width-270{
-    min-width: 270px;
+  min-width: 270px;
+  padding: .5rem;
 }
 
 .col img{
@@ -10,15 +11,16 @@
 }
 
 .slider-img{
-  border-radius: .5rem .5rem 0 0;
-  //background: $color2;
-  background: $linear2;
-  border: 1px solid $color2;
+  border-radius: $border-rad-1 $border-rad-1 0 0;
+  //background-color: $color2;
+  background: $linear3;
   object-fit: cover;
 }
 
-.card{
-  border: none;
+.card, .carousel{
+  border-radius: $border-rad-1;
+  box-shadow: 0 0 10px $color17;
+  border: none !important;
 }
 
 .row h2{
@@ -30,9 +32,11 @@
     color: $color7;
     display: flex;
     align-items: center;
-    border-top: .2rem solid $color7;
-    background-color: $color2;
-    border-radius: 0 0 .5rem .5rem;
+    //border-top: .2rem solid $color7;
+    //background-color: $color2;
+    background: $linear1;
+    //border-radius: 0 0 .5rem .5rem;
+    border-radius: 0 0 $border-rad-1 $border-rad-1;
     padding: .4rem 2rem .4rem 2rem;
     bottom: 0;
     right: 0;
@@ -73,23 +77,25 @@
   height: 100%;
 
   .swiper-button-next, .swiper-button-prev {
-    color: $color1;
+    color: $color9;
     &:hover, &:active{
-      color: $color7;
-      transition: color $transition-1*3;
+      color: $color6;
+      transition: color $transition-1;
     }
   }
 }
 
 .carousel-control-next-icon, .carousel-control-prev-icon {
-  filter: invert(12%) sepia(53%) saturate(572%) hue-rotate(163deg) brightness(50%) contrast(94%);
+  filter: brightness(0%) contrast(100%);
 }
 
   .swiper-slide {
     text-align: center;
     font-size: 18px;
     //background: #fff;
-    background-color: $color2;
+    //background: $color2;
+    background: $linear3;
+    box-shadow: 0 0 10px $color17;
     padding: 2.5rem;
     border-radius: $border-rad-1;
 

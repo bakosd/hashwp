@@ -1,4 +1,48 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Poppins:wght@300;400;700&display=swap");
+html {
+  --col1: hsl(0, 0%, 100%);
+  --col2: hsl(0, 1%, 82%);
+  --col6: hsl(209, 48%, 31%);
+  --col7: hsl(206, 48%, 16%);
+  --col9: hsl(232, 64%, 9%);
+  --col11: hsla(0, 6%, 55%, 0.33);
+  --col12: hsla(0, 0%, 0%, 0.4);
+  --col13: hsla(0, 0%, 0%, 0.3);
+  --col14: hsla(0, 0%, 0%, 0.25);
+  --col15: hsl(0, 0%, 20%);
+  --col16: hsla(193, 37%, 38%, 0.5);
+  --col17: hsla(0, 0%, 0%, 0.75);
+}
+
+html[data-theme=dark] {
+  --col1: hsl(0, 0%, 15%);
+  --col2: hsl(0, 1%, 34%);
+  --col9: hsl(0, 1%, 82%);
+  --col11: hsl(0, 1%, 60%);
+  --col13: transparent;
+  --col15: hsl(0, 0%, 80%);
+  --col16: hsla(193, 37%, 70%, 0.5);
+}
+
+/*$color1: #ffffff;
+$color2: #d2d1d1;
+$color3: #3071e7; //Nincs használatban
+$color4: #4380b1; //Nincs használatban
+$color5: #3a668b; //Nincs használatban
+$color6: #295074;
+$color7: #152B3c;
+$color8: #161E35; //Nincs használatban
+$color9: #080c25; //Nincs használatban
+$color9: #040a0e;
+$color10: #98cbea; //Nincs használatban
+$color11: #94868633;
+$color12: rgba(0, 0, 0, .4);
+$color13: rgba(0, 0, 0, .3);
+$color14: rgba(0, 0, 0, .25);
+$color15: rgba(0, 0, 0, 1);
+$color16: rgba(62, 118, 134, 0.50);
+$color17: rgba(0, 0, 0, 0.75);*/
 * {
   font-family: "Poppins", sans-serif;
   padding: 0;
@@ -9,9 +53,19 @@
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  background-color: var(--col1);
+  color: var(--col15);
+}
+
+html.transition, html.transition *, html.transition *:before, html.transition *:after {
+  transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 450ms !important;
+  transition-delay: 0ms !important;
+}
+
 ::selection {
-  color: #040a0e;
-  background: #d2d1d1;
+  color: var(--col9);
+  background: var(--col2);
   opacity: 0.4;
 }
 
@@ -31,33 +85,33 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 
 a {
-  color: #152B3c;
+  color: var(--col7);
   text-decoration: none;
 }
 a:hover, a:focus {
-  color: #040a0e;
+  color: var(--col9);
   transform: translate(2px);
   transition: all 150ms ease-in-out;
 }
 a:active {
-  box-shadow: 0 0 4px black;
+  box-shadow: 0 0 4px var(--col15);
 }
 
 .link {
   padding: 0.5rem 1rem;
-  background-color: #94868633;
+  background-color: var(--col11);
   min-width: fit-content;
   border-radius: 0.5rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px var(--col12);
+  border: 1px solid var(--col14);
 }
 
 .input-with-icon {
-  background: #94868633;
+  background: var(--col11);
   padding: 0.5rem 0 0.5rem 0.5rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px var(--col12);
+  border: 1px solid var(--col14);
 }
 .input-with-icon input, .input-with-icon button {
   background: none;
@@ -65,39 +119,39 @@ a:active {
   outline: none;
   padding: 0.15rem !important;
   border-left: 1px solid rgba(73, 73, 73, 0.25);
-  color: #152B3c;
+  color: var(--col7);
   width: 15vw;
   min-width: 150px;
 }
 .input-with-icon:hover {
   transform: scale(1.005);
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
 .input-with-icon:focus-within {
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
 
 .button, .button-2 {
-  background: #94868633;
+  background: var(--col11);
   min-width: 3rem !important;
   min-height: 3rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px var(--col12);
+  border: 1px solid var(--col14);
   border-radius: 1rem;
   margin: 0.25rem 0;
 }
 .button:hover, .button-2:hover, .button:focus-visible, .button-2:focus-visible {
-  box-shadow: 0 0 4px black;
-  color: #040a0e;
+  box-shadow: 0 0 4px var(--col15);
+  color: var(--col9);
   transform: scale(1.025);
   transition: all 150ms ease-in-out;
 }
 
 .button-2 {
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--col14);
   box-shadow: none;
 }
 
@@ -109,16 +163,16 @@ a:active {
   width: 100%;
 }
 .slider-outer-wrap .slider .slider-bg {
-  border: 0.25rem solid #94868633;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
+  border: 0.25rem solid var(--col11);
+  box-shadow: 0 0 4px var(--col12) !important;
   top: calc(50% - 0.25rem);
   border-radius: 0.5rem;
   z-index: -2;
 }
 .slider-outer-wrap .slider .slider-progress {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 0 4px var(--col12) !important;
   border-radius: 0.5rem;
-  background-color: #152B3c;
+  background-color: var(--col7);
   height: 0.5rem;
   top: calc(50% - 0.25rem);
   right: 0;
@@ -134,7 +188,7 @@ a:active {
 .slider-outer-wrap .slider input[type=range]::-moz-range-thumb {
   height: 1.25rem;
   width: 1.25rem;
-  background: #295074;
+  background: var(--col6);
   border-radius: 1rem;
   -moz-appearance: none !important;
   pointer-events: auto;
@@ -144,7 +198,7 @@ a:active {
 .slider-outer-wrap .slider input[type=range]::-webkit-slider-thumb {
   height: 1.25rem;
   width: 1.25rem;
-  background: #295074;
+  background: var(--col6);
   border-radius: 1rem;
   -webkit-appearance: none;
   pointer-events: auto;
@@ -154,11 +208,11 @@ a:active {
 
 .category-checkbox {
   border-radius: 0.5rem;
-  color: #152B3c;
+  color: var(--col7);
   width: fit-content;
   overflow-y: hidden !important;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) !important;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px var(--col12) !important;
+  border: 1px solid var(--col13);
   cursor: pointer;
 }
 .category-checkbox img {
@@ -170,17 +224,17 @@ a:active {
 }
 .category-checkbox:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
 .category-checkbox:focus-within {
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
 
 .active-checkbox {
-  background-color: rgba(62, 118, 134, 0.5) !important;
-  border: 3px solid rgba(0, 0, 0, 0.25);
+  background-color: var(--col16) !important;
+  border: 3px solid var(--col14);
 }
 
 .droplist-button {
@@ -198,7 +252,7 @@ a:active {
 
 .droplist-button:hover ~ .droplist {
   transform: scale(1.005) translateX(1px) translateY(1px);
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
 
@@ -210,7 +264,7 @@ a:active {
   position: absolute;
   min-width: fit-content;
   background-color: #c2c1c1;
-  box-shadow: 0 0 4px black !important;
+  box-shadow: 0 0 4px var(--col15) !important;
   border-radius: 0 0 0.5rem 0.5rem;
   z-index: 1;
 }

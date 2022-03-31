@@ -147,3 +147,49 @@ $(function () {
         });
     });
 });
+
+
+var darkModeState = localStorage.getItem('darkModeState');
+const darkModeToggle = document.getElementById('theme-changer');
+
+const enableDarkMode = () => {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'dark');
+    darkModeToggle.children.item(0).classList.toggle('fa-sun')
+};
+const disableDarkMode = () => {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'light');
+    darkModeToggle.children.item(0).classList.toggle('fa-sun')
+}
+
+//Changing the theme if enabled on page-load
+window.onload = () => {
+    if (darkModeState === "enabled") {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        darkModeToggle.children.item(0).classList.toggle('fa-sun')
+    }
+}
+
+//EventHandler for clicking the theme-changer button
+darkModeToggle.addEventListener('click', () => {
+    darkModeState = localStorage.getItem('darkModeState');
+    if(darkModeState === "enabled") {
+        disableDarkMode();
+        localStorage.setItem('darkModeState', null);
+    }
+    else
+    {
+        enableDarkMode();
+        localStorage.setItem('darkModeState', "enabled");
+    }
+});
+
+
+//Animation transition on theme-change
+let trans = () => {
+    document.documentElement.classList.add('transition');
+    window.setTimeout(() => {
+        document.documentElement.classList.remove('transition');
+    }, 1000)
+};
