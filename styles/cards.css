@@ -9,7 +9,8 @@
 
 .slider-img {
   border-radius: 0.5rem 0.5rem 0 0;
-  background: #d2d1d1;
+  background: linear-gradient(45deg, #ffffff 0%, #d2d1d1 100%);
+  border: 1px solid #d2d1d1;
   object-fit: cover;
 }
 
@@ -74,6 +75,10 @@
 .swiper .swiper-button-next:hover, .swiper .swiper-button-next:active, .swiper .swiper-button-prev:hover, .swiper .swiper-button-prev:active {
   color: #152B3c;
   transition: color 450ms;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  filter: invert(12%) sepia(53%) saturate(572%) hue-rotate(163deg) brightness(50%) contrast(94%);
 }
 
 .swiper-slide {
