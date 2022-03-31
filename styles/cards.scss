@@ -32,7 +32,7 @@
     color: $color7;
     display: flex;
     align-items: center;
-    //border-top: .2rem solid $color7;
+    border-top: .15rem solid $color7;
     //background-color: $color2;
     background: $linear1;
     //border-radius: 0 0 .5rem .5rem;
@@ -123,6 +123,7 @@
 
   footer{
       margin-top: 4.5rem;
+      border-top: .15rem solid $color7;
       padding: 2rem 0;
       //background-color: $color2;
       background: $linear1;

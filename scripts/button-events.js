@@ -153,13 +153,15 @@ var darkModeState = localStorage.getItem('darkModeState');
 const darkModeToggle = document.getElementById('theme-changer');
 
 const enableDarkMode = () => {
-    trans();
+
     document.documentElement.setAttribute('data-theme', 'dark');
+    animation();
     darkModeToggle.children.item(0).classList.toggle('fa-sun')
 };
 const disableDarkMode = () => {
-    trans();
+
     document.documentElement.setAttribute('data-theme', 'light');
+    animation();
     darkModeToggle.children.item(0).classList.toggle('fa-sun')
 }
 
@@ -187,7 +189,7 @@ darkModeToggle.addEventListener('click', () => {
 
 
 //Animation transition on theme-change
-let trans = () => {
+let animation = () => {
     document.documentElement.classList.add('transition');
     window.setTimeout(() => {
         document.documentElement.classList.remove('transition');

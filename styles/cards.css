@@ -73,6 +73,7 @@ $color17: rgba(0, 0, 0, 0.75);*/
   color: var(--col7);
   display: flex;
   align-items: center;
+  border-top: 0.15rem solid var(--col7);
   background: var(--col2);
   border-radius: 0 0 0.5rem 0.5rem;
   padding: 0.4rem 2rem 0.4rem 2rem;
@@ -157,6 +158,7 @@ $color17: rgba(0, 0, 0, 0.75);*/
 
 footer {
   margin-top: 4.5rem;
+  border-top: 0.15rem solid var(--col7);
   padding: 2rem 0;
   background: var(--col2);
   color: var(--col7);

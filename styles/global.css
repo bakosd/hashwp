@@ -113,6 +113,9 @@ a:active {
   box-shadow: 0 0 4px var(--col12);
   border: 1px solid var(--col14);
 }
+.input-with-icon label {
+  color: var(--col7);
+}
 .input-with-icon input, .input-with-icon button {
   background: none;
   border: none;

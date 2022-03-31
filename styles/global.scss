@@ -72,6 +72,9 @@ a{
   border-radius: $border-rad-1;
   box-shadow: 0 0 4px $color12;
   border: 1px solid $color14;
+  label{
+    color: $color7;
+  }
   input, button {
     background: none;
     border: none;

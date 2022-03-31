@@ -45,7 +45,7 @@ $color17: rgba(0, 0, 0, 0.75);*/
 nav {
   z-index: 1000;
   background: var(--col2);
-  border-bottom: 2px solid var(--col7);
+  border-bottom: 0.15rem solid var(--col7);
 }
 nav #navToggle {
   transform-origin: top;
