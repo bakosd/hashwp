@@ -41,6 +41,23 @@
     bottom: 0;
     right: 0;
     left: 0;
+  .car-name{
+    span{
+      text-wrap: none !important;
+    }
+  }
+  .daily-price{
+    font-weight: 600;
+    font-size: 1em;
+  }
+  .can-rent{
+    font-weight: 600;
+    color: $color-succ;
+  }
+  .cant-rent{
+    font-weight: 600;
+    color: $color-nosucc;
+  }
 }
 
 .text img{

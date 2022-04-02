@@ -13,6 +13,8 @@ html {
   --col15: hsl(0, 0%, 20%);
   --col16: hsla(193, 37%, 38%, 0.5);
   --col17: hsla(0, 0%, 0%, 0.75);
+  --col-succ: hsl(124, 100%, 17%);
+  --col-nosucc: hsl(11, 100%, 30%);
 }
 
 html[data-theme=dark] {
@@ -23,6 +25,8 @@ html[data-theme=dark] {
   --col13: transparent;
   --col15: hsl(0, 0%, 80%);
   --col16: hsla(193, 37%, 70%, 0.5);
+  --col-succ: hsl(90, 66%, 38%);
+  --col-nosucc: hsl(0, 92%, 30%);
 }
 
 /*$color1: #ffffff;

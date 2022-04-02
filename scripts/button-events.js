@@ -153,7 +153,6 @@ var darkModeState = localStorage.getItem('darkModeState');
 const darkModeToggle = document.getElementById('theme-changer');
 
 const enableDarkMode = () => {
-
     document.documentElement.setAttribute('data-theme', 'dark');
     animation();
     darkModeToggle.children.item(0).classList.toggle('fa-sun')
