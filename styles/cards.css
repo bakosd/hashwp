@@ -73,11 +73,14 @@ $color17: rgba(0, 0, 0, 0.75);*/
 }
 
 .text {
-  height: 3.6rem;
+  min-height: 3.8rem;
+  gap: 10px 30px;
+  justify-content: space-between;
   color: var(--col7);
   display: flex;
   align-items: center;
   border-top: 0.15rem solid var(--col7);
+  flex-wrap: wrap;
   background: var(--col2);
   border-radius: 0 0 0.5rem 0.5rem;
   padding: 0.4rem 2rem 0.4rem 2rem;
@@ -99,6 +102,10 @@ $color17: rgba(0, 0, 0, 0.75);*/
 .text .cant-rent {
   font-weight: 600;
   color: var(--col-nosucc);
+}
+
+.text .action-price del {
+  font-size: 12px;
 }
 
 .text img {
@@ -142,6 +149,10 @@ $color17: rgba(0, 0, 0, 0.75);*/
   transition: color 150ms;
 }
 
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 1.5rem !important;
+}
+
 .carousel-control-next-icon, .carousel-control-prev-icon {
   filter: brightness(0%) contrast(100%);
 }
@@ -151,8 +162,9 @@ $color17: rgba(0, 0, 0, 0.75);*/
   font-size: 18px;
   background: var(--col2);
   box-shadow: 0 0 10px var(--col17);
-  padding: 2.5rem;
+  padding: 1.2rem 1.8rem 4rem 1.8rem;
   border-radius: 0.5rem;
+  position: relative;
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -166,6 +178,7 @@ $color17: rgba(0, 0, 0, 0.75);*/
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .swiper-slide img {
@@ -175,6 +188,31 @@ $color17: rgba(0, 0, 0, 0.75);*/
   object-fit: cover;
 }
 
+.card-text {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+  font-size: 0.9rem;
+  text-align: left;
+  color: var(--col7);
+}
+
+.card-text img {
+  width: 40px;
+  margin-bottom: 10px;
+  background-color: var(--col7);
+  border-radius: 0.5rem;
+  display: inline;
+}
+
+.rate-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*     footer      */
 footer {
   margin-top: 4.5rem;
   border-top: 0.15rem solid var(--col7);
@@ -229,6 +267,11 @@ footer .col {
 @media only screen and (max-width: 767px) {
   .width-270 {
     min-width: 100%;
+  }
+}
+@media only screen and (max-width: 465px) {
+  .text {
+    justify-content: center;
   }
 }
 

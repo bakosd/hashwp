@@ -28,11 +28,14 @@
 }
 
 .text{
-    height: 3.6rem;
+    min-height: 3.8rem;
+    gap: 10px 30px;
+    justify-content: space-between;
     color: $color7;
     display: flex;
     align-items: center;
     border-top: .15rem solid $color7;
+    flex-wrap: wrap;
     //background-color: $color2;
     background: $linear1;
     //border-radius: 0 0 .5rem .5rem;
@@ -58,6 +61,14 @@
     font-weight: 600;
     color: $color-nosucc;
   }
+}
+
+.text .action-price{
+  
+}
+
+.text .action-price del{
+  font-size: 12px;
 }
 
 .text img{
@@ -102,6 +113,10 @@
   }
 }
 
+.swiper-button-next:after, .swiper-button-prev:after{
+  font-size: 1.5rem !important;
+}
+
 .carousel-control-next-icon, .carousel-control-prev-icon {
   filter: brightness(0%) contrast(100%);
 }
@@ -113,8 +128,9 @@
     //background: $color2;
     background: $linear3;
     box-shadow: 0 0 10px $color17;
-    padding: 2.5rem;
+    padding: 1.2rem 1.8rem 4rem 1.8rem;
     border-radius: $border-rad-1;
+    position: relative;
 
     /* Center slide text vertically */
     display: -webkit-box;
@@ -129,6 +145,7 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+    flex-direction: column;
   }
 
   .swiper-slide img {
@@ -138,6 +155,32 @@
     object-fit: cover;
   }
 
+  .card-text{
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    right: 15px;
+    font-size: .9rem;
+    text-align: left;
+    color: $color7;
+  }
+
+  .card-text img{
+    width: 40px;
+    margin-bottom: 10px;
+    background-color: $color7;
+    border-radius: $border-rad-1;
+    display: inline;
+  }
+
+  .rate-price{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+
+               /*     footer      */
   footer{
       margin-top: 4.5rem;
       border-top: .15rem solid $color7;
@@ -203,3 +246,11 @@ footer .col{
         min-width: 100%;
     }
   }
+
+@media only screen and (max-width: 465px) {
+
+  .text{
+      justify-content: center;
+  }
+}
+

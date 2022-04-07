@@ -3,7 +3,7 @@
           slidesPerView: 3,
           slidesPerGroup: 3,
           autoplay: {
-            delay: 5000,
+            delay: 25000,
             disableOnInteraction: false,
           },
           breakpoints: {
@@ -11,7 +11,7 @@
               slidesPerView: 1,
               spaceBetween: 0,
               slidesPerGroup: 1,
-              spaceBetween: 5,
+              spaceBetween: 25,
             },
             768: {
               slidesPerView: 2,
@@ -21,12 +21,8 @@
             1024: {
               slidesPerView: 3,
               slidesPerGroup: 3,
-              spaceBetween: 50,
+              spaceBetween: 25,
             },
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
           },
           navigation: {
             nextEl: ".swiper-button-next",
