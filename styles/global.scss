@@ -30,7 +30,7 @@ html.transition, html.transition *, html.transition *:before, html.transition *:
 }
 
 p{
-  font-family: 'Lora', serif;
+  //font-family: 'Lora', serif;
   text-align: justify;
 }
 
@@ -247,5 +247,31 @@ a{
   label {
     width: 90%;
     background-color: transparent;
+  }
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      background-color: $color2;
+      border-radius: $border-rad-1;
+      border: 1px solid $color7;
+
+      .modal-header {
+        .modal-title {
+          color: $color7;
+        }
+        border-bottom-color: $color7;
+      }
+
+      .modal-body {
+        background-color: $color1;
+        padding: 1.5rem;
+      }
+
+      .modal-footer {
+        border-top-color: $color7;
+      }
+    }
   }
 }

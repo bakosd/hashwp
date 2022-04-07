@@ -74,7 +74,6 @@ html.transition, html.transition *, html.transition *:before, html.transition *:
 }
 
 p {
-  font-family: "Lora", serif;
   text-align: justify;
 }
 
@@ -278,6 +277,25 @@ a:active {
 .droplist label {
   width: 90%;
   background-color: transparent;
+}
+
+.modal .modal-dialog .modal-content {
+  background-color: var(--col2);
+  border-radius: 0.5rem;
+  border: 1px solid var(--col7);
+}
+.modal .modal-dialog .modal-content .modal-header {
+  border-bottom-color: var(--col7);
+}
+.modal .modal-dialog .modal-content .modal-header .modal-title {
+  color: var(--col7);
+}
+.modal .modal-dialog .modal-content .modal-body {
+  background-color: var(--col1);
+  padding: 1.5rem;
+}
+.modal .modal-dialog .modal-content .modal-footer {
+  border-top-color: var(--col7);
 }
 
 /*# sourceMappingURL=global.css.map */
