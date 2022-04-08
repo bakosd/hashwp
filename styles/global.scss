@@ -275,4 +275,24 @@ a{
     }
   }
 }
+.dropdown-push-wrap {
+  .dropdown-push {
+    background-color: $color2;
+    border-radius: $border-rad-1;
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.005);
+    }
+    .dropdown-push-arrow {
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1rem;
+      width: fit-content;
+    }
+  }
 
+  .dropdown-push-content {
+    border-radius: $border-rad-1;
+    background-color: $color14;
+  }
+}

@@ -194,3 +194,12 @@ let animation = () => {
         document.documentElement.classList.remove('transition');
     }, 1000)
 };
+
+
+const droppushBtn = document.querySelector('[data-droppush-btn]');
+droppushBtn.addEventListener('click', () => {
+    let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
+    let thisArrow = droppushBtn.querySelector('i');
+    thisArrow.classList.toggle('fa-angle-up');
+    childContent.classList.toggle('d-none');
+});

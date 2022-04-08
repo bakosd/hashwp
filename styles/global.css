@@ -25,8 +25,8 @@ html[data-theme=dark] {
   --col13: transparent;
   --col15: hsl(0, 0%, 80%);
   --col16: hsla(193, 37%, 70%, 0.5);
-  --col-succ: hsl(90, 66%, 38%);
-  --col-nosucc: hsl(0, 92%, 30%);
+  --col-succ: hsl(90, 66%, 28%);
+  --col-nosucc: hsl(0, 62%, 30%);
 }
 
 /*$color1: #ffffff;
@@ -296,6 +296,25 @@ a:active {
 }
 .modal .modal-dialog .modal-content .modal-footer {
   border-top-color: var(--col7);
+}
+
+.dropdown-push-wrap .dropdown-push {
+  background-color: var(--col2);
+  border-radius: 0.5rem;
+}
+.dropdown-push-wrap .dropdown-push:hover {
+  cursor: pointer;
+  transform: scale(1.005);
+}
+.dropdown-push-wrap .dropdown-push .dropdown-push-arrow {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  width: fit-content;
+}
+.dropdown-push-wrap .dropdown-push-content {
+  border-radius: 0.5rem;
+  background-color: var(--col14);
 }
 
 /*# sourceMappingURL=global.css.map */

@@ -24,8 +24,8 @@ html[data-theme=dark] {
   --col13: transparent;
   --col15: hsl(0, 0%, 80%);
   --col16: hsla(193, 37%, 70%, 0.5);
-  --col-succ: hsl(90, 66%, 38%);
-  --col-nosucc: hsl(0, 92%, 30%);
+  --col-succ: hsl(90, 66%, 28%);
+  --col-nosucc: hsl(0, 62%, 30%);
 }
 
 /*$color1: #ffffff;
@@ -66,6 +66,9 @@ $color17: rgba(0, 0, 0, 0.75);*/
   border-radius: 0.5rem;
   box-shadow: 0 0 10px var(--col17);
   border: none !important;
+}
+.card img, .carousel img {
+  border-radius: 0.5rem;
 }
 
 .row h2 {
