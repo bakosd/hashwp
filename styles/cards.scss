@@ -131,7 +131,7 @@
     //background: $color2;
     background: $linear3;
     box-shadow: 0 0 10px $color17;
-    padding: 1.2rem 1.8rem 4rem 1.8rem;
+    padding: 1.2rem 1.8rem 5rem 1.8rem;
     border-radius: $border-rad-1;
     position: relative;
 
@@ -166,11 +166,11 @@
     font-size: .9rem;
     text-align: left;
     color: $color7;
+    line-height: 2.1;
   }
 
   .card-text img{
     width: 40px;
-    margin-bottom: 10px;
     background-color: $color7;
     border-radius: $border-rad-1;
     display: inline;
@@ -257,3 +257,13 @@ footer .col{
   }
 }
 
+@media only screen and (max-width: 350px) {
+
+  .card-text, .text{
+    font-size: 12px;
+  }
+
+  .text img{
+    width: 35px;
+  }
+}
