@@ -21,8 +21,14 @@
   border-radius: $border-rad-1;
   box-shadow: 0 0 10px $color17;
   border: none !important;
+  transition: all $transition-1*2 ease-in-out;
   img{
     border-radius: $border-rad-1;
+  }
+  &:hover{
+    cursor: pointer;
+    transform: scale(0.985);
+    box-shadow: 0 0 12px $color7;
   }
 }
 
@@ -149,6 +155,13 @@
     -webkit-align-items: center;
     align-items: center;
     flex-direction: column;
+    transition: all $transition-1*2 ease-in-out;
+
+    &:hover{
+      cursor: pointer;
+      transform: scale(0.985) !important;
+      box-shadow: 0 0 10px $color7;
+    }
   }
 
   .swiper-slide img {
