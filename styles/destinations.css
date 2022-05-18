@@ -1,0 +1,61 @@
+@charset "UTF-8";
+html {
+  --col1: hsl(0, 0%, 100%);
+  --col2: hsl(0, 1%, 82%);
+  --col6: hsl(209, 48%, 31%);
+  --col7: hsl(206, 48%, 16%);
+  --col9: hsl(232, 64%, 9%);
+  --col11: hsla(0, 6%, 55%, 0.33);
+  --col12: hsla(0, 0%, 0%, 0.4);
+  --col13: hsla(0, 0%, 0%, 0.3);
+  --col14: hsla(0, 0%, 0%, 0.25);
+  --col15: hsl(0, 0%, 20%);
+  --col16: hsla(193, 37%, 38%, 0.5);
+  --col17: hsla(0, 0%, 0%, 0.75);
+  --col-succ: hsl(124, 100%, 17%);
+  --col-nosucc: hsl(11, 100%, 30%);
+}
+
+html[data-theme=dark] {
+  --col1: hsl(0, 0%, 15%);
+  --col2: hsl(0, 1%, 34%);
+  --col9: hsl(0, 1%, 82%);
+  --col11: hsl(0, 1%, 60%);
+  --col13: transparent;
+  --col15: hsl(0, 0%, 80%);
+  --col16: hsla(193, 37%, 70%, 0.5);
+  --col-succ: hsl(90, 66%, 28%);
+  --col-nosucc: hsl(0, 62%, 30%);
+}
+
+/*$color1: #ffffff;
+$color2: #d2d1d1;
+$color3: #3071e7; //Nincs használatban
+$color4: #4380b1; //Nincs használatban
+$color5: #3a668b; //Nincs használatban
+$color6: #295074;
+$color7: #152B3c;
+$color8: #161E35; //Nincs használatban
+$color9: #080c25; //Nincs használatban
+$color9: #040a0e;
+$color10: #98cbea; //Nincs használatban
+$color11: #94868633;
+$color12: rgba(0, 0, 0, .4);
+$color13: rgba(0, 0, 0, .3);
+$color14: rgba(0, 0, 0, .25);
+$color15: rgba(0, 0, 0, 1);
+$color16: rgba(62, 118, 134, 0.50);
+$color17: rgba(0, 0, 0, 0.75);*/
+.carousel {
+  box-shadow: none;
+}
+.carousel .slider-img {
+  background: none;
+}
+.carousel:hover {
+  cursor: pointer;
+  box-shadow: none;
+  transform: scale(1);
+}
+
+/*# sourceMappingURL=destinations.css.map */
