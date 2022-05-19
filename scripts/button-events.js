@@ -203,3 +203,8 @@ droppushBtn.addEventListener('click', () => {
     thisArrow.classList.toggle('fa-angle-up');
     childContent.classList.toggle('d-none');
 });
+
+function toggleRegisterModal(){
+    const registerForm = document.getElementById('nav-register-form');
+    registerForm.classList.toggle("d-flex");
+}

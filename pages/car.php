@@ -17,82 +17,9 @@
     <title>Hash | Járműbérlés egyszerűen, gyorsan.</title>
 </head>
 <body>
-<nav id="navbar" class="navbar navbar-expand-xl position-fixed fixed-top">
-    <button id="nav-toggle"
-            class="button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none" onclick="toggleNav()"><i class="fa-solid fa-bars"></i></button>
-    <div id="navToggle" class="container-fluid d-flex user-select-none ">
-        <a id="logo-wrap" href="index.html">
-            <div id="logo" class="navbar-brand d-flex align-items-center mx-2 my-1">
-                <img class="user-select-none" src="../images/icons/logo-100.png" alt="logo">
-                <span class="fw-bold fs-6">Hash.</span>
-            </div>
-        </a>
-        <div class="d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1">
-            <a href="index.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-house"></i><span>Kezdőoldal</span></a>
-            <a href="cars.html" class="nav-item d-flex align-items-center link active-page"><i class="me-1 fa-solid fa-car"></i><span>Járművek</span></a>
-            <a href="destinations.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-location-dot"></i><span>Átvételi pontok</span></a>
-            <a href="contact.html" class="nav-item d-flex align-items-center link"><i class="me-1 fa-solid fa-comment"></i><span>Kapcsolat</span></a>
-        </div>
-        <div id="search-wrap" class="d-flex flex-nowrap align-items-center gap-2 px-1 py-1">
-            <div id="search-bar" class="input-with-icon nav-item">
-                <form class="d-flex align-items-center flex-nowrap">
-                    <label for="search-input" class="text-center mx-2 fa-solid fa-magnifying-glass"></label>
-                    <input name="search-input" id="search-input" type="search" aria-label="Search" placeholder="Keresés..">
-                </form>
-            </div>
-        </div>
-
-        <div id="nav-right" class="d-flex flex-nowrap align-items-center justify-content-center gap-2 px-1 py-1">
-            <button id="theme-changer" class="button nav-item d-flex align-items-center justify-content-center"><i class="fa-solid fa-moon"></i></button>
-            <button id="login-button" class="button nav-item d-flex align-items-center justify-content-center px-3" onclick="toggleSubmenu(3)"><i class="me-1 fa-solid fa-user"></i>Belépés</button>
-            <button id="user-data" onclick="toggleSubmenu(2)" class="button"><img src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
-            <label id="user-name" for="user-data" class="user-select-none d-none">Tarossza Irén</label>
-        </div>
-    </div>
-</nav>
-<div id="wrap-nav-height"></div>
-<div id="sub-menu" class="align-items-start justify-content-start d-none flex-column">
-    <div id="wrap-to-top" class="d-flex align-items-center justify-content-between gap-5 px-3">
-        <div id="sub-menu-text" class="fs-5"></div>
-        <button id="close-sub-menu" onclick="toggleSubmenu(0)" class="button d-flex align-items-center justify-content-center"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div id="sub-menu-content">
-        <!--LOGGED USER-->
-        <div id="user-data-content" class="justify-content-center align-items-center flex-wrap flex-column gap-2">
-            <button id="user-data-link" onclick="" class="button"><img id="user-image" src="../images/avatars/1/avatar.jpg" alt="myAvatar"></button>
-            <label id="user-name-sb" class="user-select-none">Tarossza Irén<i class="ms-2 fa-solid fa-circle-check"></i></label>
-            <button id="logout-user" class="button d-flex align-items-center gap-2 px-3 py-1 mb-2"><i class="fa-solid fa-right-from-bracket"></i><span>Kijelentkezés</span></button>
-            <a href="#" class="sub-link d-flex align-items-center link  w-100"><i class="me-1 fa-solid fa-heart"></i><span>Kedvencek</span></a>
-            <a href="#" class="sub-link d-flex align-items-center link  w-100"><i class="me-1 fa-solid fa-chart-line"></i><span>Előzmények</span></a>
-            <a href="#" class="sub-link d-flex align-items-center link  w-100"><i class="me-1 fa-solid fa-star-half-stroke"></i><span>Értékelések</span></a>
-            <a href="#" class="sub-link d-flex align-items-center link  w-100"><i class="me-1 fa-solid fa-user-pen"></i><span>Profilom</span></a>
-            <a href="#" class="sub-link d-flex align-items-center link  w-100"><i class="me-1 fa-solid fa-gear"></i><span>Beállítások</span></a>
-        </div>
-        <!--NOT LOGGED USER-->
-        <div id="login-content" class="justify-content-center align-items-center ">
-            <form class="d-flex flex-column px-4 py-4 gap-3 w-100" action="" >
-                <div class="px-1 py-1">
-                    <label for="user-name-log" class="user-select-none">Felhasználónév</label>
-                    <div class="login-input input-with-icon d-flex align-items-center">
-                        <i class="px-2 fa-solid fa-user"></i>
-                        <input type="text" id="user-name-log" name="user-name-log" maxlength="60" minlength="5" placeholder="Felhasználónév" autocomplete="false">
-                    </div>
-                </div>
-                <div class="px-1 py-1">
-                    <label for="user-password-log" class="user-select-none">Jelszó</label>
-                    <div class="login-input input-with-icon d-flex align-items-center">
-                        <i class="px-2 fa-solid fa-key"></i>
-                        <input type="password" id="user-password-log" name="user-password-log" maxlength="120" minlength="5" placeholder="Jelszó" autocomplete="false">
-                    </div>
-                </div>
-                <a id="forgot-password" href="" class="user-select-none">Elfelejtette a jelszavát?</a>
-                <hr>
-                <input class="button" type="submit" name="login-submit" value="Bejelentkezés">
-                <button class="button-2">Regisztráció</button>
-            </form>
-        </div>
-    </div>
-</div>
+<?php
+    require_once "navigation.php";
+?>
 <main class="container">
     <div class="navigation-header row d-flex justify-content-center align-items-center gap-2">
     <div class="col">
@@ -431,9 +358,9 @@
                 <div class="footer-nav">
                     <b>Navigáció</b>
                     <ul>
-                        <li><a href="index.html">Kezdőoldal</a></li>
-                        <li><a href="cars.html">Járművek</a></li>
-                        <li><a href="destinations.html">Átvételi pontok</a></li>
+                        <li><a href="index.php">Kezdőoldal</a></li>
+                        <li><a href="cars.php">Járművek</a></li>
+                        <li><a href="destinations.php">Átvételi pontok</a></li>
                         <li><a href="contacts.html">Kapcsolat</a></li>
                     </ul>
                 </div>
