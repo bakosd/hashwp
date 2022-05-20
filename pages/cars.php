@@ -65,54 +65,9 @@
 
 </main>
 
-<footer>
-    <div class="container px-4">
-        <div class="row">
-            <div class="col">
-                <span><b>Hash.</b></span><br>
-                <div style="font-size: .85rem; font-weight: lighter;">Béreljen gyorsan és egyszerűen!</div>
-                    <div class="d-flex flex-column gap-1 py-3">
-                        <small>Jovana Mikića 28, <b>Subotica</b></small>
-                        <small><i class="fa-solid fa-phone"></i>&nbsp;+381 66 255 255</small>
-                    </div>
-            </div>
-
-            <div class="col">
-                <div class="footer-nav">
-                    <b>Navigáció</b>
-                    <ul>
-                        <li><a href="index.php">Kezdőoldal</a></li>
-                        <li><a href="cars.php">Járművek</a></li>
-                        <li><a href="destinations.php">Átvételi pontok</a></li>
-                        <li><a href="contacts.html">Kapcsolat</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col">
-                <b>Kövess minket</b>
-                <ul>
-                    <li><a target="_blank" href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i>Instagram</a></li>
-                    <li><a target="_blank" href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i>Facebook</a></li>
-                    <li><a target="_blank" href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></i>Youtube</a></li>
-                    <li><a target="_blank" href="https://www.twitter.com/"><i class="fa-brands fa-twitter"></i></i>Twitter</a></li>
-                </ul>
-            </div>
-
-            <div class="col">
-                <b>Legyél naprakész!</b>
-                <div class="newletter">
-                    <span>Íratkozz fel hírlevelűnkre, hogy ne<br> maradj le legfrissebb akcióinkról!<br></span>
-                    <button class="button px-3">Feliratkozom</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="copyright">
-        <b>Hash</b> &copy; 2022 Minden jog fenntartva
-
-    </div>
-</footer>
+<?php
+    require_once "footer.php";
+?>
 
     <script src="../scripts/button-events.js"></script>
     <script src="../scripts/events.js"></script>

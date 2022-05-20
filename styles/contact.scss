@@ -1,0 +1,112 @@
+@import "variables";
+
+.name{
+    display: flex;
+    gap: 0 20px;
+}
+.con-text form>input{
+    width: 100%;
+}
+
+.name input{
+    width: 265px;
+}
+
+.con-text{
+    background-color: rgb(245, 245, 245);
+    height: 800px;
+    z-index: 5;
+}
+
+form span{
+    color: red;
+}
+
+.con-text input{
+    padding: 8px 5px;
+    margin-bottom: 10px;    
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#title{
+    text-align: center;
+    margin-top: 35px;
+}
+
+.con-text form{
+    padding: 50px;
+    padding-top: 10px;
+    margin-top: -15px;
+}
+
+
+#map{
+    margin-top: -3.75rem;
+    min-width: 384px;
+}
+
+.send{
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: rgb(220, 220, 220);
+    border-radius: 5px;
+}
+
+.info{
+    margin: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid gray;
+}
+
+.info p{
+    margin-bottom: 0;
+}
+
+.info div{
+    margin: 15px 0;
+}
+
+
+.info span{
+    color: $color6;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 900px) {
+    #map{
+        min-width: 250px;
+    }
+  }
+
+  @media only screen and (max-width: 1397px) {
+    .name input{
+        width: 220px;
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .name input{
+        width: 407px;
+    }
+  }
+
+  @media only screen and (max-width: 993px) {
+    .name input{
+        width: 288px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .name input{
+        width: 198px;
+    }
+  }
+
+  @media only screen and (max-width: 575px) {
+    .name{
+        flex-wrap: wrap;
+    }
+  }
