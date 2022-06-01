@@ -1,0 +1,238 @@
+<?php
+
+class User
+{
+    private $session;
+
+    // Constructor -> creates a Session class member's object.
+    // So all the User object data is in the $_SESSION.
+    public function __construct($userID, $username, $email, $firstname, $lastname, $phone, $birthdate, $licenseNumber, $licensePlace, $personalNumber, $state, $level, $avatar)
+    {
+        $this->session = new Session();
+        $this->session->set('userID', $userID);
+        $this->session->set('username', $username);
+        $this->session->set('email', $email);
+        $this->session->set('firstname', $firstname);
+        $this->session->set('lastname', $lastname);
+        $this->session->set('phone', $phone);
+        $this->session->set('birthdate', $birthdate);
+        $this->session->set('licenseNumber', $licenseNumber);
+        $this->session->set('licensePlace', $licensePlace);
+        $this->session->set('personalNumber', $personalNumber);
+        $this->session->set('state', $state);
+        $this->session->set('level', $level);
+        $this->session->set('avatar', $avatar);
+    }
+
+    //Getter methods
+    public function getUserID(): int
+    {
+        if(!$this->session->exists('userID'))
+            $this->sqlValue('userID');
+        return (int)$this->session->get('userID');
+    }
+
+    public function getUsername(): string
+    {
+        if(!$this->session->exists('username'))
+            $this->sqlValue('username');
+        return (string)$this->session->get('username');
+    }
+
+    public function getEmail(): string
+    {
+        if(!$this->session->exists('email'))
+            $this->sqlValue('email');
+        return (string)$this->session->get('email');
+    }
+
+    public function getFirstname(): string
+    {
+        if(!$this->session->exists('firstname'))
+            $this->sqlValue('firstname');
+        return (string)$this->session->get('firstname');
+    }
+
+    public function getLastname(): string
+    {
+        if(!$this->session->exists('lastname'))
+            $this->sqlValue('lastname');
+        return (string)$this->session->get('lastname');
+    }
+
+    public function getPhone(): string
+    {
+        if(!$this->session->exists('phone'))
+            $this->sqlValue('phone');
+        return (string)$this->session->get('phone');
+    }
+
+    public function getBirthdate(): string
+    {
+        if(!$this->session->exists('birthdate'))
+            $this->sqlValue('birthdate');
+        return (string)$this->session->get('birthdate');
+    }
+
+    public function getLicenseNumber(): string
+    {
+        if(!$this->session->exists('licenseNumber'))
+            $this->sqlValue('licenseNumber');
+        return (string)$this->session->get('licenseNumber');
+    }
+
+    public function getLicensePlace(): string
+    {
+        if(!$this->session->exists('licensePlace'))
+            $this->sqlValue('licensePlace');
+        return (string)$this->session->get('licensePlace');
+    }
+
+    public function getPersonalNumber(): string
+    {
+        if(!$this->session->exists('personalNumber'))
+            $this->sqlValue('personalNumber');
+        return (string)$this->session->get('personalNumber');
+    }
+
+    public function getState(): string
+    {
+        if(!$this->session->exists('state'))
+            $this->sqlValue('state');
+        return (string)$this->session->get('state');
+    }
+
+    public function getLevel(): string
+    {
+        if(!$this->session->exists('level'))
+            $this->sqlValue('level');
+        return (string)$this->session->get('level');
+    }
+
+    public function getAvatar(): string
+    {
+        if(!$this->session->exists('avatar'))
+            $this->sqlValue('avatar');
+        return (string)$this->session->get('avatar');
+    }
+
+    //Setter methods
+    public function setUserID($value): void{
+        if($this->session->exists('userID'))
+            $this->session->set('userID', $value);
+        else
+            $this->sqlValue('userID', true, $value);
+    }
+
+    public function setUsername($value): void{
+        if($this->session->exists('username'))
+            $this->session->set('username', $value);
+        else
+            $this->sqlValue('username', true, $value);
+    }
+
+    public function setEmail($value): void{
+        if($this->session->exists('email'))
+            $this->session->set('email', $value);
+        else
+            $this->sqlValue('email', true, $value);
+    }
+
+    public function setFirstname($value): void{
+        if($this->session->exists('firstname'))
+            $this->session->set('firstname', $value);
+        else
+            $this->sqlValue('firstname', true, $value);
+    }
+
+    public function setLastname($value): void{
+        if($this->session->exists('lastname'))
+            $this->session->set('lastname', $value);
+        else
+            $this->sqlValue('lastname', true, $value);
+    }
+
+    public function setPhone($value): void{
+        if($this->session->exists('phone'))
+            $this->session->set('phone', $value);
+        else
+            $this->sqlValue('phone', true, $value);
+    }
+
+    public function setBirthdate($value): void{
+        if($this->session->exists('birthdate'))
+            $this->session->set('birthdate', $value);
+        else
+            $this->sqlValue('birthdate', true, $value);
+
+    }
+
+    public function setLicenseNumber($value): void{
+        if($this->session->exists('licenseNumber'))
+            $this->session->set('licenseNumber', $value);
+        else
+            $this->sqlValue('licenseNumber', true, $value);
+    }
+
+    public function setLicensePlace($value): void{
+        if($this->session->exists('personalNumber'))
+            $this->session->set('personalNumber', $value);
+        else
+            $this->sqlValue('personalNumber', true, $value);
+    }
+
+    public function setPersonalNumber($value): void{
+        if($this->session->exists('personalNumber'))
+            $this->session->set('personalNumber', $value);
+        else
+            $this->sqlValue('personalNumber', true, $value);
+
+    }
+
+    public function setState($value): void{
+        if($this->session->exists('state'))
+            $this->session->set('state', $value);
+        else
+            $this->sqlValue('state', true, $value);
+    }
+
+    public function setLevel($value): void{
+        if($this->session->exists('level'))
+            $this->session->set('level', $value);
+        else
+            $this->sqlValue('level', true, $value);
+    }
+
+    public function setAvatar($value): void{
+        if($this->session->exists('avatar'))
+            $this->session->set('avatar', $value);
+        else
+            $this->sqlValue('avatar', true, $value);
+    }
+
+
+    private function sqlValue($name, $set = false, $value = "")
+    {
+        require_once "config.php";
+        if ($this->session->exists('userID')) {
+            $userID = $this->session->exists('userID');
+            if (!$set) {
+                $query = new SQLQuery(
+                    'SELECT ' . $name . ' FROM users WHERE usersID = :param',
+                    [':param' => $userID]
+                );
+                if ($query->getResult() != null) {
+                    $this->session->set($name, $query->getDbq()->fetchColumn());
+                } else {
+                    $query = new SQLQuery(
+                        'UPDATE ' . $name . ' SET ' . $name . ' = :param WHERE usersID = :param2',
+                        [':param' => $name, ':param2' => $value]
+                    );
+                    if ($query->getResult() != null) {
+                        $this->session->set($name, $value);
+                    }
+                }
+            }
+        }
+    }
+}

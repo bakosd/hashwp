@@ -40,12 +40,17 @@ window.addEventListener('click', function (e) {
 })
 
 // Almenük nyitása/csukása
+var path = window.location.pathname;
+var page = path.split("/").pop();
 var submenuToggled = true;
 const SUBMENU = document.getElementById("sub-menu");
 const SUBMENUTEXT = document.getElementById("sub-menu-text");
 const USERDATASUB = document.getElementById("user-data-content");
 const USERLOGINSUB = document.getElementById("login-content");
-const SEARCHOPTIONSSUB = document.getElementById("search-options-content");
+var SEARCHOPTIONSSUB = null;
+if(page == "car.php" || page == "cars.php") {
+    SEARCHOPTIONSSUB = document.getElementById("search-options-content");
+}
 
 function toggleSubmenu(menu) {
     if (submenuToggled) {
@@ -60,19 +65,22 @@ function toggleSubmenu(menu) {
                     SUBMENUTEXT.innerHTML = 'Keresési beállítások';
                     USERDATASUB.style.display = "none";
                     USERLOGINSUB.style.display = "none";
-                    SEARCHOPTIONSSUB.style.display = "flex";
+                    if(SEARCHOPTIONSSUB !=null)
+                        SEARCHOPTIONSSUB.style.display = "flex";
                     break;
                 case 2:
                     SUBMENUTEXT.innerHTML = 'Felhasználói felület';
                     USERDATASUB.style.display = "flex";
                     USERLOGINSUB.style.display = "none";
-                    SEARCHOPTIONSSUB.style.display = "none";
+                    if(SEARCHOPTIONSSUB !=null)
+                        SEARCHOPTIONSSUB.style.display = "none";
                     break;
                 case 3:
                     SUBMENUTEXT.innerHTML = 'Bejelentkezés';
                     USERDATASUB.style.display = "none";
                     USERLOGINSUB.style.display = "flex";
-                    SEARCHOPTIONSSUB.style.display = "none";
+                    if(SEARCHOPTIONSSUB !=null)
+                        SEARCHOPTIONSSUB.style.display = "none";
                     break;
             }
         }
@@ -195,16 +203,38 @@ let animation = () => {
     }, 1000)
 };
 
-
-const droppushBtn = document.querySelector('[data-droppush-btn]');
-droppushBtn.addEventListener('click', () => {
-    let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
-    let thisArrow = droppushBtn.querySelector('i');
-    thisArrow.classList.toggle('fa-angle-up');
-    childContent.classList.toggle('d-none');
-});
-
-function toggleRegisterModal(){
-    const registerForm = document.getElementById('nav-register-form');
-    registerForm.classList.toggle("d-flex");
+var droppushBtn = null;
+try {
+    if(droppushBtn != null) {
+        droppushBtn = document.querySelector('[data-droppush-btn]');
+        droppushBtn.addEventListener('click', () => {
+            let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
+            let thisArrow = droppushBtn.querySelector('i');
+            thisArrow.classList.toggle('fa-angle-up');
+            childContent.classList.toggle('d-none');
+        });
+    }
+} catch (e){
+    console.log(e);
 }
+
+
+$(document).ready(function () {
+   const forgotBtn = $('#forgot-password');
+   forgotBtn.on('click', function (e) {
+       e.preventDefault();
+      forgotBtn.after('<div class="px-1 py-1"><label for="user-email-recovery" class="user-select-none">E-mail cím</label><div class="login-input input-with-icon d-flex align-items-center"><i class="px-2 fa-solid fa-key"></i> <input type="email" id="email-recovery" name="email-recovery" form="recovery_form" maxlength="120" minlength="5" placeholder="E-mail cím" autocomplete="false"></div></div><input class="button w-75 mx-auto" type="submit" id="recovery-submit" form="recovery_form" name="recovery-submit" value="Kód küldése">');
+      forgotBtn.off('click');
+   });
+
+   const recoveryForm = $('#recovery_form');
+    recoveryForm.on('submit', function (e){
+        e.preventDefault();
+        let email = $('#email-recovery').val();
+        if(email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+            $(this).load('recovery.php',{
+                email: email
+            });
+        }
+   })
+});

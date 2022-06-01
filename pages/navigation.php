@@ -1,6 +1,8 @@
 <?php
 $currentFile = basename($_SERVER['SCRIPT_FILENAME']);
-
+require_once "config.php";
+$session = new Session();
+$session->set('admin', 0);
 echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
     <button id='nav-toggle'
             class='button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none' onclick='toggleNav()'><i class='fa-solid fa-bars'></i></button>
@@ -10,14 +12,23 @@ echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
                 <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
                 <span class='fw-bold fs-6'>Hash.</span>
             </div>
-        </a>
-        <div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+        </a>";
+                if($session->exists('admin') && $session->get('admin') == 1 ){
+                    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+            <a href='index.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "index.php") echo ""; echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
+            <a href='cars.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "cars.php" || $currentFile == "car.php") echo ""; echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+            <a href='destinations.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "destinations.php") echo ""; echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
+            <a href='contact.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "contact.php") echo ""; echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
+        </div>";
+                }else{
+                    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
             <a href='index.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "index.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
             <a href='cars.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "cars.php" || $currentFile == "car.php") echo "active-page"; echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
             <a href='destinations.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "destinations.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
             <a href='contact.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "contact.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
-        </div>
-        <div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
+        </div>";
+                }
+        echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
             <div id='search-bar' class='input-with-icon nav-item'>
                 <form class='d-flex align-items-center flex-nowrap'>
                     <label for='search-input' class='text-center mx-2 fa-solid fa-magnifying-glass'></label>
@@ -29,8 +40,10 @@ if ($currentFile == "cars.php") {
 }
 echo "</div>
         <div id='nav-right' class='d-flex flex-nowrap align-items-center justify-content-center gap-2 px-1 py-1'>
-            <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>
-            <button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>
+            <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>";
+if($currentFile != "activate.php")
+            echo "<button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
+            echo"
             <!--
             <button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
             <label id='user-name' for='user-data' class='user-select-none d-none'>Tarossza Irén</label>
@@ -216,7 +229,9 @@ if ($currentFile == "cars.php") {
             </form>
         </div>";
 }
+require_once "config.php";
 echo "<!--LOGGED USER-->
+    <script src='../scripts/register.js'></script>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
             <button id='user-data-link' onclick='' class='button'><img id='user-image' src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
             <label id='user-name-sb' class='user-select-none'>Tarossza Irén<i class='ms-2 fa-solid fa-circle-check'></i></label>
@@ -229,6 +244,7 @@ echo "<!--LOGGED USER-->
         </div>
         <!--NOT LOGGED USER-->
         <div id='login-content' class='justify-content-center align-items-center '>
+        <form class='d-flex flex-column gap-3' name='recovery' id='recovery_form' method='post'></form>
             <form class='d-flex flex-column px-4 py-4 gap-3 w-100' action='dashboard.php' method='post' >
                 <div class='px-1 py-1'>
                     <label for='user-name-log' class='user-select-none'>Felhasználónév</label>
@@ -244,7 +260,7 @@ echo "<!--LOGGED USER-->
                         <input type='password' id='user-password-log' name='user-password-log' maxlength='120' minlength='5' placeholder='Jelszó' autocomplete='false'>
                     </div>
                 </div>
-                <a id='forgot-password' href='' class='user-select-none'>Elfelejtette a jelszavát?</a>
+                <a id='forgot-password' class='user-select-none'>Elfelejtette a jelszavát?</a>
                 <hr>
                 <input class='button' type='submit' name='login-submit' value='Bejelentkezés'>
                 <button id='nav-register-button' type='button' class='button-2' data-bs-toggle='modal' data-bs-target='#register-modal'>Regisztráció</button>
@@ -259,74 +275,8 @@ echo "<!--LOGGED USER-->
                                     <h5 class='modal-title fw-2' id='register'>Regisztráció</h5>
                                     <button type='button' class='button d-flex justify-content-center align-items-center' data-bs-dismiss='modal' aria-label='Close'><i class='fa-solid fa-xmark'></i></button>
                                 </div>
-                                <form name='register' id='nav-register-form' method='post' action='db_functions.php'>
-                                <div class='modal-body'>
-                                    <div class='d-flex flex-column gap-2 px-2'>
-                                    <label for='username'>Felhasználónév</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-user'></i>
-                                        <input type='text' name='username' id='username' placeholder='Felhasználónév'>
-                                    </div>
-                                    <label for='password1x'>Jelszó</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-lock'></i>
-                                        <input type='password' name='password1x' id='password1x' placeholder='Jelszó'>
-                                    </div>
-                                    <label for='password2x'>Jelszó újra</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-lock'></i>
-                                        <input type='password' name='password2x' id='password2x' placeholder='Jelszó'>
-                                    </div>
-                                    <label for='email'>E-mail cím</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-at'></i>
-                                        <input type='text' name='email' id='email' placeholder='Email cím'>
-                                    </div>
-                                    <label for='lastname'>Vezeték név</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-signature'></i>
-                                        <input type='text' name='lastname' id='lastname' placeholder='Vezeték név'>
-                                    </div>
-                                    <label for='firstname'>Név</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-signature'></i>
-                                        <input type='text' name='firstname' id='firstname' placeholder='Név'>
-                                    </div>
-                                    <label for='birthdate'>Születésnap</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-cake-candles'></i>
-                                        <input type='date' name='birthdate' id='birthdate'>
-                                    </div>
-                                    <label for='phonenumber'>Telefonszám</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-phone'></i>
-                                        <input type='text' name='phonenumber' id='phonenumber' placeholder='Telefonszám'>
-                                    </div>
-                                    <label for='idcardNumber'>Személyi azonosító száma</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-id-card'></i>
-                                        <input type='text' name='idcardNumber' id='idcardNumber' placeholder='Személyi azonosító szám'>
-                                    </div>
-                                    <label for='licensecardNumber'>Vezetői engedély száma</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-address-card'></i>
-                                        <input type='text' name='licensecardNumber' id='licensecardNumber' placeholder='Vezetői engedély szám'>
-                                    </div>
-                                     <label for='licensecardPlace'>Kiadási helye</label>
-                                    <div class='d-flex align-items-center gap-1 input-with-icon'>
-                                        <i class='px-2 fa-solid fa-map'></i>
-                                        <input type='text' name='licensecardPlace' id='licensecardPlace' placeholder='Vezetői engedély kiadási helye'>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class='modal-footer d-flex gap-2'>
-                                    <button type='button' class='button-2 px-2 d-flex justify-content-center align-items-center gap-2' data-bs-dismiss='modal'><i class='fa-solid fa-circle-xmark'></i>Mégsem</button>
-                                    <button type='submit' class='button px-2 d-flex justify-content-center align-items-center gap-2'><i class='fa-solid fa-circle-check'></i>Regisztráció</button>
-                                </div></form>
-                                
+                                $register_form
                             </div>
                         </div>
                     </div>";
 ?>
-
-

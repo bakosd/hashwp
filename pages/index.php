@@ -397,8 +397,6 @@
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-
 </main>
 <?php
     require_once "footer.php";
