@@ -7,7 +7,8 @@ if(isset($_POST['user']) && isset($_POST['password'])) {
         if (strlen($user) > 3 && strlen($password) >= 8) {
             $operation = UserSystem::tryLogin($user, $password);
             if ($operation == "Sikeresen bejelentkeztél!") {
-                echo $operation;
+                echo '<script> $(document).ready(function () {  setTimeout(function (){location.reload();}, 50)} ); </script>';
+                //echo $operation;
             } else
                 echo $operation;
         } else {
@@ -16,4 +17,5 @@ if(isset($_POST['user']) && isset($_POST['password'])) {
     } else
         echo "Üres adatok..";
 }else
-    echo "<script>console.log('error during login3')</script>";
+    echo "<script>console.log('no data on submit')</script>";
+?>
