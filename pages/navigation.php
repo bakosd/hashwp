@@ -13,7 +13,7 @@ echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
                 <span class='fw-bold fs-6'>Hash.</span>
             </div>
         </a>";
-if ($session->exists('admin') && $session->get('admin') == 1) {
+if ($session->get('admin') == 1) { //NEM KELL A $session->exists('admin') rész mivel a get-ben checkelem hogy létezik-e xd
     echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
             <a href='index.php' class='nav-item d-flex align-items-center link ";
     if ($currentFile == "index.php") echo "";
@@ -58,13 +58,18 @@ echo "</div>
         <div id='nav-right' class='d-flex flex-nowrap align-items-center justify-content-center gap-2 px-1 py-1'>
             <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>";
 
-if ($currentFile != "activate.php")
-    echo "<button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
+if ($currentFile != "activate.php" && !$session->exists('username'))
+    echo "<script src='../scripts/login-register.js'></script><button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
 
-if ($session->exists('state') && $session->get('state') > 0)
-    echo "<button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
-            <label id='user-name' for='user-data' class='user-select-none d-none'>".$session->get('lastname')." ".$session->get('firstname')."</label>";
-
+if ($session->exists('username') && $session->get('state') > 0) {
+    echo "<button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='";
+    if ($session->get('avatar') != null && $session->get('avatar') != '')
+        echo "data:image/jpeg;base64,".base64_encode($session->get('avatar'));
+    else
+        echo "../images/icons/user-default.png";
+    echo "' alt='myAvatar'></button>
+            <label id='user-name' for='user-data' class='user-select-none d-none'>" . $session->get('lastname') . " " . $session->get('firstname') . "</label>";
+}
 echo "</div>
     </div>
 </nav>
@@ -247,19 +252,31 @@ if ($currentFile == "cars.php") {
         </div>";
 }
 require_once "config.php";
+if ($session->exists('username') && $session->get('state') > 0){
 echo "<!--LOGGED USER-->
-    <script src='../scripts/login-register.js'></script>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
-            <button id='user-data-link' onclick='' class='button'><img id='user-image' src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
-            <label id='user-name-sb' class='user-select-none'>Tarossza Irén<i class='ms-2 fa-solid fa-circle-check'></i></label>
+            <button id='user-data-link' onclick='' class='button'><img id='user-image' src='";
+
+if($session->get('avatar')!= null && $session->get('avatar') != '')
+    echo "data:image/jpeg;base64,".base64_encode($session->get('avatar'));
+else
+    echo "../images/icons/user-default.png";
+            echo "' alt='user-avatar'></button>
+            <label id='user-name-sb' class='user-select-none'>".$session->get('lastname')." ".$session->get('firstname');
+            if($session->get('level') > 1){
+                echo "<i class='ms-2 fa-solid fa-circle-check'></i>";
+                }
+            echo"</label>
             <button id='logout-user' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-heart'></i><span>Kedvencek</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-gear'></i><span>Beállítások</span></a>
-        </div>
-        <!--NOT LOGGED USER-->
+        </div>";
+}
+else
+        echo "<!--NOT LOGGED USER-->
         <div id='login-content' class='justify-content-center align-items-center '>
         <form class='d-flex flex-column gap-3' name='recovery' id='recovery_form' method='post'></form>
         <form id='login-form' name='login-form' method='post'></form>
@@ -283,8 +300,9 @@ echo "<!--LOGGED USER-->
                 <input class='button' type='submit' form='login-form' name='login-submit' value='Bejelentkezés'>
                 <button id='nav-register-button' type='button' class='button-2' data-bs-toggle='modal' data-bs-target='#register-modal'>Regisztráció</button>
             </div>
-        </div>
-    </div>
+        </div>";
+
+    echo "</div>
 </div>
 <div class='modal fade' id='register-modal' tabindex='-1' aria-labelledby='register' aria-hidden='true'>
                         <div class='modal-dialog'>

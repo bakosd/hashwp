@@ -63,22 +63,28 @@ function toggleSubmenu(menu) {
             switch (menu) {
                 case 1:
                     SUBMENUTEXT.innerHTML = 'Keresési beállítások';
-                    USERDATASUB.style.display = "none";
-                    USERLOGINSUB.style.display = "none";
+                    if(USERDATASUB !=null)
+                        USERDATASUB.style.display = "none";
+                    if(USERLOGINSUB !=null)
+                        USERLOGINSUB.style.display = "none";
                     if(SEARCHOPTIONSSUB !=null)
                         SEARCHOPTIONSSUB.style.display = "flex";
                     break;
                 case 2:
                     SUBMENUTEXT.innerHTML = 'Felhasználói felület';
-                    USERDATASUB.style.display = "flex";
-                    USERLOGINSUB.style.display = "none";
+                    if(USERDATASUB !=null)
+                        USERDATASUB.style.display = "flex";
+                    if(USERLOGINSUB !=null)
+                        USERLOGINSUB.style.display = "none";
                     if(SEARCHOPTIONSSUB !=null)
                         SEARCHOPTIONSSUB.style.display = "none";
                     break;
                 case 3:
                     SUBMENUTEXT.innerHTML = 'Bejelentkezés';
-                    USERDATASUB.style.display = "none";
-                    USERLOGINSUB.style.display = "flex";
+                    if(USERDATASUB !=null)
+                        USERDATASUB.style.display = "none";
+                    if(USERLOGINSUB !=null)
+                        USERLOGINSUB.style.display = "flex";
                     if(SEARCHOPTIONSSUB !=null)
                         SEARCHOPTIONSSUB.style.display = "none";
                     break;
