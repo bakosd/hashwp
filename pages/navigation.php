@@ -13,22 +13,38 @@ echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
                 <span class='fw-bold fs-6'>Hash.</span>
             </div>
         </a>";
-                if($session->exists('admin') && $session->get('admin') == 1 ){
-                    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
-            <a href='index.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "index.php") echo ""; echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
-            <a href='cars.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "cars.php" || $currentFile == "car.php") echo ""; echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
-            <a href='destinations.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "destinations.php") echo ""; echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
-            <a href='contact.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "contact.php") echo ""; echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
+if ($session->exists('admin') && $session->get('admin') == 1) {
+    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+            <a href='index.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "index.php") echo "";
+    echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
+            <a href='cars.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "cars.php" || $currentFile == "car.php") echo "";
+    echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+            <a href='destinations.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "destinations.php") echo "";
+    echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
+            <a href='contact.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "contact.php") echo "";
+    echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
         </div>";
-                }else{
-                    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
-            <a href='index.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "index.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
-            <a href='cars.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "cars.php" || $currentFile == "car.php") echo "active-page"; echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
-            <a href='destinations.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "destinations.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
-            <a href='contact.php' class='nav-item d-flex align-items-center link "; if ($currentFile == "contact.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
+} else {
+    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+            <a href='index.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "index.php") echo "active-page";
+    echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
+            <a href='cars.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "cars.php" || $currentFile == "car.php") echo "active-page";
+    echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+            <a href='destinations.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "destinations.php") echo "active-page";
+    echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
+            <a href='contact.php' class='nav-item d-flex align-items-center link ";
+    if ($currentFile == "contact.php") echo "active-page";
+    echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
         </div>";
-                }
-        echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
+}
+echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
             <div id='search-bar' class='input-with-icon nav-item'>
                 <form class='d-flex align-items-center flex-nowrap'>
                     <label for='search-input' class='text-center mx-2 fa-solid fa-magnifying-glass'></label>
@@ -41,14 +57,15 @@ if ($currentFile == "cars.php") {
 echo "</div>
         <div id='nav-right' class='d-flex flex-nowrap align-items-center justify-content-center gap-2 px-1 py-1'>
             <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>";
-if($currentFile != "activate.php")
-            echo "<button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
-            echo"
-            <!--
-            <button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
-            <label id='user-name' for='user-data' class='user-select-none d-none'>Tarossza Irén</label>
-            -->
-        </div>
+
+if ($currentFile != "activate.php")
+    echo "<button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
+
+if ($session->exists('state') && $session->get('state') > 0)
+    echo "<button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
+            <label id='user-name' for='user-data' class='user-select-none d-none'>".$session->get('lastname')." ".$session->get('firstname')."</label>";
+
+echo "</div>
     </div>
 </nav>
 <div id='wrap-nav-height'></div>
@@ -231,7 +248,7 @@ if ($currentFile == "cars.php") {
 }
 require_once "config.php";
 echo "<!--LOGGED USER-->
-    <script src='../scripts/register.js'></script>
+    <script src='../scripts/login-register.js'></script>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
             <button id='user-data-link' onclick='' class='button'><img id='user-image' src='../images/avatars/1/avatar.jpg' alt='myAvatar'></button>
             <label id='user-name-sb' class='user-select-none'>Tarossza Irén<i class='ms-2 fa-solid fa-circle-check'></i></label>
@@ -245,26 +262,27 @@ echo "<!--LOGGED USER-->
         <!--NOT LOGGED USER-->
         <div id='login-content' class='justify-content-center align-items-center '>
         <form class='d-flex flex-column gap-3' name='recovery' id='recovery_form' method='post'></form>
-            <form class='d-flex flex-column px-4 py-4 gap-3 w-100' action='dashboard.php' method='post' >
+        <form id='login-form' name='login-form' method='post'></form>
+            <div class='d-flex flex-column px-4 py-4 gap-3 w-100'>
                 <div class='px-1 py-1'>
                     <label for='user-name-log' class='user-select-none'>Felhasználónév</label>
                     <div class='login-input input-with-icon d-flex align-items-center'>
                         <i class='px-2 fa-solid fa-user'></i>
-                        <input type='text' id='user-name-log' name='user-name-log' maxlength='60' minlength='5' placeholder='Felhasználónév' autocomplete='false'>
+                        <input type='text' form='login-form' id='user-name-log' name='user-name-log' maxlength='60' minlength='5' placeholder='Felhasználónév' autocomplete='false'>
                     </div>
                 </div>
                 <div class='px-1 py-1'>
                     <label for='user-password-log' class='user-select-none'>Jelszó</label>
                     <div class='login-input input-with-icon d-flex align-items-center'>
                         <i class='px-2 fa-solid fa-key'></i>
-                        <input type='password' id='user-password-log' name='user-password-log' maxlength='120' minlength='5' placeholder='Jelszó' autocomplete='false'>
+                        <input type='password' form='login-form' id='user-password-log' name='user-password-log' maxlength='120' minlength='5' placeholder='Jelszó' autocomplete='false'>
                     </div>
                 </div>
                 <a id='forgot-password' class='user-select-none'>Elfelejtette a jelszavát?</a>
                 <hr>
-                <input class='button' type='submit' name='login-submit' value='Bejelentkezés'>
+                <input class='button' type='submit' form='login-form' name='login-submit' value='Bejelentkezés'>
                 <button id='nav-register-button' type='button' class='button-2' data-bs-toggle='modal' data-bs-target='#register-modal'>Regisztráció</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -9,7 +9,6 @@ class Session
             if ($cacheExpire !== null) {
                 session_cache_expire($cacheExpire); // To add expire time to a session
             }
-
             session_start();
         }
     }

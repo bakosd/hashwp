@@ -2,53 +2,12 @@
 
 class UserSystem
 {
-    public function State($get, $state)
-    {
-        require_once "config.php";
-        if ($this->session->exists('state')) {
-            if ($get)
-                return $this->session->get('state');
-            else {
-                $this->session->set('state', $state);
-                return true;
-            }
-        } else {
-            if ($this->session->exists('username')) {
-                if ($get) {
-                    $query = new SQLQuery(
-                        'SELECT state FROM users WHERE username = :username',
-                        [':username' => $this->session->get('username')]
-                    );
-                    $state = $query->getResult()->state;
-                    if ($state != null and is_numeric($state)) {
-                        $this->session->set('state', $state);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    $query = new SQLQuery(
-                        'UPDATE users SET state = :state WHERE username = :username',
-                        [':state' => $state, ':username' => $this->session->get('username')]
-                    );
-                    $success = $query->getDbq()->rowCount();
-                    if ($success > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            } else {
-                return false;
-            }
-        }
-    }
-
     public static function tryRegister($username, $password, $firstname, $lastname, $birthdate, $email, $phone, $id_card, $license_number, $license_place):string{
         $returnValue = "";
         require_once "config.php";
         if(!UserSystem::checkUserExistence($username, $email)) {
             $token = UserSystem::createToken(40);
+            $password = password_hash($password, PASSWORD_DEFAULT); // HASHING THE PASSWORD
             $query = new SQLQuery("INSERT INTO users (username, password, firstname, lastname, birthdate, email, phonenumber, idcardNumber, licensecardNumber, licensecardPlace, token, state, tokenExpires) VALUES (:username, :password, :firstname, :lastname, :birthdate, :email, :phonenumber, :idcardNumber, :licensecardNumber, :licensecardPlace, :token, :state, DATE_ADD(now(),INTERVAL 1 DAY))",
                 [':username' => $username, ':password' => $password, ':firstname' => $firstname, ':lastname' => $lastname, ':birthdate' => $birthdate, ':email' => $email, ':phonenumber' => $phone, ':idcardNumber' => $id_card, ':licensecardNumber' => $license_number, ':licensecardPlace' => $license_place, ':token' => $token, ':state' => 0]
             );
@@ -107,6 +66,7 @@ class UserSystem
         return $returnValue;
     }
     public static function tryUpdatePassword($password, $token):bool{
+        $password = password_hash($password, PASSWORD_DEFAULT); // HASHING THE PASSWORD
         $query = new SQLQuery(
             "UPDATE users SET password=:password, state=1, token='', tokenExpires='' WHERE binary token = :token AND tokenExpires>now()",
             [':password'=>$password,':token' => $token]
@@ -117,26 +77,33 @@ class UserSystem
             return false;
     }
 
-    public function tryLogin($user, $password){
+    public static function tryLogin($user, $password):string{
         require_once "config.php";
         $user = UserSystem::getUsernameFromEmail($user);
+
         if(UserSystem::checkUserExistence($user)){
             $query = new SQLQuery(
-                "SELECT * FROM users WHERE username = :username",
-                [':username' => $user]
+                "SELECT * FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
+                [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {
                 $result = $query->getResult()[0];
-                if ($result->password === $password && $result->state > 0) {
-                    //TODO: if successfully logged-in
-                    var_dump('Successfully logged-in.');
+                if(password_verify($password, $result->password)) {
+                    if ((int)$result->state > 0) {
+                        $user = new User(...(array)$result);
+                        return "Sikeresen bejelentkeztél!";
+                    }
+                    else
+                        return "Hiba, aktiváld a felhasználói fiókot!";
                 }
-                else{
-                    //TODO: no logged in:(
-                    var_dump('No login.');
-                }
+                else
+                    return "Hiba a jelszóban..";
             }
+            else
+                return "Nem találtunk felhasználót ezekkel az adatokkal!";
         }
+        else
+            return "Nem találtunk felhasználót ezekkel az adatokkal!";
     }
 
     private static function checkUserExistence($username="", $email=""):bool

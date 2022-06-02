@@ -6,19 +6,19 @@ class User
 
     // Constructor -> creates a Session class member's object.
     // So all the User object data is in the $_SESSION.
-    public function __construct($userID, $username, $email, $firstname, $lastname, $phone, $birthdate, $licenseNumber, $licensePlace, $personalNumber, $state, $level, $avatar)
+    public function __construct($usersID, $username, $email, $firstname, $lastname, $phonenumber, $birthdate, $licensecardNumber, $licensecardPlace, $idcardNumber, $state, $level, $avatar, $token, $tokenExpires, $password)
     {
         $this->session = new Session();
-        $this->session->set('userID', $userID);
+        $this->session->set('userID', $usersID);
         $this->session->set('username', $username);
         $this->session->set('email', $email);
         $this->session->set('firstname', $firstname);
         $this->session->set('lastname', $lastname);
-        $this->session->set('phone', $phone);
+        $this->session->set('phone', $phonenumber);
         $this->session->set('birthdate', $birthdate);
-        $this->session->set('licenseNumber', $licenseNumber);
-        $this->session->set('licensePlace', $licensePlace);
-        $this->session->set('personalNumber', $personalNumber);
+        $this->session->set('licenseNumber', $licensecardNumber);
+        $this->session->set('licensePlace', $licensecardPlace);
+        $this->session->set('personalNumber', $idcardNumber);
         $this->session->set('state', $state);
         $this->session->set('level', $level);
         $this->session->set('avatar', $avatar);

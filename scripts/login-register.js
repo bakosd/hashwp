@@ -178,6 +178,36 @@ $(document).ready(function () {
             validArray[input.attr('id')] = false;
         }
     }
+    /*
+    *
+    * LOGIN ->>
+    *
+    * */
+    const user = $('#user-name-log');
+    const password = $('#user-password-log');
+
+    $('#login-form').on('submit', function (e) {
+        e.preventDefault();
+        if (user.val().length > 0 && password.val().length >= 8) {
+            $(this).load('login.php',{
+                user: user.val(),
+                password: password.val()
+            });
+        }
+    });
+    /*
+    * ha sikerült a bejelentkezés
+    * */
+
+    /*$(document).ready(function () {
+        function reload() {
+            $("#content").load("notification.php");
+        }
+        setTimeOut(reload, seconds*1000)
+    });*/
+
 });
+
+
 
 

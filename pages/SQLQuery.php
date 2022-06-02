@@ -6,7 +6,6 @@ class SQLQuery
     protected $parameter_array; // the array for binding parameters
     protected $dbq; // the object for dbh
     protected $result; // the result from query
-
     /**
      * @param $query
      * @param $parameter_array
@@ -51,5 +50,9 @@ class SQLQuery
     public function getDbq()
     {
         return $this->dbq;
+    }
+
+    public function getObject(string $class){
+        return $this->dbq->fetchObject($class);
     }
 }
