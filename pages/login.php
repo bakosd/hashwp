@@ -8,6 +8,7 @@ if(isset($_POST['user']) && isset($_POST['password'])) {
             $operation = UserSystem::tryLogin($user, $password);
             if ($operation == "Sikeresen bejelentkeztél!") {
                 echo '<script> $(document).ready(function () {  setTimeout(function (){location.reload();}, 50)} ); </script>';
+                //replaceWith jq
                 //echo $operation;
             } else
                 echo $operation;

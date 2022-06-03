@@ -1,5 +1,4 @@
 <?php
-define('COST', 8); //The hash cost
 function redirection($url)
 {
     header("Location:$url");
