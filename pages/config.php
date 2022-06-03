@@ -29,7 +29,7 @@ $messages = [
     8 => 'Amennyiben létező e-mail címet adtál meg elküldtük a megerősítő kódot!',
     9 => 'Nem sikerült a visszaállítási folyamat!',
     10=> 'Sikeresen visszaállítottad a fiókod!',
-    11=> ''
+    11=> 'Hiba történt a kijelentkezés során!'
 ];
 
 

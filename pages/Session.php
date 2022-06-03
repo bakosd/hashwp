@@ -4,10 +4,12 @@ class Session
 {
     public function __construct(string $cacheExpire = null)
     {
+        $samesite = 'None';
         if (session_status() === PHP_SESSION_NONE) {
 
             if ($cacheExpire !== null) {
                 session_cache_expire($cacheExpire); // To add expire time to a session
+                session_set_cookie_params(array('samesite' => $samesite)); // To fix log warning needed a value for samesite.
             }
             session_start();
         }
@@ -40,8 +42,8 @@ class Session
         }
     }
 
-    public function clear(): void
+    public function clear(): bool
     {
-        session_unset();
+     return session_unset();
     }
 }

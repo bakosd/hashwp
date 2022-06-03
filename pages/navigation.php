@@ -254,6 +254,7 @@ if ($currentFile == "cars.php") {
 require_once "config.php";
 if ($session->exists('username') && $session->get('state') > 0){
 echo "<!--LOGGED USER-->
+        <form name='logout' id='logout' action='logout.php' method='post'></form>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
             <button id='user-data-link' onclick='' class='button'><img id='user-image' src='";
 
@@ -267,7 +268,8 @@ else
                 echo "<i class='ms-2 fa-solid fa-circle-check'></i>";
                 }
             echo"</label>
-            <button id='logout-user' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
+            
+            <button id='logout-user' type='submit' form='logout' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-heart'></i><span>Kedvencek</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
