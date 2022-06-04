@@ -30,27 +30,26 @@ $(document).ready(function () {
         password2x: 'Nem megfelelő!',
         firstname: 'Minimum 3 karakter!',
         lastname: 'Minimum 3 karakter!',
-        birthdate: 'Minimum 16 év kötelező!',
+        birthdate: 'A megengedett kor min 16, max 99 lehet!',
         phonenumber: 'Nem megfelelő!',
         idcardNumber: 'Minimum 8 karakter!',
         licensecardNumber: 'Minimum 8 karakter!',
         licensecardPlace: 'Minimum 3 karakter!'
     }
     $('#nav-register-form').on('submit', function (e) {
-        e.preventDefault();
-        if (checkData()) {
-            $(this).load('register.php',{
-                email: variable_array['email'].val(),
-                password1x: variable_array['password1x'].val(),
-                password2x: variable_array['password2x'].val(),
-                firstname: variable_array['firstname'].val(),
-                lastname: variable_array['lastname'].val(),
-                birthdate: variable_array['birthdate'].val(),
-                phonenumber: variable_array['phonenumber'].val(),
-                idcardNumber: variable_array['idcardNumber'].val(),
-                licensecardNumber: variable_array['licensecardNumber'].val(),
-                licensecardPlace: variable_array['licensecardPlace'].val()
 
+        e.preventDefault();
+        if(checkData()) {
+            $.ajax({
+                type: "POST",
+                url: 'register.php',
+                cache: false,
+                data: $(this).serialize(),
+                dataType: 'html',
+                success: function (data) {
+                    $('#reg-result').html(data);
+                    $('#register-modal').animate({scrollTop: 0},400);
+                },
             });
         }
     });
@@ -162,7 +161,7 @@ $(document).ready(function () {
         let spinner = input.parent().next('.loader');
         var given = new Date (input.val()).getFullYear();
         var now = (new Date).getFullYear();
-        if(given <= now-16){
+        if(given <= now-16 && given >= now-80){
             if(input.parent().hasClass('invalid-data'))
                 input.parent().removeClass('invalid-data');
             if(spinner.hasClass('loader-bad'))
@@ -186,7 +185,7 @@ $(document).ready(function () {
     const user = $('#user-name-log');
     const password = $('#user-password-log');
 
-    $('#login-form').on('submit', function (e) {
+    $('#login-form').submit(function (e) {
         e.preventDefault();
         if (user.val().length > 0 && password.val().length >= 8) {
             $(this).load('login.php',{
@@ -194,20 +193,28 @@ $(document).ready(function () {
                 password: password.val()
             });
         }
+        else{
+            Alert('Nem megfelelő adatok!', 'error');
+        }
     });
     /*
     * ha sikerült a bejelentkezés
     * */
 
-    /*$(document).ready(function () {
-        function reload() {
-            $("#content").load("notification.php");
+    var Alert = function ($message, $color) {
+        if ($type === 'error') {
+            $color = 'alert-danger';
+            $type = "Hiba!";
+        } else if ($type === 'success') {
+            color = 'alert-success';
+            type = "Siker!";
+        } else {
+            color = 'alert-warning';
+            type = "Figyelmeztetés!";
         }
-        setTimeOut(reload, seconds*1000)
-    });*/
+        $(this).prepend('<div class="alert d-flex align-items-center gap-2 ' + $color + ' alert-dismissible fade show" role="alert"><span class="p-0"><strong>' + $type + '</strong>&nbsp;' + $message + '</span><button type="button" class="close button" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }
 
 });
-
-
 
 

@@ -3,6 +3,14 @@ $currentFile = basename($_SERVER['SCRIPT_FILENAME']);
 require_once "config.php";
 $session = new Session();
 $session->set('admin', 0);
+
+if ($session->get('userID') && time() > $session->get('logged')){
+    $session->clear();
+    redirection('index.php?log=13');
+}
+else
+    $session->set('logged', time()+3600);
+
 echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
     <button id='nav-toggle'
             class='button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none' onclick='toggleNav()'><i class='fa-solid fa-bars'></i></button>
@@ -274,14 +282,14 @@ else
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-gear'></i><span>Beállítások</span></a>
+            <!--<a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-fingerprint'></i><span>Admin felület</span></a>-->
         </div>";
 }
 else
         echo "<!--NOT LOGGED USER-->
-        <div id='login-content' class='justify-content-center align-items-center '>
+        <div id='login-content' class='justify-content-center align-items-center d-flex flex-column'>
         <form class='d-flex flex-column gap-3' name='recovery' id='recovery_form' method='post'></form>
-        <form id='login-form' name='login-form' method='post'></form>
+        <form class='d-flex flex-column w-100' id='login-form' name='login-form' method='post'></form>
             <div class='d-flex flex-column px-4 py-4 gap-3 w-100'>
                 <div class='px-1 py-1'>
                     <label for='user-name-log' class='user-select-none'>Felhasználónév</label>
@@ -308,11 +316,12 @@ else
 </div>
 <div class='modal fade' id='register-modal' tabindex='-1' aria-labelledby='register' aria-hidden='true'>
                         <div class='modal-dialog'>
-                            <div class='modal-content'>
+                            <div id='reg-modal-content' class='modal-content'>
                                 <div class='modal-header'>
                                     <h5 class='modal-title fw-2' id='register'>Regisztráció</h5>
                                     <button type='button' class='button d-flex justify-content-center align-items-center' data-bs-dismiss='modal' aria-label='Close'><i class='fa-solid fa-xmark'></i></button>
                                 </div>
+                                <div id='reg-result'></div>
                                 $register_form
                             </div>
                         </div>

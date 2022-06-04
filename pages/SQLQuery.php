@@ -52,7 +52,4 @@ class SQLQuery
         return $this->dbq;
     }
 
-    public function getObject(string $class){
-        return $this->dbq->fetchObject($class);
-    }
 }

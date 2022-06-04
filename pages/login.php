@@ -8,15 +8,13 @@ if(isset($_POST['user']) && isset($_POST['password'])) {
             $operation = UserSystem::tryLogin($user, $password);
             if ($operation == "Sikeresen bejelentkeztél!") {
                 echo '<script> $(document).ready(function () {  setTimeout(function (){location.reload();}, 50)} ); </script>';
-                //replaceWith jq
-                //echo $operation;
             } else
-                echo $operation;
+                echo Alert($operation, 'error');
         } else {
-            echo "Hibás adat hossz..";
+            echo Alert("Hibás adat hossz..", 'error');
         }
     } else
-        echo "Üres adatok..";
+        echo Alert("Üres mezők..", 'error');
 }else
-    echo "<script>console.log('no data on submit')</script>";
+    echo Alert("Üres mezők..", 'error');
 ?>

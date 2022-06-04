@@ -9,8 +9,13 @@ class Session
 
             if ($cacheExpire !== null) {
                 session_cache_expire($cacheExpire); // To add expire time to a session
-                session_set_cookie_params(array('samesite' => $samesite)); // To fix log warning needed a value for samesite.
             }
+            session_set_cookie_params(array(
+                'samesite' => $samesite,
+                'domain' => $_SERVER['HTTP_HOST'],
+                'secure' => true,
+                'httponly' => true
+            ));
             session_start();
         }
     }
@@ -44,6 +49,28 @@ class Session
 
     public function clear(): bool
     {
-     return session_unset();
+        $_SESSION = array();
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        session_regenerate_id();
+     return session_destroy();
+    }
+
+    public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $password)
+    {
+        $this->set('userID', $usersID);
+        $this->set('username', $username);
+        $this->set('email', $email);
+        $this->set('firstname', $firstname);
+        $this->set('lastname', $lastname);
+        $this->set('state', $state);
+        $this->set('level', $level);
+        $this->set('avatar', $avatar);
+        $this->set('logged', time());
     }
 }

@@ -61,7 +61,7 @@ echo "<footer>
         </div>
     </div>
     <div class='copyright'>
-        <b>Hash</b> &copy; 2022 Minden jog fenntartva
+        <b>Hash</b> &copy; ".date('Y')." Minden jog fenntartva
 
     </div>
 </footer>";

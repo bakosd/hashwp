@@ -4,9 +4,10 @@ if (!empty($_POST) && !empty($_POST['email'])) {
     $email = $_POST['email'];
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
         if(UserSystem::tryRecovery($email))
-            echo "<script> $('#recovery-submit').after('<div class=\'mx-auto\'>$messages[8]</div>');</script>";//If email sent.
+            echo Alert($messages[8], 'success');
+            //echo "<script> $('#recovery-submit').after('<div class=\'mx-auto\'>$messages[8]</div>');</script>";//If email sent.
         else
-            echo "<script> $('#recovery-submit').after('<div class=\'mx-auto\'>$messages[9]</div>');</script>";
+            echo Alert($messages[9], 'error');
     }
 }
 

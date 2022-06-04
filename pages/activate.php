@@ -68,12 +68,9 @@ window.addEventListener("load", function() {
 function checkData(){
     let returnValue = true;
     const info = document.getElementById("info");
-    if(document.getElementById("rpassword1").value !== document.getElementById("rpassword2").value){
+    if(document.getElementById("rpassword1").value !== document.getElementById("rpassword2").value && 
+    document.getElementById("rpassword1").value.length < 8 || document.getElementById("rpassword2").value.length < 8){
         info.innerHTML = "'.$messages[2].'";
-        returnValue = false;
-    }
-    if(document.getElementById("rpassword1").value.length < 8 || document.getElementById("rpassword2").value.length < 8){
-        info.innerHTML = "'.$messages[4].'";
         returnValue = false;
     }
     if(!returnValue)

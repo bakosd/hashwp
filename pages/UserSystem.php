@@ -45,19 +45,20 @@ class UserSystem
         $returnValue = false;
         if(UserSystem::checkUserExistence($username, $email)){
             $query = new SQLQuery(
-                "SELECT state, firstname, lastname FROM users WHERE username = :username OR email = :email",
+                "SELECT state, firstname, lastname FROM users WHERE username = :username AND email = :email",
                 [':username' => $username, ':email' => $email]
             );
             if($query->getDbq()->rowCount() > 0) {
                 $res = $query->getResult()[0];
-                if ($res->state == 1) {
+                if ($res->state == "1") {
                     $token = self::createToken(50);
-                    $query = new SQLQuery(
+                    $query2 = new SQLQuery(
                         "UPDATE users SET state=2, token=:token, tokenExpires= DATE_ADD(now(),INTERVAL 1 DAY) WHERE email = :email AND username = :username",
                         [':token' => $token, ':email' => $email, ':username' => $username]
                     );
-                    if ($query->getDbq()->rowCount() > 0) {
+                    if ($query2->getDbq()->rowCount() > 0) {
                         self::sendEmail($res->firstname, $res->lastname, $email, $token, "recovery");
+
                         $returnValue = true;
                     }
                 }
@@ -83,27 +84,28 @@ class UserSystem
 
         if(UserSystem::checkUserExistence($user)){
             $query = new SQLQuery(
-                "SELECT * FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
+                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
                 [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {
                 $result = $query->getResult()[0];
                 if(password_verify($password, $result->password)) {
                     if ((int)$result->state > 0) {
-                        $user = new User(...(array)$result);
+                        $session = new Session();
+                        $session->createUser(...(array)$result);
                         return "Sikeresen bejelentkeztél!";
                     }
                     else
-                        return "Hiba, aktiváld a felhasználói fiókot!";
+                        return "Hiba, aktiváld a fiókot!";
                 }
                 else
-                    return "Hiba a jelszóban..";
+                    return "Hibás bejelentkezési adatok!";
             }
             else
-                return "Nem találtunk felhasználót ezekkel az adatokkal!";
+                return "Hibás bejelentkezési adatok!";
         }
         else
-            return "Nem találtunk felhasználót ezekkel az adatokkal!";
+            return "Hibás bejelentkezési adatok!";
     }
 
     private static function checkUserExistence($username="", $email=""):bool
@@ -150,12 +152,43 @@ class UserSystem
 
     public static function getUsernameFromEmail($user){
         if(strpos($user, '@'))
-            return substr($user, 0, strpos($user, "@"));
+            return substr($user, 0, strpos($user, "@")); // janos@gmail.com -> janos
         else
             return $user;
     }
 
-    public static function sendEmail($firstname, $lastname, $mail, $token, $type = ""): bool
+    /**
+     * @param string $name Parameter name
+     * @param bool $set If false get, otherwise set
+     * @param string $value The value for object if set
+     */
+    public static function value(string $name, bool $set = false, string $value = "")
+    {
+        $session = new Session();
+        require_once "config.php";
+        if ($session->exists('userID')) {
+            $userID = $session->get('userID');
+            if (!$set) {
+                $query = new SQLQuery(
+                    'SELECT ' . $name . ' FROM users WHERE usersID = :param',
+                    [':param' => $userID]
+                );
+                if ($query->getResult() != null) {
+                    $session->set($name, (string)$query->getResult()[0]->$name);
+                } else {
+                    $query = new SQLQuery(
+                        'UPDATE users SET ' . $name . ' = :param WHERE usersID = :param2',
+                        [':param' => $name, ':param2' => $userID]
+                    );
+                    if ($query->getResult() != null) {
+                        $session->set($name, $value);
+                    }
+                }
+            }
+        }
+    }
+
+    public static function sendEmail($firstname, $lastname, $mail, $token="", $type = ""): bool
     {
         $header = "From: Hash Carrent <no-reply@hash.proj.vts.su.ac.rs>\n";
         $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";
