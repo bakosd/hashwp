@@ -257,7 +257,8 @@ if ($currentFile == "cars.php") {
                     <input class='button w-100' type='submit' name='login-submit' value='Keresés'>
                 </div>
             </form>
-        </div>";
+        </div>
+       ";
 }
 require_once "config.php";
 if ($session->exists('username') && $session->get('state') > 0){
@@ -287,7 +288,7 @@ else
 }
 else
         echo "<!--NOT LOGGED USER-->
-        <div id='login-content' class='justify-content-center align-items-center d-flex flex-column'>
+        <div id='login-content' class='justify-content-center align-items-center flex-column'>
         <form class='d-flex flex-column gap-3' name='recovery' id='recovery_form' method='post'></form>
         <form class='d-flex flex-column w-100' id='login-form' name='login-form' method='post'></form>
             <div class='d-flex flex-column px-4 py-4 gap-3 w-100'>
