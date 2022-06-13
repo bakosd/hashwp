@@ -33,7 +33,7 @@
                 <div class="text">
                     <div>
                         <img src="../images/manufacturers/bmw.png" width="45px" class="p-1">&nbsp;
-                        <b>M5</b>&nbsp;
+                        <b>M5</b>&nbsp;<?php if($session->get('level') == 3 && $session->get('edit') == 1) { echo "asdasdasd"; } ?>
                         <span>V8T 2014</span>
                     </div>
                     <div class="action-price">

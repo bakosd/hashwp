@@ -2,7 +2,7 @@
 $currentFile = basename($_SERVER['SCRIPT_FILENAME']);
 require_once "config.php";
 $session = new Session();
-$session->set('admin', 0);
+$session->set('admin', 1);
 
 if ($session->get('userID') && time() > $session->get('logged')){
     $session->clear();
@@ -11,54 +11,91 @@ if ($session->get('userID') && time() > $session->get('logged')){
 else
     $session->set('logged', time()+3600);
 
-echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
+    echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
     <button id='nav-toggle'
             class='button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none' onclick='toggleNav()'><i class='fa-solid fa-bars'></i></button>
-    <div id='navToggle' class='container-fluid d-flex user-select-none '>
-        <a id='logo-wrap' href='index.php'>
-            <div id='logo' class='navbar-brand d-flex align-items-center mx-2 my-1'>
-                <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
-                <span class='fw-bold fs-6'>Hash.</span>
-            </div>
-        </a>";
-if ($session->get('admin') == 1) { //NEM KELL A $session->exists('admin') rész mivel a get-ben checkelem hogy létezik-e xd
-    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
-            <a href='index.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "index.php") echo "";
-    echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
-            <a href='cars.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "cars.php" || $currentFile == "car.php") echo "";
-    echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
-            <a href='destinations.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "destinations.php") echo "";
-    echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
-            <a href='contact.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "contact.php") echo "";
-    echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
-        </div>";
-} else {
-    echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
-            <a href='index.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "index.php") echo "active-page";
-    echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
-            <a href='cars.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "cars.php" || $currentFile == "car.php") echo "active-page";
-    echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
-            <a href='destinations.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "destinations.php") echo "active-page";
-    echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
-            <a href='contact.php' class='nav-item d-flex align-items-center link ";
-    if ($currentFile == "contact.php") echo "active-page";
-    echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
-        </div>";
-}
-echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
+    <div id='navToggle' class='container-fluid d-flex user-select-none '>";
+    if(empty($session->get('edit')))
+    {
+        $session->set('edit', 0);
+    }
+
+if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $session->exists('admin') rész mivel a get-ben checkelem hogy létezik-e xd
+            if($currentFile == "index.php")
+            {
+                $session->set('edit', 0);
+                header("Refresh: 0"); 
+            }
+
+            echo"
+            <a id='logo-wrap' href='index.php'>
+                <div id='logo' class='navbar-brand d-flex align-items-center mx-2 my-1'>
+                    <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
+                    <span class='fw-bold fs-6'>Hash.</span>
+                </div>
+            </a>";
+            echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+                <a href='admin_index.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "admin_index.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-house'></i><span>Áttekintés</span></a>
+                    <a href='cars.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "cars.php") echo "active-page";
+            echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+                    <a href='destinations.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "destinations.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
+                    <a href='admin_employee.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "admin_employee.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Alkalmazatak</span></a>
+                    <a href='admin_customers.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "admin_customers.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-comment'></i><span>Felhasználok</span></a>
+                </div>"; 
+            echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>";
+        }
+        else
+        {
+            if($currentFile == "admin_index.php" || $currentFile == "admin_customers.php" || $currentFile == "admin_employee.php")
+            {
+                if($session->get('level') == 3){
+                    $session->set('edit', 1);
+                    header("Refresh: 0");
+                }
+                else{
+                    header('Location: index.php');
+                }
+            }
+            echo"
+            <a id='logo-wrap' href='index.php'>
+                <div id='logo' class='navbar-brand d-flex align-items-center mx-2 my-1'>
+                    <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
+                    <span class='fw-bold fs-6'>Hash.</span>
+                </div>
+            </a>";
+            echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+                <a href='index.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "index.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>
+                    <a href='cars.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "cars.php" || $currentFile == "car.php") echo "active-page";
+            echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+                    <a href='destinations.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "destinations.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
+                    <a href='contact.php' class='nav-item d-flex align-items-center link ";
+            if ($currentFile == "contact.php") echo "active-page";
+            echo "'><i class='me-1 fa-solid fa-comment'></i><span>Kapcsolat</span></a>
+                </div>"; 
+                
+            echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>
             <div id='search-bar' class='input-with-icon nav-item'>
                 <form class='d-flex align-items-center flex-nowrap'>
                     <label for='search-input' class='text-center mx-2 fa-solid fa-magnifying-glass'></label>
                     <input name='search-input' id='search-input' type='search' aria-label='Search' placeholder='Keresés..'>
                 </form>
             </div>";
+        }
+       
 if ($currentFile == "cars.php") {
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
@@ -282,9 +319,20 @@ else
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-heart'></i><span>Kedvencek</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>
             <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
-            <!--<a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-fingerprint'></i><span>Admin felület</span></a>-->
-        </div>";
+            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>";
+            if($session->get('level') == 3)
+            {
+                if($session->get('edit') == 0)
+                {
+                    echo "<a href='admin_index.php' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-fingerprint'></i><span>Admin felület</span></a>";
+                }
+                else
+                {
+                    echo "<a href='index.php' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-house'></i><span>Kezdőoldal</span></a>";
+                }
+            }
+
+        echo "</div>";
 }
 else
         echo "<!--NOT LOGGED USER-->
