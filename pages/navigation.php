@@ -94,13 +94,8 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
                     <input name='search-input' id='search-input' type='search' aria-label='Search' placeholder='Keresés..'>
                 </form>
             </div>";
-<<<<<<< HEAD
         }
-       
-if ($currentFile == "cars.php") {
-=======
 if ($currentFile == "cars.php" || $currentFile == "car.php") {
->>>>>>> b2798abcd14c3caa5dd8ede84d42cf004bcf81d5
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>
