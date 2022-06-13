@@ -59,7 +59,7 @@ echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 p
                     <input name='search-input' id='search-input' type='search' aria-label='Search' placeholder='Keresés..'>
                 </form>
             </div>";
-if ($currentFile == "cars.php") {
+if ($currentFile == "cars.php" || $currentFile == "car.php") {
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>
@@ -314,17 +314,13 @@ else
         </div>";
 
     echo "</div>
-</div>
-<div class='modal fade' id='register-modal' tabindex='-1' aria-labelledby='register' aria-hidden='true'>
-                        <div class='modal-dialog'>
-                            <div id='reg-modal-content' class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title fw-2' id='register'>Regisztráció</h5>
-                                    <button type='button' class='button d-flex justify-content-center align-items-center' data-bs-dismiss='modal' aria-label='Close'><i class='fa-solid fa-xmark'></i></button>
-                                </div>
-                                <div id='reg-result'></div>
-                                $register_form
-                            </div>
-                        </div>
-                    </div>";
+</div>";
+$modal = new Modal(
+    'register',
+    "Regisztráció",
+    $register_form,
+    [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Mégsem'],
+    ['name'=>'register_submit', 'form'=>'nav-register-form', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Regisztráció']
+]);
+echo $modal->getModal();
 ?>

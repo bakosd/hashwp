@@ -112,86 +112,11 @@
     </div>
 
     <div class="row gap-3" style="margin-bottom: 4.5rem;">
-        <div class="col width-270">
-            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="slider-img">
-                            <img src="../images/cars/Audi/2016%20Audi%20RS%207.png" class="d-block w-75 mx-auto" alt="...">
-                        </div>
-                        <div class="text">
-                            <div>
-                                <img src="../images/manufacturers/audi.png" width="45px" class="px-1">&nbsp;
-                                <b>RS6</b>&nbsp;
-                                <span>4.0 TFSI 2016</span>
-                            </div>
-                            <div class="action-price">
-                                <span>Akciós ár:</span>&nbsp;<span class="price"><b>55.4$</b><del>69.99$</del></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="slider-img">
-                            <img src="../images/cars/BMW/2015%20BMW%20M4.png" class="d-block w-75 mx-auto" alt="...">
-                        </div>
-                        <div class="text">
-                            <div>
-                                <img src="../images/manufacturers/bmw.png" width="45px" class="p-1">&nbsp;
-                                <b>M4</b>&nbsp;
-                                <span>3.0 DCT 2015</span>
-                            </div>
-                            <div class="action-price">
-                                <span>Akciós ár:</span>&nbsp;<span class="price"><b>55.4$</b><del>69.99$</del></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="slider-img">
-                            <img src="../images/cars/Mercedes-Benz/2017%20Mercedes-Benz%20Sprinter%202500.png" class="d-block w-75 mx-auto" alt="...">
-                        </div>
-                        <div class="text">
-                            <div>
-                                <img src="../images/manufacturers/mercedes-benz.png" width="45px" class="p-1">&nbsp;
-                                <b>Sprinter 2500</b>&nbsp;
-                                <span>2.1 TDI 2017</span>
-                            </div>
-                            <div class="action-price">
-                                <span>Akciós ár:</span>&nbsp;<span class="price"><b>55.4$</b><del>69.99$</del></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="col width-270">
-            <div class="card">
-                <div class="slider-img">
-                    <img src="../images/cars/BMW/2014%20BMW%20M5.png" alt="kep" class="d-block w-75 mx-auto">
-                </div>
-                <div class="text">
-                    <div>
-                        <img src="../images/manufacturers/bmw.png" width="45px" class="p-1">&nbsp;
-                        <b>M5</b>&nbsp;
-                        <span>V8T 2014</span>
-                    </div>
-                    <div class="action-price">
-                        <span>Akciós ár:</span>&nbsp;<span class="price"><b>45.4$</b><del>69.99$</del></span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <?php
+        echo cardBig('carousel-item', array ('discount'=> ' > 0'), 'discount ASC');
+        echo cardBig("carousel", null, 'discount DESC', 1);
+        ?>
     </div>
-
     <div class="row" style="margin-top: 2rem;">
         <h2>Legjobb értékelésű járművek</h2>
     </div>
@@ -392,7 +317,7 @@
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
+<!--        <div class="swiper-pagination"></div>-->
     </div>
 
     <!-- Swiper JS -->

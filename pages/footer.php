@@ -37,26 +37,14 @@ echo "<footer>
                 <b>Legyél naprakész!</b>
                 <div class='newletter'>
                     <span>Íratkozz fel hírlevelűnkre, hogy ne<br> maradj le legfrissebb akcióinkról!<br></span>
-                    <button class='button px-3' data-bs-toggle='modal' data-bs-target='#modal1'>Feliratkozom</button>
-                    <div class='modal fade' id='modal1' tabindex='-1' aria-labelledby='newsletter' aria-hidden='true'>
-                        <div class='modal-dialog'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title fw-2' id='newsletter'>Hírlevél</h5>
-                                    <button type='button' class='button d-flex justify-content-center align-items-center' data-bs-dismiss='modal' aria-label='Close'><i class='fa-solid fa-xmark'></i></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <p>Ha szeretne információkat kapni a legfrissebb akcióinkról, járműveinkről, az elfogadás gombbal beleegyezik, hogy üzenet küldjünk önnek.
-                                    <p><small><i>Bármikor le tud íratkozni, ha mégsem szeretne üzeneteket kapni!</i></small></p></p>
-                                </div>
-                                <div class='modal-footer d-flex gap-2'>
-                                    <button type='button' class='button-2 px-2 d-flex justify-content-center align-items-center gap-2' data-bs-dismiss='modal'><i class='fa-solid fa-circle-xmark'></i>Elutasítás</button>
-                                    <button type='button' class='button px-2 d-flex justify-content-center align-items-center gap-2'><i class='fa-solid fa-circle-check'></i>Elfogadás</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <button class='button px-3' data-bs-toggle='modal' data-bs-target='#newsletter-modal'>Feliratkozom</button>
+                    <form id='newsletter'></form>
+                    
+                    ";
+    $newsletter_content = "<div class='p-3'><p>Ha szeretne információkat kapni a legfrissebb akcióinkról, járműveinkről, az elfogadás gombbal beleegyezik, hogy üzenet küldjünk önnek.<p><small><i>Bármikor le tud íratkozni, ha mégsem szeretne üzeneteket kapni!</i></small></p></p></div>";
+    $modal = new Modal("newsletter", "Hírlevél", $newsletter_content, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Elutasítás'], ['name'=>'newsletter_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Elfogadás', 'form'=>'newsletter']]);
+    echo $modal->getModal();
+echo "</div>
             </div>
         </div>
     </div>
