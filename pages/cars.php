@@ -25,42 +25,9 @@
         <h2>Jármű kinálatok</h2>
     </div>
     <div class="row gap-3" style="margin-bottom: 4.5rem;">
-        <div class="col width-270">
-            <div class="card">
-                <div class="slider-img">
-                    <img src="../images/cars/BMW/2014%20BMW%20M5.png" alt="kep" class="d-block w-75 mx-auto">
-                </div>
-                <div class="text">
-                    <div>
-                        <img src="../images/manufacturers/bmw.png" width="45px" class="p-1">&nbsp;
-                        <b>M5</b>&nbsp;<?php if($session->get('level') == 3 && $session->get('edit') == 1) { echo "asdasdasd"; } ?>
-                        <span>V8T 2014</span>
-                    </div>
-                    <div class="action-price">
-                        <span>Napi ár:</span>&nbsp;<span class="price"><b>45.4$</b><del>69.99$</del></span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col width-270">
-            <div class="card">
-                <div class="slider-img">
-                    <img src="../images/cars/Audi/2015%20Audi%20TTS.png" alt="kep" class="d-block w-75 mx-auto">
-                </div>
-                <div class="text">
-                    <div>
-                        <img src="../images/manufacturers/audi.png" width="45px" class="p-1">&nbsp;
-                        <b>TTS</b>&nbsp;
-                        <span>3.0 TDI 2015</span>
-                    </div>
-                    <div class="action-price">
-                        <span>Napi ár:</span>&nbsp;<span class="price"><b>45.4$</b><del>69.99$</del></span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <?php
+        echo cardBig('carousel');
+    ?>
     </div>
 
 </main>
