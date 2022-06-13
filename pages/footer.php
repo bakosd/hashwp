@@ -37,7 +37,7 @@ echo "<footer>
                 <b>Legyél naprakész!</b>
                 <div class='newletter'>
                     <span>Íratkozz fel hírlevelűnkre, hogy ne<br> maradj le legfrissebb akcióinkról!<br></span>
-                    <button class='button px-3' data-bs-toggle='modal' data-bs-target='#newsletter-modal'>Feliratkozom</button>
+                    <button class='button px-3' data-bs-toggle='modal' data-bs-target='#newsletter-modal'>Feliratkozom</button> <!-- Ezzel nyitod meg a modal-t-->
                     <form id='newsletter'></form>
                     
                     ";

@@ -64,8 +64,7 @@ $register_form = '<form name="register" id="nav-register-form" method="post" act
  * @return string
  */
 function cardBig(string $type = "", array $where = null, string $order_by = null, int $limit = PHP_INT_MAX):string{
-    $returnValue = '<div class="col width-270">';
-    $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+    $returnValue = "";
     $order_by = $order_by == null ? '' : ', ' . $order_by;
     $conditions = '';
     if($where != null) {
@@ -77,36 +76,50 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
 
     $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, status, price, discount FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID) $conditions ORDER BY status ASC, ms.name ASC $order_by LIMIT $limit;", []);
         $result = $query->getResult();
-
        /* echo "<pre>";
             var_dump($query);
         echo "</pre>";*/
-        if($result != null)
-            foreach ($result as $item){
-                if($type == "carousel-item" && $item == $result[0])
+        if($result != null) {
+            $returnValue = '<div class="col width-270">';
+            $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+            foreach ($result as $item) {
+                if ($type == "carousel-item" && $item == $result[0])
                     $returnValue .= '<div class="carousel-item active">';
-                else if($type == "carousel-item")
-                   $returnValue .= '<div class="carousel-item">';
-                else if($type == 'carousel' && $item != $result[0])
-                    $returnValue .= '</div><div class="col-6 width-270"><div class="carousel">';
+                else if ($type == "carousel-item")
+                    $returnValue .= '<div class="carousel-item">';
+                else if ($type == 'carousel' && $item != $result[0])
+                    $returnValue .= '</div><div class="col width-270"><div class="carousel">';
                 else $returnValue .= '<div class="carousel">';
 
                 $returnValue .= "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$item->manufacturer.png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
-                    if($item->discount > 0) {
-                        $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
-                        $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
-                    }
-                    else
-                        $returnValue .= "<span>Napi ár:</span>&nbsp;<span class='price'><b>$item->price €</b></span>";
+                if ($item->discount > 0) {
+                    $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
+                    $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
+                } else
+                    $returnValue .= "<span>Napi ár:</span>&nbsp;<span class='price'><b>$item->price €</b></span>";
 
                 $returnValue .= "</div></div></div>";
             }
 
 
-    if($type == "carousel-item")
-        $returnValue .= '</div><button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button><button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button></div></div>';
-   else
-        $returnValue .= '</div></div></div>';
+            if ($type == "carousel-item")
+                $returnValue .= '</div><button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button><button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button></div></div>';
+            else
+                $returnValue .= '</div></div></div>';
+        }else{
+            $returnValue .= "<div class='col width-270'><div class='carousel'><div class='slider-img'><img src='../images/cars/ghost.png' class='d-block mx-auto py-5' alt='ghost.png'><div class='text-center'><div class='text'>Nincs jármű találat.</div></div></div></div></div>";
+        }
     return $returnValue;
     //return "";
+}
+function cardSmall(string $type = "favorites"):string{
+ $returnValue = "<div class='swiper mySwiper' style='padding: .5rem;'><div class='swiper-wrapper'>";
+ if($type == "favorites"){
+     $query = new SQLQuery("SELECT ");
+ }
+ elseif ($type == "comments"){
+
+ }
+ $returnValue .= "</div><div class='swiper-button-next'></div><div class='swiper-button-prev'></div></div>";
+ return $returnValue;
 }
