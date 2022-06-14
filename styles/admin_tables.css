@@ -1,8 +1,8 @@
 .customer, .employee {
   padding: 15px;
   margin: 10px 0;
-  -webkit-box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
-          box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 }
+
 /*# sourceMappingURL=admin_tables.css.map */

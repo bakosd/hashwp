@@ -20,7 +20,7 @@
 <?php
     require_once "navigation.php";
 ?>
-<div class="container-fluid bg-color">
+<main class="container-fluid bg-color">
     <div class="container">
         <div class="row">
             <div class="col con-text">
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <?php
     include_once "footer.php";

@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,SAAS,EAAE,SAAS,CAAA;EAChB,OAAO,EAAE,IAAI;EACb,MAAM,EAAE,MAAM;EACd,UAAU,EAAE,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,mBAAgB;EACvC,aAAa,EAAE,IAAI;CACtB",
-    "sources": [
-        "admin_tables.scss"
-    ],
-    "names": [],
-    "file": "admin_tables.css"
-}
+{"version":3,"sourceRoot":"","sources":["admin_tables.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EACA;EACA","file":"admin_tables.css"}

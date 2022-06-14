@@ -74,7 +74,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
         }
     }
 
-    $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, status, price, discount FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID) $conditions ORDER BY status ASC, ms.name ASC $order_by LIMIT $limit;", []);
+    $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, status, price, discount, carsID FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID) $conditions ORDER BY status ASC, ms.name ASC $order_by LIMIT $limit;", []);
         $result = $query->getResult();
        /* echo "<pre>";
             var_dump($query);
@@ -90,15 +90,15 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
                 else if ($type == 'carousel' && $item != $result[0])
                     $returnValue .= '</div><div class="col width-270"><div class="carousel">';
                 else $returnValue .= '<div class="carousel">';
-
-                $returnValue .= "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$item->manufacturer.png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
+//                $returnValue .= "<button style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;' onclick='location.href=\"../pages/car.php?car=".$item->manufacturer.$item->carname.$item->releasedate."\"'>";
+                $returnValue .= "<button onclick='location.href=\"../pages/car.php?car=".$item->carsID."\"' style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;'>"."<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$item->manufacturer.png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
                 if ($item->discount > 0) {
                     $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
                     $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
                 } else
                     $returnValue .= "<span>Napi ár:</span>&nbsp;<span class='price'><b>$item->price €</b></span>";
 
-                $returnValue .= "</div></div></div>";
+                $returnValue .= "</div></div></button></div>";
             }
 
 
@@ -107,18 +107,69 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
             else
                 $returnValue .= '</div></div></div>';
         }else{
-            $returnValue .= "<div class='col width-270'><div class='carousel'><div class='slider-img'><img src='../images/cars/ghost.png' class='d-block mx-auto py-5' alt='ghost.png'><div class='text-center'><div class='text'>Nincs jármű találat.</div></div></div></div></div>";
+            $returnValue .= "<div class='width-270 col'><div class='carousel'><div class='slider-img'><img src='../images/cars/ghost.png' class='d-block mx-auto py-5' alt='ghost.png'><div class='text-center'><div class='text'>Nincs jármű találat.</div></div></div></div></div>";
         }
     return $returnValue;
     //return "";
 }
-function cardSmall(string $type = "favorites"):string{
- $returnValue = "<div class='swiper mySwiper' style='padding: .5rem;'><div class='swiper-wrapper'>";
+
+function generateStars(float $rating):string{
+    $stars = ['<i class="fa-regular fa-star"></i>', '<i class="fa-solid fa-star-half-stroke"></i>', '<i class="fa-solid fa-star"></i>'];
+    $rating = floor($rating * 2) / 2;
+    $value = "";
+    if($rating == 0)
+        $value .= str_repeat($stars[0], 5);
+    else if($rating == 5)
+        $value .= str_repeat($stars[2], 5);
+    else {
+        $value .= str_repeat($stars[2], floor($rating));
+        if(is_float($rating) && floor($rating) != $rating){
+            $value .= $stars[1];
+        }
+    }
+    $value .= str_repeat($stars[0], 5 - $rating);
+
+
+    return $value;
+}
+
+function cardSmall(string $type = "favorites", int $carID = 1):string{
+ $returnValue = "<div class='swiper mySwiper' style='padding: .5rem; overflow-x: hidden;'><div class='swiper-wrapper'>";
  if($type == "favorites"){
-     $query = new SQLQuery("SELECT ");
+
+//     $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) WHERE r.rating is not null ORDER BY status ASC, ms.name ASC LIMIT 10;", []);
+     $query = new SQLQuery("SELECT carsID, ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) GROUP BY r.carID LIMIT 10;", []);
+     $result = $query->getResult();
+     if($result != null){
+         foreach ($result as $item){
+             $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
+             $returnValue .= "<div class='swiper-slide'>"."<button style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;' onclick='location.href=\"../pages/car.php?car=".$item->carsID."\"'>"."<img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'><div class='card-text'><img src='../images/manufacturers/$item->manufacturer.png' class='p-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span><div class='rate-price'><span>Már napi&nbsp;<b>$discount €</b></span><div class='rate' style='margin-right: 1rem;'>";
+             $returnValue .= generateStars($item->rating);
+             $returnValue .= '</div></div></div></button></div>';
+         }
+     }
+     else{
+         $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
+     }
  }
  elseif ($type == "comments"){
-
+     $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, likes, dislikes, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID ORDER BY (likes-dislikes) DESC;", [':carID'=>$carID]);
+     $result = $query->getResult();
+     if($result != null) {
+         foreach ($result as $item) {
+             $returnValue.= "<div class='swiper-slide'><div class='comment-card w-100'><div class='comment-header d-flex gap-2'><img id='user-image' src='";
+             if($item->avatar != null && $item->avatar != '')
+                 $returnValue.= "data:image/jpeg;base64,".base64_encode($item->avatar);
+             else
+                 $returnValue.= "../images/icons/user-default.png";
+             $returnValue .= "' alt='user-avatar'><div class='comment-user-data d-flex flex-column'><span>$item->name</span><small>$item->created</small></div></div><div class='comment-body mt-3'><div class='d-flex justify-content-between align-items-center gap-2'><span class='comment-title d-block text-start'>$item->commentTitle</span><div class='rate d-flex align-items-center'>";
+             $returnValue .= generateStars($item->rating);
+             $returnValue .= "</div></div><p class='p-2'>$item->comment</p></div><div class='comment-footer d-flex flex-column gap-2 pt-3'><div class='likes d-flex align-items-center gap-4'><form id='comment_update_likes' method='post'></form><div class='likes d-flex gap-2 align-items-center thumbs-myselect'><button class='button-2 like' type='submit' form='comment_update_likes' name='like' value='$item->ratingID'><i class='fa-solid fa-thumbs-up'></i></button><span class='like'>$item->likes</span></div><div class='likes d-flex gap-2 align-items-center'><button class='button-2 dislike' type='submit' form='comment_update_likes' name='dislike' value='$item->ratingID'><i class='fa-solid fa-thumbs-down'></i></button><span class='dislike'>$item->dislikes</span></div></div></div></div></div>";
+         }
+     }
+     else{
+         $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
+     }
  }
  $returnValue .= "</div><div class='swiper-button-next'></div><div class='swiper-button-prev'></div></div>";
  return $returnValue;

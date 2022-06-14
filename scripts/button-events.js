@@ -209,20 +209,19 @@ let animation = () => {
     }, 1000)
 };
 
-var droppushBtn = null;
-try {
-    if(droppushBtn != null) {
-        droppushBtn = document.querySelector('[data-droppush-btn]');
+$(document).ready(function () {
+    try {
+        const droppushBtn = document.querySelector('[data-droppush-btn]');
         droppushBtn.addEventListener('click', () => {
             let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
             let thisArrow = droppushBtn.querySelector('i');
             thisArrow.classList.toggle('fa-angle-up');
             childContent.classList.toggle('d-none');
         });
+    }catch (e){
+        console.log(e);
     }
-} catch (e){
-    console.log(e);
-}
+});
 
 
 $(document).ready(function () {

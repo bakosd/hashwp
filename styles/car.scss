@@ -53,34 +53,52 @@
   margin-top: 4.5rem;
 }
 
-.swiper .swiper-wrapper .swiper-slide {
-  padding: 1.8rem;
-  .comment-card {
-    .comment-header{
-      img{
-        width: 3.5rem;
-        height: 3.5rem;
-        border-radius: $border-rad-5;
+//COMMENTS ON BOTTOM OF PAGE
+.swiper .swiper-wrapper {
+
+  .swiper-slide {
+    padding: 1.8rem;
+    .comment-card {
+      .comment-header {
+        img {
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: $border-rad-5;
+        }
+      }
+
+      .comment-body {
+        .rate {
+          font-size: .8em;
+          color: $color7;
+        }
+
+        p {
+          font-size: .85em;
+          word-break: break-all;
+          overflow-wrap: break-word;
+          inline-size: calc(100%);
+        }
+      }
+
+      .comment-footer {
+        border-top: .1rem solid $color15;
+
+        .like {
+          color: $color-succ;
+        }
+
+        .dislike {
+          color: $color-nosucc;
+        }
       }
     }
-    .comment-body{
-      font-size: .9em;
-      .rate{
-        font-size:.8em;
-        color: $color7;
-      }
-      p{
-        font-size: .85em;
-      }
-    }
-    .comment-footer{
-      border-top: .1rem solid $color15;
-      .like{
-        color: $color-succ;
-      }
-      .dislike{
-        color: $color-nosucc;
-      }
-    }
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+
+  .width-270 {
+    flex: 1 0 100%;
   }
 }

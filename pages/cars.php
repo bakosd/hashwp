@@ -32,13 +32,14 @@
 
 </main>
 
-<?php
-    require_once "footer.php";
-?>
+
 
     <script src="../scripts/button-events.js"></script>
     <script src="../scripts/events.js"></script>
-    <script src="../scripts/auto-swipe.js"></script>
+
 
 </body>
+<?php
+require_once "footer.php";
+?>
 </html>
