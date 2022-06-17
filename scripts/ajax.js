@@ -313,7 +313,7 @@ $(document).ready(function () {
                 let value = input.val();
                 $.ajax({
                     type: "POST",
-                    url: 'recovery.php',
+                    url: 'dashboard.php',
                     cache: false,
                     data: input.attr('id') +"="+ value,
                     dataType: 'text',
@@ -366,7 +366,7 @@ $(document).ready(function () {
         let formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: 'recovery.php',
+                url: 'dashboard.php',
                 cache: false,
                 data: formData,
                 contentType: false,

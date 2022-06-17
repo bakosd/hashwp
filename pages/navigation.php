@@ -90,11 +90,11 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             <div id='search-bar' class='input-with-icon nav-item'>
                 <form class='d-flex align-items-center flex-nowrap'>
                     <label for='search-input' class='text-center mx-2 fa-solid fa-magnifying-glass'></label>
-                    <input name='search-input' id='search-input' type='search' aria-label='Search' placeholder='Keresés..'>
+                    <input name='search-input' id='search-input' form='search' type='search' aria-label='Search' placeholder='Keresés..'>
                 </form>
             </div>";
         }
-if ($currentFile == "cars.php") {
+if ($currentFile == "cars.php" || $currentFile == "car.php") {
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>
@@ -123,92 +123,25 @@ echo "</div>
         <button id='close-sub-menu' onclick='toggleSubmenu(0)' class='button d-flex align-items-center justify-content-center'><i class='fa-solid fa-xmark'></i></button>
     </div>
     <div id='sub-menu-content'>";
-if ($currentFile == "cars.php") {
+if ($currentFile == "cars.php" || $currentFile == "car.php") {
+    $bodywork_array = []; $seat_array = []; $fuel_array = []; $gearbox_array = []; $manufacturers_array = [];
+    $bq = new SQLQuery("SELECT DISTINCT bodywork FROM cars", []); $bodywork_array = $bq->getResult();
+    $bq = new SQLQuery("SELECT DISTINCT seats FROM cars", []); $seat_array = $bq->getResult();
+    $bq = new SQLQuery("SELECT DISTINCT fuel FROM cars", []); $fuel_array = $bq->getResult();
+    $bq = new SQLQuery("SELECT DISTINCT gearbox FROM cars", []); $gearbox_array = $bq->getResult();
+    $bq = new SQLQuery("SELECT name as manufacturer FROM manufactures", []); $manufacturers_array = $bq->getResult();
+
     echo "<div id='search-options-content' class='justify-content-center align-items-center'>" . "
-            <form action='' class='d-flex justify-content-center flex-column align-items-center gap-2 container-fluid px-4 py-4'>
+            <form id='search' action='cars.php' method='post' class='d-flex justify-content-center flex-column align-items-center gap-2 container-fluid px-4 py-4'>
+                    <div class='p-1 w-100'>
+                        ".dropdownButton('Gyártó', 'manufacturer', $manufacturers_array, 'manufacturers')."
+                    </div>
                 <div class='d-flex w-100'>
                     <div class='p-1 w-50'>
-                        <label for='droplist-1-toggle' class='user-select-none'>Gyártó</label>
-                        <button type='button' id='droplist-1-toggle' onclick='dropdownList(\"droplist-1\", \"droplist-1-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-1-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-1' class='droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl1-cat-1' name='droplist-1' value='Audi'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl1-cat-2' name='droplist-1' value='BMW'>
-                            <label for='dl1-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/manufacturers/audi.png' alt='city'><span>Audi</span></label>
-                            <label for='dl1-cat-2'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/manufacturers/bmw.png' alt='electric'><span>BMW</span></label>
-                        </div>
-                    </div>
-
-                    <div class='p-1 w-50'>
-                        <label for='droplist-2-toggle' class='user-select-none'>Modellek</label>
-                        <button type='button' id='droplist-2-toggle' onclick='dropdownList(\"droplist-2\", \"droplist-2-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-2-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-2' class='droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl2-cat-1' name='droplist-2' value='A8'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl2-cat-2' name='droplist-2' value='RS6'>
-                            <label for='dl2-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>A8</span></label>
-                            <label for='dl2-cat-2'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>RS6</span></label>
-                        </div>
-                    </div>
-                </div>
-                <div class='d-flex w-100'>
-                    <div class='p-1 w-50'>
-                        <label for='droplist-3-toggle' class='user-select-none'>Karosszéria</label>
-                        <button type='button' id='droplist-3-toggle' onclick='dropdownList(\"droplist-3', \"droplist-3-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-3-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-3' class='droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl3-cat-1' name='droplist-3' value='Városi'>
-
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl3-cat-3' name='droplist-3' value='Szedán'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl3-cat-4' name='droplist-3' value='Terepjáró'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl3-cat-5' name='droplist-3' value='Limuzin'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl3-cat-6' name='droplist-3' value='Kabrió'>
-                            <label for='dl3-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/icons/carspecs/bodywork/city.png' alt='city'><span>Városi</span></label>
-                            <label for='dl3-cat-3'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/icons/carspecs/bodywork/sedan.png' alt='sedan'><span>Szedán</span></label>
-                            <label for='dl3-cat-4'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/icons/carspecs/bodywork/jeep.png' alt='jeep'><span>SUV/4x4</span></label>
-                            <label for='dl3-cat-5'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/icons/carspecs/bodywork/limousine.png' alt='limousine'><span>Limuzin</span></label>
-                            <label for='dl3-cat-6'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><img
-                                    src='../images/icons/carspecs/bodywork/convertible.png' alt='convertible'><span>Kabrió</span></label>
-                        </div>
+                        ".dropdownButton('Karosszéria', 'bodywork', $bodywork_array, 'icons/carspecs/bodywork')."
                     </div>
                     <div class='p-1 w-50'>
-                        <label for='droplist-4-toggle' class='user-select-none'>Ülések száma</label>
-                        <button type='button' id='droplist-4-toggle' onclick='dropdownList(\"droplist-4\", \"droplist-4-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-4-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-4' class='droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl4-cat-1' name='droplist-4' value='2'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl4-cat-2' name='droplist-4' value='4'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl4-cat-3' name='droplist-4' value='5'>
-                            <label for='dl4-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>2</span></label>
-                            <label for='dl4-cat-2'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>4</span></label>
-                            <label for='dl4-cat-3'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>5</span></label>
-                        </div>
+                        ".dropdownButton('Ülések száma', 'seats', $seat_array)."
                     </div>
                 </div>
                 <div class='w-100 p-1 d-flex flex-column justify-content-center align-items-center slider-outer-wrap'>
@@ -233,59 +166,12 @@ if ($currentFile == "cars.php") {
                         </div>
                     </div>
                 </div>
-                <div class='d-flex w-100 gap-2 justify-content-around'>
-                    <div class='d-flex gap-2'>
-                        <input type='radio' name='price-time' value='day' id='price-day' checked>
-                        <label for='price-day'>Napi</label>
-                    </div>
-                    <div class='d-flex gap-2'>
-                        <input type='radio' name='price-time' value='week' id='price-week'>
-                        <label for='price-week'>Heti</label>
-                    </div>
-                    <div class='d-flex gap-2'>
-                        <input type='radio' name='price-time' value='month' id='price-month'>
-                        <label for='price-month'>Havi</label>
-                    </div>
-                </div>
                 <div class='d-flex w-100'>
                     <div class='p-1 w-50'>
-                        <label for='droplist-5-toggle' class='user-select-none'>Üzemanyag</label>
-                        <button type='button' id='droplist-5-toggle' onclick='dropdownList(\"droplist-5\", \"droplist-5-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-5-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-5' class='droplist droplist-multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl5-cat-1' name='droplist-5' value='Benzin'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl5-cat-2' name='droplist-5' value='Dízel'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl5-cat-3' name='droplist-5' value='Benzin + Gáz'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl5-cat-4' name='droplist-5' value='Áram'>
-                            <label for='dl5-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Benzin</span></label>
-                            <label for='dl5-cat-2'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Dízel</span></label>
-                            <label for='dl5-cat-3'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Benzin + Gáz</span></label>
-                            <label for='dl5-cat-4'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Áram</span></label>
-                        </div>
+                       ".dropdownButton('Üzemanyag', 'fuel', $fuel_array)."
                     </div>
                     <div class='p-1 w-50'>
-                        <label for='droplist-6-toggle' class='user-select-none'>Váltó típusa</label>
-                        <button type='button' id='droplist-6-toggle' onclick='dropdownList(\"droplist-6\", \"droplist-6-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'>
-                            <span id='droplist-6-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span>
-                            <i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i>
-                        </button>
-                        <div id='droplist-6' class='droplist d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl6-cat-1' name='droplist-6' value='Manuális'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl6-cat-2' name='droplist-6' value='Automata'>
-                            <input class='d-none droplist-checkbox' type='checkbox' id='dl6-cat-3' name='droplist-6' value='Pillangó'>
-                            <label for='dl6-cat-1'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Manuális</span></label>
-                            <label for='dl6-cat-2'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Automata</span></label>
-                            <label for='dl6-cat-3'
-                                   class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'><span>Pillangó</span></label>
-                        </div>
+                        ".dropdownButton('Váltó típusa', 'gearbox', $gearbox_array)."
                     </div>
                 </div>
                 <div class='p-1 w-100'>

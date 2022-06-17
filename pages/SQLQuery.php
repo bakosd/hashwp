@@ -36,6 +36,7 @@ class SQLQuery
                 $this->result = $this->dbq->fetchAll(PDO::FETCH_OBJ);
             }
         }catch (PDOException $e){
+
             error_log("********************SQL_QUERY********************");
             error_log("MESSAGE: ".$e->getMessage() . " FIILE: " . $e->getFile() ." LINE: ".$e->getLine());
             error_log("*************************************************");

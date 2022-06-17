@@ -1,5 +1,69 @@
 <?php
 require_once "config.php";
+if (isset($_FILES['avatar'])) {
+    $exitVal = "Hiba.";
+    if (is_array($_FILES) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+        if ($_FILES['avatar']['size'] <= 3145728) {
+            $image_info = getimagesize($_FILES["avatar"]["tmp_name"]);
+            if ($image_info[0] === $image_info[1]) {
+                $imag = $_FILES['avatar']['tmp_name'];
+                $image = file_get_contents($imag);
+                $arr = tryUpdateData("avatar", $image);
+            } else
+                $exitVal = "A kép dimenziói nem megfelelők?!";
+        } else
+            $exitVal = "A kép mérete több mint 3MB!";
+    } else {
+        $exitVal = "A képet nem sikerült feltölteni a szerverre.";
+    }
+    if($arr != null && $arr[0] == "avatar"){
+        $exitVal =  "Sikeresen szerkesztette a ".$input_names_arr[$arr[0]]." adatot!<br> <br> <span class='text-danger'>Az oldal 3 másodperc múlva újratöltődik!</span>";
+    }
+    exit($exitVal);
+}
+if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname']) || !empty($_POST['phonenumber']) || !empty($_POST['birthdate']) || !empty($_POST['idcardNumber']) || !empty($_POST['licensecardNumber']) || !empty($_POST['licensecardPlace']) ))){
+
+    $exitVal = "Nem sikerült szerkeszteni az adatot!";
+    $arr = null;
+    if (isset($_POST['lastname'])) $arr = tryUpdateData("lastname", $_POST['lastname']);
+    if (isset($_POST['firstname'])) $arr = tryUpdateData("firstname", $_POST['firstname']);
+    if (isset($_POST['phonenumber'])) $arr = tryUpdateData("phonenumber", $_POST['phonenumber']);
+    if (isset($_POST['birthdate'])) $arr = tryUpdateData("birthdate", $_POST['birthdate']);
+    if (isset($_POST['idcardNumber'])) $arr = tryUpdateData("idcardNumber", $_POST['idcardNumber']);
+    if (isset($_POST['licensecardNumber'])) $arr = tryUpdateData("licensecardNumber", $_POST['licensecardNumber']);
+    if (isset($_POST['licensecardPlace'])) $arr = tryUpdateData("licensecardPlace", $_POST['licensecardPlace']);
+
+
+    if($arr != null){
+        $data_new = "";
+        if($arr[0] != "avatar") $data_new = ' Új érték: '.$arr[1];
+        $exitVal =  "Sikeresen szerkesztette a ".$input_names_arr[$arr[0]]." adatot!<br>$data_new <br> <span class='text-danger'>Az oldal 3 másodperc múlva újratöltődik!</span>";
+    }
+    ob_start();
+    var_dump($_SESSION);
+    error_log(ob_get_clean());
+    exit($exitVal);
+}
+function checkDataLength($data, $len):bool{
+    return strlen($data) >= $len;
+}
+function tryUpdateData($name, $value, $needed_length = 3, $sess = true): ?array
+{
+    $value = trim($value);
+    if(!isset($value) || !checkDataLength($value, $needed_length) || !empty(UserSystem::value($name, true, $value, $sess))) return null; else return [$name, $value];
+}
+if(!empty($_POST) && !empty($_POST['subscribe'])){
+    $is_user = true;
+    $session = new Session();
+    $user = $session->get('email');
+    if(isset($_POST['newsletter-email'])) {$user = filter_var(trim($_POST['newsletter-email']), FILTER_VALIDATE_EMAIL) ? trim($_POST['newsletter-email']) : null; $is_user = false;}
+    if($user != null && UserSystem::tryUpdateSubscription($user, $_POST['subscribe'], $is_user))
+        redirection("index.php?sub=".$_POST['subscribe']);
+    else
+        redirection("index.php?sub=0");
+
+    exit();
+}
 $session = new Session();
 if (!empty($session->get('userID'))) {
     $userID = $session->get('userID');
@@ -157,7 +221,7 @@ if (!empty($session->get('userID'))) {
             <button data-bs-toggle='modal' data-bs-target='#unsubscribe-modal' class='w-100 button d-flex align-items-center justify-content-center gap-2 my-3'><i class='fa-solid fa-paper-plane'></i>Leíratkozás a hírlevélről</button>
             <button form='logout' class='w-100 button d-flex align-items-center justify-content-center gap-2'><i class='fa-solid fa-right-from-bracket'></i>Kijelentkezés</button>
             <form name='logout' id='logout' action='logout.php' method='post'></form>
-            <form name='unsubscribe' id='unsubscribe' action='recovery.php' method='post'><input type='hidden' name='subscribe' value='-1'></form>
+            <form name='unsubscribe' id='unsubscribe' action='dashboard.php' method='post'><input type='hidden' name='subscribe' value='-1'></form>
             <form name='image-submit' id='image-submit' method='post'></form>
             $password_change_modal
             $unsubscribe_modal

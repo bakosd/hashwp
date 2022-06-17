@@ -111,10 +111,10 @@ function updateDropdownText(buttonID, buttonArr) {
             tempStr += buttonArr[i] + ", ";
         }
         outStr = tempStr.slice(0, -2);
-        $('#' + buttonID).removeClass("invalid-data");
+        //$('#' + buttonID).removeClass("invalid-data");
     } else if (buttonArr.length === 0) {
         outStr = "Nincs kiválasztott";
-        $('#' + buttonID).addClass("invalid-data");
+        //$('#' + buttonID).addClass("invalid-data");
     }
     if (outStr.length > 35) {
         outStr = outStr.substr(0, 32) + ".."; //TO LIMIT STRING WIDTH
@@ -132,7 +132,7 @@ $(function () {
         $(".droplist-checkbox").click(function () {
             const clickedParentButton = $(this).parent().prev('button').attr('id');
             let temp = Array();
-            $("input:checkbox[name=" + $(this).parent().attr('id') + "]:checked").each(function () {
+            $("input:checkbox[data-dl=" + $(this).parent().attr('id') + "]:checked").each(function () {
                 temp.push($(this).val());
             });
             DroppDownMainArray[clickedParentButton] = temp;
