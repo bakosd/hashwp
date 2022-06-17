@@ -22,7 +22,19 @@ if (isset($_GET['car']) || isset($_POST['car']))
         error_log("!!SQL!! FATAL ERROR IN SQL: ".$e);
     }
 }
+if (isset($_POST['pick-date']) && isset($_POST['drop-date']) && !empty($carID)){
+    $q = new SQLQuery("SELECT rentStartdate, rentEnddate, status FROM orders where carID = :carID", [":carID"=>$carID]);
+    $res = $q->getResult();
+    $is_available = "";
+    foreach ($res as $item){
+        if( (($item->rentStartdate <= $_POST['drop-date']) && ($item->rentEnddate >= $_POST['pick-date'])))
+            $is_available = "not-available";
+        else
+            $is_available =  "available";
+    }
+    exit($is_available);
 
+}
 
     $title_str = "";
     $car_full_name = "";
@@ -30,7 +42,7 @@ if (isset($_GET['car']) || isset($_POST['car']))
         $car_full_name = "$result->manufacturer $result->carname $result->releasedate";
         $title_str = "$car_full_name - ";
     }
-echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><link rel="icon" type="image/x-icon" href="../images/icons/logo-100.png"><link rel="stylesheet" href="../styles/global.css"><link rel="stylesheet" href="../styles/navbar.css"><link rel="stylesheet" href="../styles/index.css"><link rel="stylesheet" href="../styles/cards.css"><link rel="stylesheet" href="../styles/car.css"><meta name="viewport" content="width=device-width,height=device-heightinitial-scale=1"><link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script><link rel="icon" type="image/x-icon" href="../images/icons/logo-100.png"><link rel="stylesheet" href="../styles/global.css"><link rel="stylesheet" href="../styles/navbar.css"><link rel="stylesheet" href="../styles/index.css"><link rel="stylesheet" href="../styles/cards.css"><link rel="stylesheet" href="../styles/car.css"><meta name="viewport" content="width=device-width,height=device-heightinitial-scale=1"><link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 '."<title> $title_str Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
 
     require_once "navigation.php";
@@ -45,7 +57,7 @@ if(!empty($carID) && !empty($result)) {
     $total_rating = $result->total_rating != 0 ? $result->total_rating : 1;
 
     if ($result->status == 1 || $result->servisdistance < 500) $available = "<span class='not-available d-flex align-items-center justify-content-center gap-1 my-5'><i class='fa-solid fa-wrench'></i>Ismeretlen ideig nem elérhető! (Szervíz)</span>";
-    else $available = "<form id='date-check' name='date-check' class='d-flex flex-column gap-2'><div class='p-1 w-100'><label for='pick-date' class='user-select-none'>Átvétel ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='pick-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='pick-date' name='pick-date'></div></div><div class='p-1 w-100'><label for='drop-date' class='user-select-none'>Leadás ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='drop-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='drop-date' name='drop-date'></div></div></form><button type='submit' form='date-check' name='submit-date-check' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Tovább<i class='fa-solid fa-angle-right'></i></button>";
+    else $available = "<form id='date-check-form' name='date-check-form' class='d-flex flex-column gap-2'><div class='p-1 w-100'><label for='pick-date' class='user-select-none'>Átvétel ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='pick-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='pick-date' name='pick-date'></div></div><div class='p-1 w-100'><label for='drop-date' class='user-select-none'>Leadás ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='drop-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='drop-date' name='drop-date'></div></div><input type='hidden' name='car' value='$carID'></form><button type='submit' form='date-check-form' id='submit-data-order-btn' name='submit-date-check' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Tovább<i class='fa-solid fa-angle-right'></i></button>";
 
     if(!empty($result->extras)){
         $extras = "<div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='1'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Jármű felszereltségei</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' data-droppush-content='1'>";

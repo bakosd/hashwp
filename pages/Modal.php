@@ -58,5 +58,8 @@ class Modal
         return $returnVal;
     }
 
+    public function showModal():void{
+        echo $this->getModal()."\n<script> $(document).ready(function () { $('#".$this->name."-modal').modal('show'); }); </script>";
+    }
 }
 ?>

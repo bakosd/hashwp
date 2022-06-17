@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php
+ echo '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,10 +16,13 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <title>Hash | Járműbérlés egyszerűen, gyorsan.</title>
 </head>
-<body>
-<?php
+<body>';
+
+
     require_once "navigation.php";
-?>
+echo date("Y-m-d")
+   ?>
+
 <div id="header-wrap" class="container-fluid position-relative">
     <img id="image-bg" class="w-100 user-select-none" src="../images/bg-image.jpg" alt="bg">
     <div id="wrap-header-content" class="d-flex position-absolute top-0 w-100 h-100 px-1 align-items-center justify-content-evenly gap-2">
@@ -32,7 +36,7 @@
                     <label for="pick-date" class="user-select-none">Átvétel ideje</label>
                     <div class="submit-input input-with-icon d-flex align-items-center w-100">
                         <label for="pick-date" class="px-2 fa-solid fa-calendar"></label>
-                        <input type="datetime-local" id="pick-date" name="pick-date"> <!--value="<?php echo date("Y-m-d");?>"-->
+                        <input type="datetime-local" id="pick-date" name="pick-date" value=";">
                     </div>
                 </div>
                 <div class="p-1 w-100">
@@ -127,6 +131,14 @@
 </main>
 <?php
     require_once "footer.php";
+
+if (isset($_GET['message'])){
+    require_once "config.php";
+    $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."</div>";
+    $modal_message = new Modal("message", "Értesítés", $modal_msg, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Bezárás']]);
+    $modal_message->showModal();
+    echo "<script>window.history.replaceState({}, '','../pages/index.php');</script>";
+}
 ?>
 
     <script src="../scripts/button-events.js"></script>

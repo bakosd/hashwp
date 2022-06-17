@@ -94,7 +94,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
                 </form>
             </div>";
         }
-if ($currentFile == "cars.php" || $currentFile == "car.php") {
+if ($currentFile == "cars.php") {
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>
@@ -102,7 +102,7 @@ echo "</div>
             <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>";
 
 if ($currentFile != "activate.php" && !$session->exists('username'))
-    echo "<script src='../scripts/login-register.js'></script><button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
+    echo "<script src='../scripts/ajax.js'></script><button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
 
 if ($session->exists('username') && $session->get('state') > 0) {
     echo "<button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='";
@@ -118,7 +118,7 @@ echo "</div>
 </nav>
 <div id='wrap-nav-height'></div>
 <div id='sub-menu' class='align-items-start justify-content-start d-none flex-column'>
-    <div id='wrap-to-top' class='d-flex align-items-center justify-content-between gap-5 px-3'>
+    <div id='wrap-to-top' class='d-flex align-items-center justify-content-between gap-2 px-3'>
         <div id='sub-menu-text' class='fs-5'></div>
         <button id='close-sub-menu' onclick='toggleSubmenu(0)' class='button d-flex align-items-center justify-content-center'><i class='fa-solid fa-xmark'></i></button>
     </div>
@@ -300,7 +300,7 @@ if ($session->exists('username') && $session->get('state') > 0){
 echo "<!--LOGGED USER-->
         <form name='logout' id='logout' action='logout.php' method='post'></form>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
-            <button id='user-data-link' onclick='' class='button'><img id='user-image' src='";
+            <button type='button' onclick='".'location.href="dashboard.php";'."' id='user-data-link' class='button'><img id='user-image' src='";
 
 if($session->get('avatar')!= null && $session->get('avatar') != '')
     echo "data:image/jpeg;base64,".base64_encode($session->get('avatar'));
@@ -314,10 +314,12 @@ else
             echo"</label>
             
             <button id='logout-user' type='submit' form='logout' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-heart'></i><span>Kedvencek</span></a>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
-            <a href='#' class='sub-link d-flex align-items-center link  w-100'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>";
+            <a href='dashboard.php' class='sub-link d-flex align-items-center link  w-100 ";
+    if ($currentFile == "dashboard.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
+            <a href='ratings.php' class='sub-link d-flex align-items-center link w-100 ";
+    if ($currentFile == "ratings.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
+            <a href='history.php' class='sub-link d-flex align-items-center link w-100 ";
+    if ($currentFile == "history.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>";
             if($session->get('level') == 3)
             {
                 if($session->get('edit') == 0)

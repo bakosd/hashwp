@@ -32,6 +32,8 @@ $messages = [
     12=> 'Lejárt a munkamenet! Jelentkezz be újra.'
 ];
 
+$input_names_arr = ['lastname'=>'Vezetéknév','firstname'=>'Keresztnév','phonenumber'=>'Telefonszám','birthdate'=>'Születésnap','idcardNumber'=>'Személyi/Útlevél szám', 'licensecardNumber' => 'Vezetői engedély szám', 'licensecardPlace'=>'Vezetői engedély kiadási helye', 'avatar'=>'Profilkép'];
+
 /**
  * @param $message *Something to display
  * @param string $type *error, warning, success
@@ -164,7 +166,7 @@ function cardSmall(string $type = "favorites", int $carID = 1):string{
                  $returnValue.= "../images/icons/user-default.png";
              $returnValue .= "' alt='user-avatar'><div class='comment-user-data d-flex flex-column'><span>$item->name</span><small>$item->created</small></div></div><div class='comment-body mt-3'><div class='d-flex justify-content-between align-items-center gap-2'><span class='comment-title d-block text-start'>$item->commentTitle</span><div class='rate d-flex align-items-center'>";
              $returnValue .= generateStars($item->rating);
-             $returnValue .= "</div></div><p class='p-2'>$item->comment</p></div><div class='comment-footer d-flex flex-column gap-2 pt-3'><div class='likes d-flex align-items-center gap-4'><form id='comment_update_likes' method='post'></form><div class='likes d-flex gap-2 align-items-center thumbs-myselect'><button class='button-2 like' type='submit' form='comment_update_likes' name='like' value='$item->ratingID'><i class='fa-solid fa-thumbs-up'></i></button><span class='like'>$item->likes</span></div><div class='likes d-flex gap-2 align-items-center'><button class='button-2 dislike' type='submit' form='comment_update_likes' name='dislike' value='$item->ratingID'><i class='fa-solid fa-thumbs-down'></i></button><span class='dislike'>$item->dislikes</span></div></div></div></div></div>";
+             $returnValue .= "</div></div><p class='p-2'>$item->comment</p></div><div class='comment-footer d-flex flex-column gap-2 pt-3'></div></div></div>";
          }
      }
      else{

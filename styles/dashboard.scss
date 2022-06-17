@@ -1,0 +1,23 @@
+@import "variables";
+
+.rounded-image{
+  image-resolution: snap;
+  border-radius: $border-rad-5;
+  //border: 2px solid $color17;
+  box-shadow: 0 0 25px $color12 !important;
+}
+
+main .input-with-icon {
+  &:hover{
+    transform: none !important;
+    box-shadow: 0 0 4px $color12 !important;
+    transition: none !important;
+  }
+}
+main .input-with-icon2{
+  &:hover {
+    transform: scale(1.005) !important;
+    box-shadow: 0 0 4px $color15 !important;
+    transition: all $transition-1 !important;
+  }
+}
