@@ -237,6 +237,7 @@ $(document).ready(function () {
 
     $('#date-check-form').on('submit', function (e) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         if (checkDateCheck($(this))) {
             $.ajax({
                 type: "POST",
@@ -251,7 +252,7 @@ $(document).ready(function () {
                         $("#date-check-form").fadeOut("slow", function () {
                             $(this).remove();
                         });
-                        $('#submit-data-order-btn').attr('form', 'order-form').attr('name', 'order-form-submit').html('Foglalás megkezdése <i class=\'fa-solid fa-angle-right\'></i>');
+                        $('#submit-data-order-btn').attr('form', 'order-form').attr('name', '').html('Foglalás megkezdése <i class=\'fa-solid fa-angle-right\'></i>');
                     }
                     if (data === "not-available")
                         Alert2($("#date-check-form").parent().parent(), 'Sajnos a kiválasztott intervallumban foglalt!', 'error');
@@ -405,6 +406,69 @@ $(document).ready(function () {
             img.src = objectUrl;
         }
     });
+
+    $("#order-page1").on('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        nextPage(e, $(this));
+    });
+
+    $("#order-page2").on('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        nextPage(e, $(this));
+    });
+
+    $("#order-page3").on('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        nextPage(e, $(this));
+    });
+
+    $("#date-check").on('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (checkDateCheck($(this))) {
+            nextPage(e, $(this));
+        }
+    });
+    function nextPage(e, form, datecheck) {
+        $.ajax({
+            type: "POST",
+            url: 'order_operation.php',
+            cache: false,
+            data: form.serialize(),
+            dataType: 'html',
+            success: function (data) {
+                if (data === "available")
+                    Alert2($("#date-check").parent().parent(), 'Foglalható az intervallum közt!', 'success');
+                if (data === "not-available")
+                    Alert2($("#date-check").parent().parent(), 'Sajnos a kiválasztott intervallumban foglalt!', 'error');
+                if (data !== "error" && data !== "available" && data !== "not-available") {
+                    let json = JSON.parse(data);
+                    $('#progress-bar').fadeOut("fast", function () {
+                        $(this).fadeIn("slow", function () {
+                            $(this).html(json[0]);
+                        });
+                    });
+
+                    $('#container-data').fadeOut("fast", function () {
+                        $(this).html("");
+                        $(this).fadeIn("slow", function () {
+                            $(this).html(json[1]);
+                            pushButtonsInit();
+                            dropDownAbsolute();
+                        });
+
+                    });
+
+                }
+            },
+            error: function (data) {
+                console.log("error: " + data);
+            }
+        });
+    }
 });
 
 

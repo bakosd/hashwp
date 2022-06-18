@@ -123,7 +123,7 @@ function updateDropdownText(buttonID, buttonArr) {
 }
 
 
-$(function () {
+function dropDownAbsolute() {
     $(".droplist-button").click(function () {
         let tempWidth = parseInt($(this).width()) + parseInt($(this).css('paddingLeft').slice(0, -2)) + parseInt($(this).css('paddingRight').slice(0, -2));
         $(this).next().css("cssText", "width: " + tempWidth + "px !important; ");
@@ -160,8 +160,9 @@ $(function () {
             }
         });
     });
-});
-
+    return false;
+}
+$(document).ready(dropDownAbsolute());
 
 var darkModeState = localStorage.getItem('darkModeState');
 const darkModeToggle = document.getElementById('theme-changer');
@@ -209,10 +210,9 @@ let animation = () => {
     }, 1000)
 };
 
-$(document).ready(function () {
+function pushButtonsInit(){
     try {
         const droppushBtn = document.querySelectorAll('[data-droppush-btn]');
-        console.log(droppushBtn);
         if(droppushBtn != null)
             droppushBtn.forEach((button) => {
                 button.addEventListener('click', () => {
@@ -226,7 +226,8 @@ $(document).ready(function () {
     }catch (e){
         //console.log(e);
     }
-});
+}
+$(document).ready(pushButtonsInit);
 
 
 $(document).ready(function () {

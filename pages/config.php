@@ -221,9 +221,10 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
  * @param bool $multiselect If it's true then multiselectable, default = true
  * @return string
  */
-function dropdownButton(string $label, string $name, array $dataArray, string $path = "", bool $multiselect = true): string
+function dropdownButton(string $label, string $name, array $dataArray, string $path = "", bool $multiselect = true, string $form = ""): string
 {
     $returnValue = "";
+    $form = empty($form) ? "" : "form= '$form'";
     $multiselect = !$multiselect ? "" : "droplist-multiselect";
     $returnValue .= "<label for='$name-toggle' class='user-select-none'>$label</label><button type='button' id='$name-toggle' onclick='dropdownList(\"$name\", \"$name-toggle\")' class='position-relative submit-input input-with-icon d-flex align-items-center position-relative droplist-button'><span id='$name-toggle-text' class='droplist-toggle-text'>Nincs kiválasztott</span><i class='me-2 position-absolute end-0 fa-solid fa-angle-down'></i></button><div id='$name' class='droplist $multiselect d-flex flex-column gap-1 p-1 justify-content-center align-items-center d-none'>";
     $i = 0;
@@ -231,9 +232,35 @@ function dropdownButton(string $label, string $name, array $dataArray, string $p
         ++$i;
         $value = $value->$name;
         $image = strlen($path) > 0 ? "<img src='../images/$path/$value.png' alt='$value-kep'>" : "";
-        $returnValue .= "<input class='d-none droplist-checkbox' type='checkbox' id='$name-cat-$i' data-dl='$name' name='$name" . "[]' value='$value'><label for='$name-cat-$i' class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'>$image<span>$value</span></label>";
+        $returnValue .= "<input class='d-none droplist-checkbox' $form type='checkbox' id='$name-cat-$i' data-dl='$name' name='$name" . "[]' value='$value'><label for='$name-cat-$i' class='category-checkbox d-flex px-2 align-items-center gap-1 user-select-none'>$image<span>$value</span></label>";
     }
 
     $returnValue .= "</div>";
     return $returnValue;
+}
+
+function tryGetResultToOrderPage():array{
+    $result = null;
+    $carID = 0;
+    $car_full_name = ""; $car_banner = "";
+    if (isset($_GET['car']) || isset($_POST['car'])){
+        try{
+            if(!empty($_GET['car'])) {
+                $carID = (int)$_GET['car'];
+                $_POST['car'] = $carID;
+            }
+            if(!empty($_POST['car']))
+                $carID = (int)$_POST['car'];
+                $query = new SQLQuery('SELECT carsID, manufacturerID, carname, engine, gearbox, fuel, horsepower, seats, doors, bodywork, releasedate, distance, servisdistance, consumption, emissions, airconditioner, status, extras, name as manufacturer, AVG(r.rating) as rating, COUNT(r.rating) as total_rating, price, discount FROM cars c INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID INNER JOIN prices p on c.carsID = p.carID INNER JOIN ratings r on c.carsID = r.carID WHERE carsID = :carsID LIMIT 1', [':carsID'=>$carID]);
+            if($query->getResult() != null)
+                $result = $query->getResult()[0];
+        }catch (Exception $e){
+            error_log("!!SQL!! FATAL ERROR IN SQL: ".$e);
+        }
+    }
+    if ($carID > 0 && !empty($result)) {
+        $car_full_name = "$result->manufacturer $result->carname $result->releasedate";
+        $car_banner = "$result->releasedate $result->manufacturer $result->carname";
+    }
+    return [$carID, $result, $car_full_name, $car_banner];
 }
