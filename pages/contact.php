@@ -5,14 +5,19 @@ echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='styl
     $session = new Session();
     $query = new SQLQuery("SELECT city, address, phone, email FROM places ORDER BY placesID ASC LIMIT 1", []);
     $office = $query->getResult()[0];
-    $first_name = "value = '".$session->get('firstname')."' disabled";
-    $last_name = "value = '".$session->get('lastname')."' disabled";
-    $email = "value = '".$session->get('email')."' disabled";
-echo "<main class='container-fluid bg-color'>
-    <div class='container'>
-        <div class='row' style='overflow: hidden !important;'>
-            <div class='col con-text'>
-                <h4 id='title'>Vegye fel velünk a kapcsolatot!</h4>
+    $first_name = "";
+    $last_name = "";
+    $email = "";
+    if ($session->get('userID')) {
+        $first_name = "value = '" . $session->get('firstname') . "' disabled";
+        $last_name = "value = '" . $session->get('lastname') . "' disabled";
+        $email = "value = '" . $session->get('email') . "' disabled";
+    }
+echo "<main class='container' style='margin-top: 4.5rem'>
+   
+        <div class='row d-flex gap-4' style='overflow: hidden !important;'>
+            <div class='col con-text d-flex flex-column gap-4'>
+                <h4 class='title'>Vegye fel velünk a kapcsolatot!</h4>
                 <div class='info'>
                     <div>
                         <p><i class='fa-solid fa-location-dot'></i>&nbsp;Fő irodánk</p>
@@ -28,31 +33,28 @@ echo "<main class='container-fluid bg-color'>
                         <span>$office->email</span>
                     </div>
                 </div>
-                <form>
-                    <div class='name'>
-                        <div class='first-name'>
-                            <label>Vezetéknév <span>*</span></label><br>
-                            <input type='text' class='input-with-icon w-100' $last_name>
-                        </div>
-                        <div class='first-name'>
-                            <label>Keresztnév <span>*</span></label><br>
-                            <input type='text' class='input-with-icon w-100' $first_name>
-                        </div>
-                    </div>
-                    <label>Email <span>*</span></label><br>
+                <h6 class='mx-4 title'>Vegye fel a kapcsolatot űrlap formájában!</h6>
+                <form class='d-flex flex-column gap-2 px-4'>
+                    
+               <div class='d-flex justify-content-between gap-2 flex-wrap'> <div class='col'>    <label class='text-nowrap'>Vezetéknév <span>*</span></label><br>
+                    <input type='text' class='input-with-icon w-100' $last_name></div>
+               
+                   <div class='col'> <label class='text-nowrap'>Keresztnév <span>*</span></label>
+                    <input type='text' class='input-with-icon w-100' $first_name></div></div>
+                    
+                    <label>Email <span>*</span></label>
                     <input type='email' class='input-with-icon w-100' $email>
-                    <label>Üzenet <span>*</span></label><br>
+                    <label>Üzenet <span>*</span></label>
                     <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;'></textarea><br>
                     <input type='submit' class='button w-100 mt-4' value='Küldés'>
                 </form>
             </div>
-            <div class='col p-0'>
-                <div class='col p-0' id='map'>
-                    <iframe src='https://www.google.com/maps/d/embed?mid=1LXQo4_dupajUdCrkUqIBmI3VmfNPEvSs&ehbc=2E312F' width='100%' height='860'></iframe>
-                </div>
+            <div class='col-lg-6 col-sm-12 p-2' id='map'>
+            <h6 class='mx-4 title'>Tekintse meg az irodáinkat!</h6>
+                <!--<iframe src='https://www.google.com/maps/d/embed?mid=1LXQo4_dupajUdCrkUqIBmI3VmfNPEvSs&ehbc=2E312F' width='100%' height='860'></iframe>-->
+                <iframe style='border-radius: 1rem !important; border: 1px solid #000; box-shadow: 0 2px 12px #000;' src='https://my.atlistmaps.com/map/9cd1d586-5b21-4b4e-be98-37a5d8e6434f?share=true' allow='geolocation' width='100%' height='830' frameborder='0' scrolling='no' allowfullscreen></iframe>
             </div>
         </div>
-    </div>
 </main>";
     include_once "footer.php";
     echo '<script src="../scripts/button-events.js"></script><script src="../scripts/events.js"></script><script src="../scripts/auto-swipe.js"></script></body></html>';

@@ -46,24 +46,5 @@ $color14: rgba(0, 0, 0, .25);
 $color15: rgba(0, 0, 0, 1);
 $color16: rgba(62, 118, 134, 0.50);
 $color17: rgba(0, 0, 0, 0.75);*/
-form span {
-  color: #f00;
-}
 
-.title {
-  text-align: center;
-  margin: 2rem;
-}
-
-.info {
-  padding: 1rem;
-  margin: 2rem;
-  border-bottom: 1px solid gray;
-}
-
-.info span {
-  color: var(--col6);
-  font-size: 14px;
-}
-
-/*# sourceMappingURL=contact.css.map */
+/*# sourceMappingURL=order.css.map */

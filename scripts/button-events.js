@@ -211,14 +211,18 @@ let animation = () => {
 
 $(document).ready(function () {
     try {
-        const droppushBtn = document.querySelector('[data-droppush-btn]');
+        const droppushBtn = document.querySelectorAll('[data-droppush-btn]');
+        console.log(droppushBtn);
         if(droppushBtn != null)
-        droppushBtn.addEventListener('click', () => {
-            let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
-            let thisArrow = droppushBtn.querySelector('i');
-            thisArrow.classList.toggle('fa-angle-up');
-            childContent.classList.toggle('d-none');
-        });
+            droppushBtn.forEach((button) => {
+                button.addEventListener('click', () => {
+                    let childContent = button.parentElement.querySelector('[data-droppush-content]');
+                    let thisArrow = button.querySelector('i');
+                    thisArrow.classList.toggle('fa-angle-up');
+                    childContent.classList.toggle('d-none');
+                });
+            });
+
     }catch (e){
         //console.log(e);
     }

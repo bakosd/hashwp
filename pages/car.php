@@ -35,13 +35,10 @@ if (isset($_POST['pick-date']) && isset($_POST['drop-date']) && !empty($carID)){
     }
     $q = new SQLQuery("SELECT rentStartdate, rentEnddate, status FROM orders where carID = :carID", [":carID"=>$carID]);
     $res = $q->getResult();
-    $is_available = "";
-    foreach ($res as $item){
+    $is_available = "available";
+    foreach ($res as $item)
         if( (($item->rentStartdate <= $drop) && ($item->rentEnddate >= $pick)))
             $is_available = "not-available";
-        else
-            $is_available =  "available";
-    }
     exit($is_available);
 }
 

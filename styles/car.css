@@ -61,16 +61,17 @@ $color17: rgba(0, 0, 0, 0.75);*/
   width: inherit !important;
   border-radius: 0.5rem;
 }
-.car-specs-wrap .specs-img {
+
+.specs-img {
   padding: 0.25rem 0.5rem;
   background-color: var(--col7);
   border-radius: 0.5rem;
   opacity: 0.7;
 }
-.car-specs-wrap .specs-img img {
+.specs-img img {
   width: 2rem;
 }
-.car-specs-wrap .car-specs {
+.specs-img .car-specs {
   display: block;
   overflow: hidden !important;
   width: 99%;

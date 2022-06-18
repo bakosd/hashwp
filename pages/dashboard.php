@@ -39,9 +39,6 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
         if($arr[0] != "avatar") $data_new = ' Új érték: '.$arr[1];
         $exitVal =  "Sikeresen szerkesztette a ".$input_names_arr[$arr[0]]." adatot!<br>$data_new <br> <span class='text-danger'>Az oldal 3 másodperc múlva újratöltődik!</span>";
     }
-    ob_start();
-    var_dump($_SESSION);
-    error_log(ob_get_clean());
     exit($exitVal);
 }
 function checkDataLength($data, $len):bool{
@@ -113,10 +110,10 @@ if (!empty($session->get('userID'))) {
     $unsubscribe_modal = $unsubscribe_modal->getModal();
 
 
-    echo "<div class='mt-2'>
+    echo "<div class='mt-2 w-100'>
                 <label for='avatar'>Profilkép megváltoztatása</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon input-with-icon2 m-1 w-100'>
                             <i class='px-2 fa-solid fa-file-image'></i>
                             <input type='file' form='image-submit' name='avatar' id='avatar' accept='image/jpeg, image/png'>
@@ -128,10 +125,10 @@ if (!empty($session->get('userID'))) {
             </div>
         </div>
         <div class='col-lg-4 col-md-6 col-sm-12 p-4 d-flex align-items-center flex-column gap-4'>
-            <div>
+            <div class='w-100'>
                 <label for='lastname'>Vezetéknév</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-signature'></i>
                             <input id='lastname' type='text' value='".$session->get('lastname')."' disabled>
@@ -140,10 +137,10 @@ if (!empty($session->get('userID'))) {
                     <button class='button' id='lastname-btn' data-d-btn='true' data-d='lastname'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
                 </div>
             </div>
-            <div>
+            <div class='w-100'>
                 <label for='firstname'>Keresztnév</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-signature'></i>
                             <input id='firstname' type='text' value='".$session->get('firstname')."' disabled>
@@ -152,10 +149,10 @@ if (!empty($session->get('userID'))) {
                     <button class='button' id='firstname-btn' data-d-btn='true' data-d='firstname'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
                 </div>
             </div>
-            <div>
+            <div class='w-100'>
                 <label for='phonenumber'>Telefonszám</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-phone'></i>
                             <input id='phonenumber' type='text' value='$result->phonenumber' disabled>
@@ -165,10 +162,10 @@ if (!empty($session->get('userID'))) {
                 </div>
             </div>
 
-            <div>
+            <div class='w-100'>
                 <label for='birthdate'>Születésnap</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-cake-candles'></i>
                             <input id='birthdate' type='text' value='$result->birthdate' disabled>
@@ -182,10 +179,10 @@ if (!empty($session->get('userID'))) {
 
         <div class='col-lg-4 col-md-6 col-sm-12 p-4 d-flex align-items-center flex-column gap-4'>
 
-            <div>
+            <div class='w-100'>
                 <label for='idcardNumber'>Személyi/Útlevél szám</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-id-card'></i>
                             <input id='idcardNumber' type='text' value='$result->idcardNumber' disabled>
@@ -194,10 +191,10 @@ if (!empty($session->get('userID'))) {
                     <button class='button' id='idcardNumber-btn' data-d-btn='true' data-d='idcardNumber'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
                 </div>
             </div>
-            <div>
+            <div class='w-100'>
                 <label for='licensecardNumber'>Vezetői engedély szám</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-address-card'></i>
                             <input id='licensecardNumber' type='text' value='$result->licensecardNumber' disabled>
@@ -206,10 +203,10 @@ if (!empty($session->get('userID'))) {
                     <button class='button' id='licensecardNumber-btn' data-d-btn='true' data-d='licensecardNumber'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
                 </div>
             </div>
-            <div>
+            <div class='w-100'>
                 <label for='licensecardPlace'>Vezetői engedély kiadási helye</label>
                 <div class='d-flex gap-1'>
-                    <div class='d-flex align-items-center'>
+                    <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-map'></i>
                             <input id='licensecardPlace' type='text' value='$result->licensecardPlace' disabled>

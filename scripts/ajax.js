@@ -247,7 +247,7 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data === "available") {
                         Alert2($("#date-check-form").parent().parent(), 'Foglalható az intervallum közt!', 'success');
-                        $("#date-check-form").parent().parent().prepend("<form id='order-form' method='post' action='order.php'><input type='hidden' name='carID' value='" + $("#date-check-form :input[name='car']").val() + "'></form>");
+                        $("#date-check-form").parent().parent().prepend("<form id='order-form' method='get' action='order.php'><input type='hidden' name='car' value='" + $("#date-check-form :input[name='car']").val() + "'></form>");
                         $("#date-check-form").fadeOut("slow", function () {
                             $(this).remove();
                         });
