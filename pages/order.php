@@ -45,48 +45,49 @@ if (isset($_GET['car']) || isset($_POST['car'])){
 </div>*/
         echo "<main style='margin-top: 4.5rem'>
         <div class='container'>
-        <div class='col-12 progress border mb-5' style='height: 1.5rem !important;border: 2px solid black !important;'>
-        <div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>1/4</div>
-        <div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>
-        <div class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>
-        <div class='progress-bar bg-success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>
-        </div>
-            
-                
-                   ";
+       ";
+
+        echo "<div class='col-12 progress border mb-5' style='height: 1.25rem !important;border: 2px solid black !important;'>";
+        $page = null;
         $page = 1;
-        if($page != 4)
-            echo "<div class='row d-flex gap-4'><div class='col-lg-5 col-sm-12 p-2 d-flex flex-column gap-5 align-items-center'><div class='carousel w-100'><div class='slider-img' style='border-radius: .5rem .5rem 0 0'><img src='../images/cars/$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png' class='d-block w-75 mx-auto' alt='$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$result->manufacturer.png' width='45px' class='px-1' alt='$result->manufacturer icon'>&nbsp;<b>$result->carname</b>&nbsp;<span>$result->engine $result->releasedate</span></div><div class='action-price'><span>Napi díj:</span>&nbsp;<span class='price'><b>$result->price €</b></span></div></div></div><div class='col-lg-6 col-sm-12 mx-auto'><div class='row d-flex flex-column gap-3 px-1'>";
-        else
-            echo "<div class='row d-flex gap-4 justify-content-center'><h2 class='w-100 text-center'>Gratulálunk, sikeres rendelés!</h2><div class='col-lg-6 col-sm-12 p-2 d-flex flex-column gap-5 align-items-center '><div class='carousel w-100 justify-content-center'><div class='slider-img' style='border-radius: .5rem'><img src='../images/cars/$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png' class='d-block w-75 mx-auto' alt='$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png'></div></div></div>";
+        $succ = 0;
+        $is_success = $succ == 1 ? "bg-success" : "bg-danger";
+        if ($page >= 1) echo "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>1/4</div>";
+        if ($page >= 2) echo "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>";
+        if ($page >= 3) echo "<div class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>";
+        if ($page == 4) echo "<div class='progress-bar $is_success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>";
+        echo "</div>";
         $session = new Session();
         $pick = $session->get('temp_rent_start');
         $drop = $session->get('temp_rent_end');
-        //if page1 || page2
-        //if($page /= 1)
-              //  echo "<div class='rate-price-buttons w-100 d-flex align-items-center flex-column gap-3'><div class='d-flex justify-content-around w-100 align-items-center'><form id='order-page1-check' name='date-check-form' class='d-flex flex-column gap-2'><div class='p-1 w-100'><label for='pick-date' class='user-select-none'>Átvétel ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='pick-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='pick-date' name='pick-date' value='$pick'></div></div><div class='p-1 w-100'><label for='drop-date' class='user-select-none'>Leadás ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='drop-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='drop-date' name='drop-date' value='$drop'></div></div><input type='hidden' name='car' value='$carID'></form><button type='submit' form='order-form1-check' id='submit-order-check-btn' name='submit-order-check' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Frissítés<i class='fa-solid fa-angle-right'></i></button></div></div></div>";
-//if page1
-//                echo "<h2 class='w-100'>Extra szolgáltatások</h2>";
-//                $query = new SQLQuery("SELECT * from order_extras", []);
-//                $order_extras = $query->getResult();
-//                foreach ($order_extras as $extra)
-//                    echo "<div class='w-100 link d-flex justify-content-between align-items-center gap-1' ><div class='specs-img'><img src='../images/icons/carspecs/engine.png' alt='engine'></div><span class='car-specs'><b>$extra->name</b></span><span class='car-specs'><b>$extra->price</b></span><input form='order-page1' class='button' type='checkbox' value='$extra->orderextrasID'></div>";
-//
-//                echo "<button type='submit' form='order-page1' id='order-page1-btn' name='order-page1' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Tovább<i class='fa-solid fa-angle-right'></i></button>";
-    $query = new SQLQuery("SELECT concat(city, ', ', address) as city1, concat(city, ', ', address) as city2 FROM places ORDER BY placesID", []);
-    $pick_drop_place = $query->getResult();
-//if page 2
-    /*    echo "<h2 class='w-100'>Átvétel típusa</h2>
+
+        $query = new SQLQuery("SELECT concat(city, ', ', address) as city1, concat(city, ', ', address) as city2 FROM places ORDER BY placesID", []);
+        $pick_drop_place = $query->getResult();
+        if(isset($page)) {
+            if ($page != 4) { //PAGE1 || PAGE2 || PAGE3
+                echo "<div class='row d-flex gap-4'><div class='col-lg-5 col-sm-12 p-2 d-flex flex-column gap-5 align-items-center'><div class='carousel w-100'><div class='slider-img' style='border-radius: .5rem .5rem 0 0'><img src='../images/cars/$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png' class='d-block w-75 mx-auto' alt='$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$result->manufacturer.png' width='45px' class='px-1' alt='$result->manufacturer icon'>&nbsp;<b>$result->carname</b>&nbsp;<span>$result->engine $result->releasedate</span></div><div class='action-price'><span>Napi díj:</span>&nbsp;<span class='price'><b>$result->price €</b></span></div></div></div>";
+                if ($page != 3) { // PAGE1 || PAGE2
+                    echo "<div class='rate-price-buttons w-100 d-flex align-items-center flex-column gap-3'><div class='d-flex justify-content-around w-100 align-items-center'><form id='order-page1-check' name='date-check-form' class='d-flex flex-column gap-2'><div class='p-1 w-100'><label for='pick-date' class='user-select-none'>Átvétel ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='pick-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='pick-date' name='pick-date' value='$pick'></div></div><div class='p-1 w-100'><label for='drop-date' class='user-select-none'>Leadás ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='drop-date' class='px-2 fa-solid fa-calendar'></label><input type='datetime-local' id='drop-date' name='drop-date' value='$drop'></div></div><input type='hidden' name='car' value='$carID'></form><button type='submit' form='order-form1-check' id='submit-order-check-btn' name='submit-order-check' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Frissítés<i class='fa-solid fa-angle-right'></i></button></div></div></div><div class='col-lg-6 col-sm-12 mx-auto'><div class='row d-flex flex-column gap-3 px-1'>";
+                    if ($page != 2) { // PAGE1
+                        echo "<h2 class='w-100'>Extra szolgáltatások</h2>";
+                        $query = new SQLQuery("SELECT * from order_extras", []);
+                        $order_extras = $query->getResult();
+                        foreach ($order_extras as $extra)
+                            echo "<div class='w-100 link d-flex justify-content-between align-items-center gap-1' ><div class='specs-img'><img src='../images/icons/carspecs/engine.png' alt='engine'></div><span class='car-specs text-align-right'><b>$extra->name</b></span><span class='car-specs'><b>$extra->price</b></span><input form='order-page1' class='button' type='checkbox' value='$extra->orderextrasID'></div>";
+
+                        echo "<button type='submit' form='order-page1' id='order-page1-btn' name='order-page1' class='button px-3 d-flex justify-content-center align-items-center gap-2'>Tovább<i class='fa-solid fa-angle-right'></i></button>";
+                    } else { // PAGE2
+                        echo "<h2 class='w-100'>Átvétel típusa</h2>
 <div class='d-flex flex-column gap-4'>
 <div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='1'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Átvételi pont</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' data-droppush-content='1'>
     <div class='d-flex gap-2 flex-column my-4 justify-content-center align-items-center'>
-        <div class='w-75'>".dropdownButton('Átvételi pont', 'city1', $pick_drop_place, "", false)."</div>
-        <div class='w-75'>".dropdownButton('Leadási pont', 'city2', $pick_drop_place, "", false)."</div>
+        <div class='w-75'>" . dropdownButton('Átvételi pont', 'city1', $pick_drop_place, "", false) . "</div>
+        <div class='w-75'>" . dropdownButton('Leadási pont', 'city2', $pick_drop_place, "", false) . "</div>
     </div>
     <button type='submit' form='order-page2' id='order-page2-btn' name='order-page2' class='button px-3 d-flex justify-content-center align-items-center gap-2 w-75 mx-auto'>Tovább<i class='fa-solid fa-angle-right'></i></button>
 </div></div>
 ";
-        echo "
+                        echo "
 <div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='2'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Házhozszállítás</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' data-droppush-content='2'>
             <div class='w-75 mx-auto py-4'><div>
             <label for='city'>Város</label>
@@ -127,10 +128,11 @@ if (isset($_GET['car']) || isset($_POST['car'])){
                     </div>
                 </div></div></div>
 <button type='submit' form='order-page2' id='order-page2-btn' name='order-page2' class='button px-3 d-flex justify-content-center align-items-center gap-2 w-75 mx-auto'>Tovább<i class='fa-solid fa-angle-right'></i></button>
-";*/
-
-//PAGE 3
-/*echo "</div></div></div><div class='col row' style='gap: 4rem 0 !important;'>
+";
+                    }
+                    echo "</div></div></div>";
+                } else { // PAGE3
+                    echo "<div class='col-lg-6 col-sm-12 mx-auto'><div class='row d-flex flex-column gap-3 px-1'></div></div></div><div class='col row' style='gap: 4rem 0 !important;'>
 <div class='col-lg-4 col-sm-12 d-flex flex-column gap-5'>
     <div class='row d-flex flex-column gap-2 px-2'>
         <h5 class='text-center' >Bérlés információi</h5>
@@ -159,13 +161,22 @@ if (isset($_GET['car']) || isset($_POST['car'])){
 </div>
 <div class='row my-5'><button type='submit' form='order-page3' id='order-page3-btn' name='order-page3' class='button px-3 d-flex justify-content-center align-items-center gap-2 w-75 mx-auto'>Rendelés véglegesítése<i class='fa-solid fa-angle-right'></i></button></div>
 </div>
-";*/
+";
+                }
+            } else { //PAGE4
+                if($succ == 1)
+                    echo "<div class='row d-flex gap-4 justify-content-center'><h2 class='w-100 text-center'>Gratulálunk, sikeres rendelés!</h2><div class='col-lg-6 col-sm-12 p-2 d-flex flex-column gap-5 align-items-center '><div class='carousel w-100 justify-content-center'><div class='slider-img' style='border-radius: .5rem'><img src='../images/cars/$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png' class='d-block w-75 mx-auto' alt='$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png'></div></div></div><p class='text-center'>Sikeresen megrendelte a <b>$car_full_name</b> járművet!<br>A rendelés adataival elküldtünk egy emailt. <br> Mikor egy alkalmazottunk jóváhagyja a rendelést, egy újabb emailt fog kapni!</p>";
+                else
+                    echo "<div class='row d-flex gap-4 justify-content-center'><h2 class='w-100 text-center'>Sajnáljuk, nem sikerült a rendelés!</h2><p class='w-auto mx-auto text-left'>Lehetséges opciók: <br>- A járművet a rendelés folyamán valaki más megrendelte!<br>- A rendelést nem sikerült rögzíteni a szerverünkre. <br>- A bevitt adatok nem voltak megfelelőek!</p><br><b class='text-center'>Ha ön szerint más probléma akadt, lépjen velünk kapcsolatba!</b><br><span class='text-center'>support@hash.com</span>";
 
-//PAGE 4
-        echo "<p class='text-center'>Sikeresen megrendelte a <b>$car_full_name</b> járművet!<br>A rendelés adataival elküldtünk egy emailt. <br> Mikor egy alkalmazottunk jóváhagyja a rendelést, egy újabb emailt fog kapni!</p>";
 
-//ha nem page3 || 4
-//echo "</div></div></div>";
+
+            }
+        }
+        //if page1 || page2
+              //
+
+
         echo "
             <div></div>
            <form id='order-page1' method='post'></form>
