@@ -217,6 +217,7 @@ footer {
   background: $linear1;
   color: $color7;
   position: relative;
+  flex-shrink: 1;
 }
 
 footer span {

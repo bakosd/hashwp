@@ -5,9 +5,9 @@ $token = trim($_GET['token']);
 
 if (!empty($token) AND strlen($token) === 40) { //if token 40 then it's user activation
     if(UserSystem::tryActivate($token))
-        redirection('index.php?act=6');
+        redirection('index.php?message=6');
     else
-        redirection('index.php?act=7');
+        redirection('index.php?message=7');
 }elseif (!empty($token) AND strlen($token) === 50){ //if token 50 it's password recovery.
     echo '<!DOCTYPE html>
 <html lang="en">
@@ -37,7 +37,7 @@ if (!empty($token) AND strlen($token) === 40) { //if token 40 then it's user act
         </div>
     </div>
     <div class="px-1 py-1">
-        <label for="rpassword1" class="user-select-none">Új jelszó megerősítése</label>
+        <label for="rpassword2" class="user-select-none">Új jelszó megerősítése</label>
         <div class="login-input input-with-icon d-flex align-items-center">
             <i class="px-2 fa-solid fa-lock"></i>
             <input type="password" id="rpassword2" name="rpassword2" minlength="8" placeholder="Új jelszó megerősítése" autocomplete="false">
@@ -80,4 +80,4 @@ function checkData(){
 </script>
 </html>';
 }
-?>
+

@@ -280,6 +280,8 @@ footer {
   background: var(--col2);
   color: var(--col7);
   position: relative;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
 }
 
 footer span {

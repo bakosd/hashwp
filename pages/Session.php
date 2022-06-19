@@ -61,6 +61,13 @@ class Session
      return session_destroy();
     }
 
+    public function forceSet($key, $value):self{
+        self::remove($key);
+        self::set($key, $value);
+        session_write_close();
+        return $this;
+    }
+
     public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $password)
     {
         $this->set('userID', $usersID);

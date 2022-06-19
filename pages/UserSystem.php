@@ -2,53 +2,53 @@
 
 class UserSystem
 {
-    public static function tryRegister($username, $password, $firstname, $lastname, $birthdate, $email, $phone, $id_card, $license_number, $license_place):string{
+    public static function tryRegister($username, $password, $firstname, $lastname, $birthdate, $email, $phone, $id_card, $license_number, $license_place): string
+    {
         $returnValue = "";
         require_once "config.php";
-        if(!UserSystem::checkUserExistence($username, $email)) {
+        if (!UserSystem::checkUserExistence($username, $email)) {
             $token = UserSystem::createToken(40);
             $password = password_hash($password, PASSWORD_DEFAULT); // HASHING THE PASSWORD
             $query = new SQLQuery("INSERT INTO users (username, password, firstname, lastname, birthdate, email, phonenumber, idcardNumber, licensecardNumber, licensecardPlace, token, state, tokenExpires) VALUES (:username, :password, :firstname, :lastname, :birthdate, :email, :phonenumber, :idcardNumber, :licensecardNumber, :licensecardPlace, :token, :state, DATE_ADD(now(),INTERVAL 1 DAY))",
                 [':username' => $username, ':password' => $password, ':firstname' => $firstname, ':lastname' => $lastname, ':birthdate' => $birthdate, ':email' => $email, ':phonenumber' => $phone, ':idcardNumber' => $id_card, ':licensecardNumber' => $license_number, ':licensecardPlace' => $license_place, ':token' => $token, ':state' => 0]
             );
-            if ($query->getDbq()->rowCount() > 0){
-                if(UserSystem::sendEmail($firstname, $lastname, $email, $token, "register")){
+            if ($query->getDbq()->rowCount() > 0) {
+                if (UserSystem::sendEmail("activation",$email,$firstname, $lastname,"activate.php", "?token=".$token)) {
                     $returnValue = "Sikeres regisztráció.";
-                }
-                else {
+                } else {
                     $returnValue = "Nem sikerült elküldeni az email-t.";
                 }
-            }
-            else{
+            } else {
                 $returnValue = "Nem sikerült bevinni az adatokat az adatbázisba.";
             }
-        }
-        else{
+        } else {
             $returnValue = "Már létezik ilyen felhasználó.";
         }
         return $returnValue;
     }
 
-    public static function tryActivate($token):bool{
+    public static function tryActivate($token): bool
+    {
         $query = new SQLQuery(
             "UPDATE users SET state=1, token='', tokenExpires='' WHERE binary token = :token AND tokenExpires>now()",
             [':token' => $token]
         );
-        if($query->getDbq()->rowCount() > 0)
+        if ($query->getDbq()->rowCount() > 0)
             return true;
         else
             return false;
     }
 
-    public static function tryRecovery($email):bool{
+    public static function tryRecovery($email): bool
+    {
         $username = UserSystem::getUsernameFromEmail($email);
         $returnValue = false;
-        if(UserSystem::checkUserExistence($username, $email)){
+        if (UserSystem::checkUserExistence($username, $email)) {
             $query = new SQLQuery(
                 "SELECT state, firstname, lastname FROM users WHERE username = :username AND email = :email",
                 [':username' => $username, ':email' => $email]
             );
-            if($query->getDbq()->rowCount() > 0) {
+            if ($query->getDbq()->rowCount() > 0) {
                 $res = $query->getResult()[0];
                 if ($res->state == "1") {
                     $token = self::createToken(50);
@@ -57,7 +57,7 @@ class UserSystem
                         [':token' => $token, ':email' => $email, ':username' => $username]
                     );
                     if ($query2->getDbq()->rowCount() > 0) {
-                        self::sendEmail($res->firstname, $res->lastname, $email, $token, "recovery");
+                        self::sendEmail("recovery",$email, $res->firstname, $res->lastname, "activate.php", "?token=".$token);
 
                         $returnValue = true;
                     }
@@ -66,49 +66,83 @@ class UserSystem
         }
         return $returnValue;
     }
-    public static function tryUpdatePassword($password, $token):bool{
+
+    public static function tryUpdatePassword($password, $token, $logged_in = false, $old_pass = null): bool
+    {
+        $session = null;
         $password = password_hash($password, PASSWORD_DEFAULT); // HASHING THE PASSWORD
-        $query = new SQLQuery(
-            "UPDATE users SET password=:password, state=1, token='', tokenExpires='' WHERE binary token = :token AND tokenExpires>now()",
-            [':password'=>$password,':token' => $token]
-        );
-        if($query->getDbq()->rowCount() > 0)
+        $query_string = "UPDATE users SET password=:password, state=1, token='', tokenExpires='' WHERE binary token = :token AND tokenExpires>now()";
+        $query_array = [':password' => $password, ':token' => $token];
+
+        if ($logged_in && !empty($old_pass)) {
+            $session = new Session();
+            $sub_query = new SQLQuery("SELECT password FROM users WHERE usersID = :usersID AND username = :username", [':usersID' => $session->get('userID'), ':username' => $session->get('username')]);
+            $query_password = $sub_query->getResult()[0];
+            ob_start();
+            var_dump($sub_query);
+            error_log(ob_get_clean());
+            if (!empty($query_password->password))
+                if (password_verify($old_pass, $query_password->password)) {
+                    $query_string = "UPDATE users SET password=:password WHERE usersID = :usersID AND username = :username";
+                    $query_array = [':password' => $password, ':usersID' => $session->get('userID'), ':username' => $session->get('username')];
+                } else {
+                    require_once "config.php";
+                    redirection('index.php?rec=9');
+                    exit();
+                }
+        }
+
+        $query = new SQLQuery($query_string, $query_array);
+        if ($query->getDbq()->rowCount() > 0)
             return true;
         else
             return false;
     }
 
-    public static function tryLogin($user, $password):string{
+    public static function tryUpdateSubscription($user, $value, $is_user): bool
+    {
+        if ($is_user)
+            $query = new SQLQuery("UPDATE users SET subscribed = :subscribed WHERE email = :email", [':subscribed' => $value, ':email' => $user]);
+        else
+            /*  if($value != 1) // Fuuture unsubscribe from newsletter from link
+                  $query = new SQLQuery("DELETE FROM newslettermails WHERE email = :email", [$user]);
+              else*/
+            $query = new SQLQuery("INSERT INTO newslettermails (email, subscription) VALUES (:email, :subscribed)", [':subscribed' => $value, ':email' => $user]);
+
+        if ($query->getDbq()->rowCount() > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public static function tryLogin($user, $password): string
+    {
         require_once "config.php";
         $user = UserSystem::getUsernameFromEmail($user);
 
-        if(UserSystem::checkUserExistence($user)){
+        if (UserSystem::checkUserExistence($user)) {
             $query = new SQLQuery(
                 "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
                 [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {
                 $result = $query->getResult()[0];
-                if(password_verify($password, $result->password)) {
+                if (password_verify($password, $result->password)) {
                     if ((int)$result->state > 0) {
                         $session = new Session();
                         $session->createUser(...(array)$result);
                         return "Sikeresen bejelentkeztél!";
-                    }
-                    else
+                    } else
                         return "Hiba, aktiváld a fiókot!";
-                }
-                else
+                } else
                     return "Hibás bejelentkezési adatok!";
-            }
-            else
+            } else
                 return "Hibás bejelentkezési adatok!";
-        }
-        else
+        } else
             return "Hibás bejelentkezési adatok!";
     }
 
-    private static function checkUserExistence($username="", $email=""):bool
+    private static function checkUserExistence($username = "", $email = ""): bool
     {
         require_once "config.php";
         $query = null;
@@ -118,7 +152,7 @@ class UserSystem
                 [':username' => $username, ':email' => $email]
             );
 
-        }else if(!empty($username)){
+        } else if (!empty($username)) {
             $query = new SQLQuery(
                 "SELECT usersID FROM users WHERE username = :username",
                 [':username' => $username]
@@ -150,8 +184,9 @@ class UserSystem
         return $code;
     }
 
-    public static function getUsernameFromEmail($user){
-        if(strpos($user, '@'))
+    public static function getUsernameFromEmail($user)
+    {
+        if (strpos($user, '@'))
             return substr($user, 0, strpos($user, "@")); // janos@gmail.com -> janos
         else
             return $user;
@@ -162,54 +197,65 @@ class UserSystem
      * @param bool $set If false get, otherwise set
      * @param string $value The value for object if set
      */
-    public static function value(string $name, bool $set = false, string $value = "")
+    public static function value(string $name, bool $set = false, string $value = "", bool $sess = false): string
     {
+        $returnValue = "";
         $session = new Session();
         require_once "config.php";
         if ($session->exists('userID')) {
-            $userID = $session->get('userID');
+            $userID = (string)$session->get('userID');
             if (!$set) {
                 $query = new SQLQuery(
-                    'SELECT ' . $name . ' FROM users WHERE usersID = :param',
-                    [':param' => $userID]
+                    "SELECT :param0 FROM users WHERE usersID = :param1",
+                    [':param0'=>$name,':param1' => $userID]
                 );
                 if ($query->getResult() != null) {
-                    $session->set($name, (string)$query->getResult()[0]->$name);
-                } else {
-                    $query = new SQLQuery(
-                        'UPDATE users SET ' . $name . ' = :param WHERE usersID = :param2',
-                        [':param' => $name, ':param2' => $userID]
-                    );
-                    if ($query->getResult() != null) {
-                        $session->set($name, $value);
-                    }
+                    if ($sess) $session->forceSet($name, $query->getResult()[0]->$name);
+                    $returnValue = (string)$query->getResult()[0]->$name;
                 }
+            } else {
+                $query = new SQLQuery(
+                    "UPDATE users SET ".$name." = :paramOne WHERE usersID = :paramTwo",
+                    [':paramOne' => (string)$value, ':paramTwo' => (string)$userID]
+                );
+
+                if ($query->getResult() != null)
+                    $returnValue = $value;
+
+                if ($query->getDbq()->rowCount() > 0)
+                    $session->forceSet($name, $value);
             }
         }
+        return $returnValue;
     }
 
-    public static function sendEmail($firstname, $lastname, $mail, $token="", $type = ""): bool
+    public static function sendEmail($message_type, $mail, $firstname, $lastname, $site="", $token="", $carname="", $carid="", $archive_code=""): bool
     {
-        $header = "From: Hash Carrent <no-reply@hash.proj.vts.su.ac.rs>\n";
+        $mail_type = [
+            'activation' => "Felhasználó aktiváció!",
+            'recovery' => "Jelszó visszaállítás!",
+            'order' => 'Rendelési információk!',
+            'order_approved' => "Rendelés megerősítve!",
+            'order_denied' => "Rendelés elutasítva!",
+            'order_resigned' => "Rendelés lemondva!",
+            'order_archived' => "Rendelés befejezve!"
+        ];
+        $header = "From: Hash - do not reply <no-reply@hash.proj.vts.su.ac.rs>\n";
         $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";
         $header .= "X-Mailer: PHP/" . phpversion();
         $header .= "X-Priority: 1\n";
-        $header .= "Reply-To: support@hash.proj.vts.su.ac.rs\r\n";
+        $header .= "Reply-To: no-reply@hash.proj.vts.su.ac.rs\r\n";
         $header .= "Content-Type: text/html; charset=UTF-8\n";
-
-        $sub = "";
-        $message = "Data:\n\n user: $firstname $lastname \n \n www.vts.su.ac.rs";
-        $message .= "\n\n ";
-        if($type == "register") {
-            $message .= "to activate";
-            $sub = "Account activation";
-        }elseif ($type == "recovery"){
-            $message .= "to recovery";
-            $sub = "Password recovery";
+        require_once "config.php";
+        if (!empty($mail_type))
+            $subject = $mail_type[$message_type];
+        else
+            $subject = "Hash. üzenet önnek!";
+        if (isset($site)){
+            $site = SITE . $site;
         }
-        $message .= " your account click on the link: " . SITE . "activate.php?token=$token";
         $to = $mail;
-        $subject = $sub." at VTS";
+        $message = getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $token, $carname, $carid, $archive_code);
         return mail($to, $subject, $message, $header);
     }
 }

@@ -111,10 +111,10 @@ function updateDropdownText(buttonID, buttonArr) {
             tempStr += buttonArr[i] + ", ";
         }
         outStr = tempStr.slice(0, -2);
-        $('#' + buttonID).removeClass("invalid-data");
+        //$('#' + buttonID).removeClass("invalid-data");
     } else if (buttonArr.length === 0) {
         outStr = "Nincs kiválasztott";
-        $('#' + buttonID).addClass("invalid-data");
+        //$('#' + buttonID).addClass("invalid-data");
     }
     if (outStr.length > 35) {
         outStr = outStr.substr(0, 32) + ".."; //TO LIMIT STRING WIDTH
@@ -123,7 +123,7 @@ function updateDropdownText(buttonID, buttonArr) {
 }
 
 
-$(function () {
+function dropDownAbsolute() {
     $(".droplist-button").click(function () {
         let tempWidth = parseInt($(this).width()) + parseInt($(this).css('paddingLeft').slice(0, -2)) + parseInt($(this).css('paddingRight').slice(0, -2));
         $(this).next().css("cssText", "width: " + tempWidth + "px !important; ");
@@ -132,7 +132,7 @@ $(function () {
         $(".droplist-checkbox").click(function () {
             const clickedParentButton = $(this).parent().prev('button').attr('id');
             let temp = Array();
-            $("input:checkbox[name=" + $(this).parent().attr('id') + "]:checked").each(function () {
+            $("input:checkbox[data-dl=" + $(this).parent().attr('id') + "]:checked").each(function () {
                 temp.push($(this).val());
             });
             DroppDownMainArray[clickedParentButton] = temp;
@@ -160,8 +160,9 @@ $(function () {
             }
         });
     });
-});
-
+    return false;
+}
+$(document).ready(dropDownAbsolute());
 
 var darkModeState = localStorage.getItem('darkModeState');
 const darkModeToggle = document.getElementById('theme-changer');
@@ -209,20 +210,24 @@ let animation = () => {
     }, 1000)
 };
 
-var droppushBtn = null;
-try {
-    if(droppushBtn != null) {
-        droppushBtn = document.querySelector('[data-droppush-btn]');
-        droppushBtn.addEventListener('click', () => {
-            let childContent = droppushBtn.parentElement.querySelector('[data-droppush-content]');
-            let thisArrow = droppushBtn.querySelector('i');
-            thisArrow.classList.toggle('fa-angle-up');
-            childContent.classList.toggle('d-none');
-        });
+function pushButtonsInit(){
+    try {
+        const droppushBtn = document.querySelectorAll('[data-droppush-btn]');
+        if(droppushBtn != null)
+            droppushBtn.forEach((button) => {
+                button.addEventListener('click', () => {
+                    let childContent = button.parentElement.querySelector('[data-droppush-content]');
+                    let thisArrow = button.querySelector('i');
+                    thisArrow.classList.toggle('fa-angle-up');
+                    childContent.classList.toggle('d-none');
+                });
+            });
+
+    }catch (e){
+        //console.log(e);
     }
-} catch (e){
-    console.log(e);
 }
+$(document).ready(pushButtonsInit);
 
 
 $(document).ready(function () {

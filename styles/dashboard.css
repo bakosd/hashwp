@@ -46,23 +46,28 @@ $color14: rgba(0, 0, 0, .25);
 $color15: rgba(0, 0, 0, 1);
 $color16: rgba(62, 118, 134, 0.50);
 $color17: rgba(0, 0, 0, 0.75);*/
-form span {
-  color: #f00;
+.rounded-image {
+  image-resolution: snap;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 25px var(--col12) !important;
+          box-shadow: 0 0 25px var(--col12) !important;
 }
 
-.title {
-  text-align: center;
-  margin: 2rem;
+main .input-with-icon:hover {
+  -webkit-transform: none !important;
+          transform: none !important;
+  -webkit-box-shadow: 0 0 4px var(--col12) !important;
+          box-shadow: 0 0 4px var(--col12) !important;
+  -webkit-transition: none !important;
+  transition: none !important;
 }
 
-.info {
-  padding: 1rem;
-  margin: 2rem;
-  border-bottom: 1px solid gray;
+main .input-with-icon2:hover {
+  -webkit-transform: scale(1.005) !important;
+          transform: scale(1.005) !important;
+  -webkit-box-shadow: 0 0 4px var(--col15) !important;
+          box-shadow: 0 0 4px var(--col15) !important;
+  -webkit-transition: all 150ms !important;
+  transition: all 150ms !important;
 }
-
-.info span {
-  color: var(--col6);
-  font-size: 14px;
-}
-/*# sourceMappingURL=contact.css.map */
+/*# sourceMappingURL=dashboard.css.map */

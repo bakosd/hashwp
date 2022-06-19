@@ -18,6 +18,29 @@
 <body>
 <?php
     require_once "navigation.php";
+    $search_options_array = null;
+    $arr_key = 0;
+    if (isset($_POST)) {
+        if(isset($_POST['min']) && isset($_POST['max'])){
+            $search_options_array[$arr_key++] = ["data"=>"p.price", "op"=>" > ", "val"=>$_POST['min']];
+            $search_options_array[$arr_key++] = ["data"=>"p.price", "op"=>" < ", "val"=>$_POST['max']];
+        }
+        if (isset($_POST['manufacturer']))
+            foreach ($_POST['manufacturer'] as $key => $value)
+                $search_options_array[$arr_key++] = ["data"=>"ms.name", "op"=>" LIKE ", "val"=>$value];
+        if (isset($_POST['bodywork']))
+            foreach ($_POST['bodywork'] as $key => $value)
+                $search_options_array[$arr_key++] = ["data"=>"bodywork", "op"=>" LIKE ", "val"=>$value];
+        if (isset($_POST['seats']))
+            foreach ($_POST['seats'] as $key => $value)
+                $search_options_array[$arr_key++] = ["data"=>"seats", "op"=>" LIKE ", "val"=>$value];
+        if (isset($_POST['fuel']))
+            foreach ($_POST['fuel'] as $key => $value)
+                $search_options_array[$arr_key++] = ["data"=>"fuel", "op"=>" LIKE ", "val"=>$value];
+        if (isset($_POST['gearbox']))
+            foreach ($_POST['gearbox'] as $key => $value)
+                $search_options_array[$arr_key++] = ["data"=>"gearbox", "op"=>" LIKE ", "val"=>$value];
+    }
 ?>
 <main class="container">
 
@@ -26,19 +49,20 @@
     </div>
     <div class="row gap-3" style="margin-bottom: 4.5rem;">
     <?php
-        echo cardBig('carousel');
+        echo cardBig('carousel', $search_options_array);
     ?>
     </div>
 
 </main>
 
-<?php
-    require_once "footer.php";
-?>
+
 
     <script src="../scripts/button-events.js"></script>
     <script src="../scripts/events.js"></script>
-    <script src="../scripts/auto-swipe.js"></script>
+
 
 </body>
+<?php
+require_once "footer.php";
+?>
 </html>

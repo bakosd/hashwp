@@ -38,11 +38,22 @@ echo "<footer>
                 <div class='newletter'>
                     <span>Íratkozz fel hírlevelűnkre, hogy ne<br> maradj le legfrissebb akcióinkról!<br></span>
                     <button class='button px-3' data-bs-toggle='modal' data-bs-target='#newsletter-modal'>Feliratkozom</button> <!-- Ezzel nyitod meg a modal-t-->
-                    <form id='newsletter'></form>
+                    <form name='subscribe' id='subscribe' action='recovery.php' method='post'><input type='hidden' name='subscribe' value='1'></form>
                     
                     ";
-    $newsletter_content = "<div class='p-3'><p>Ha szeretne információkat kapni a legfrissebb akcióinkról, járműveinkről, az elfogadás gombbal beleegyezik, hogy üzenet küldjünk önnek.<p><small><i>Bármikor le tud íratkozni, ha mégsem szeretne üzeneteket kapni!</i></small></p></p></div>";
-    $modal = new Modal("newsletter", "Hírlevél", $newsletter_content, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Elutasítás'], ['name'=>'newsletter_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Elfogadás', 'form'=>'newsletter']]);
+    $mail_input = "";
+    $session = new Session();
+
+    if (empty($session->get("email")))
+        $mail_input = "<div class='px-1 py-1 w-75 mx-auto mb-5'>
+        <label for='newsletter-email' class='user-select-none'>Email cím</label>
+        <div class='login-input input-with-icon d-flex align-items-center'>
+            <i class='px-2 fa-solid fa-at'></i>
+            <input form='subscribe' type='email' id='newsletter-email' name='newsletter-email' minlength='3' placeholder='Email cím' autocomplete='false'>
+        </div>
+    </div>";
+        $newsletter_content = "<div class='p-3'><p>Ha szeretne információkat kapni a legfrissebb akcióinkról, járműveinkről, az elfogadás gombbal beleegyezik, hogy üzenet küldjünk önnek.<p><small><i>Bármikor le tud íratkozni, ha mégsem szeretne üzeneteket kapni!</i></small></p></p></div>$mail_input";
+    $modal = new Modal("newsletter", "Hírlevél", $newsletter_content, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Elutasítás'], ['name'=>'subscribe_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Elfogadás', 'form'=>'subscribe']]);
     echo $modal->getModal();
 echo "</div>
             </div>

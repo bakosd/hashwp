@@ -4,4 +4,4 @@ $session = new Session();
 if($session->clear())
     redirection($_SERVER["HTTP_REFERER"]);
 else
-    redirection('index.php?log=11');
+    redirection('index.php?message=11');

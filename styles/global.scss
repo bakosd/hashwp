@@ -13,8 +13,14 @@
 }
 
 body{
+  display: flex;
+  flex-direction: column;
   background-color: $color1;
   color: $color15;
+  main{
+    min-height: 90vh !important;
+    flex-grow: 1;
+  }
 }
 
 html.transition, html.transition *, html.transition *:before, html.transition *:after {
@@ -75,7 +81,7 @@ a{
   label{
     color: $color7;
   }
-  input, button {
+  textarea, input, button {
     background: none;
     border: none;
     outline: none;

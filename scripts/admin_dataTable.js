@@ -25,3 +25,11 @@ $(document).ready( function () {
         "iDisplayLength": 25
     });
 } );
+
+// ---- Megrendeléseim ----
+$(document).ready( function () {
+    $('#history').DataTable({
+        scrollX: true,
+        "iDisplayLength": 25,
+    });
+} );
