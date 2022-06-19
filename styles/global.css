@@ -125,7 +125,7 @@ a:active {
 .input-with-icon label {
   color: var(--col7);
 }
-.input-with-icon input, .input-with-icon button {
+.input-with-icon textarea, .input-with-icon input, .input-with-icon button {
   background: none;
   border: none;
   outline: none;

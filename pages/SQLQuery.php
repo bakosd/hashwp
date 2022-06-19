@@ -6,6 +6,7 @@ class SQLQuery
     protected $parameter_array; // the array for binding parameters
     protected $dbq; // the object for dbh
     protected $result; // the result from query
+    public $lastInsertId;
     /**
      * @param $query
      * @param $parameter_array
@@ -33,6 +34,7 @@ class SQLQuery
         $this->dbq = $dbh->prepare($this->query);
         try {
             if ($this->dbq->execute($this->parameter_array)) {
+                $this->lastInsertId = $dbh->lastInsertId();
                 $this->result = $this->dbq->fetchAll(PDO::FETCH_OBJ);
             }
         }catch (PDOException $e){
@@ -52,5 +54,4 @@ class SQLQuery
     {
         return $this->dbq;
     }
-
 }

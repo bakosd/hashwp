@@ -23,7 +23,7 @@ if (isset($_POST['pick-date']) && isset($_POST['drop-date']) && !empty($carID)){
     exit($is_available);
 }
 $page = 0; $succ = 0;
-$car_full_name = ""; $car_banner = ""; $data = null; $pick_place = ""; $drop_place = "";
+$car_full_name = $temp[2]; $data = null; $pick_place = ""; $drop_place = "";
 $pick_deliver_needed = false;
 $drop_deliver_needed = false;
 $DELIVERY_PRICE = 18.99;
@@ -87,17 +87,20 @@ if(isset($_POST)) {
             if (isset($pick_placeID) && isset($drop_placeID) && $pick_placeID > 0 && $drop_placeID > 0) {
                 $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentStartplaceID, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentStartplaceID, :rentEndplaceID, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentStartplaceID' => (int)$pick_placeID, ':rentEndplaceID' => (int)$drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
                 if ($query->getDbq()->rowCount() > 0) {
-                    $succ = 1;
+                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                        $succ = 1;
                 }
             } elseif (isset($drop_placeHome) && !isset($pick_placeID) && !isset($drop_placeID)){
                 $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
                 if ($query->getDbq()->rowCount() > 0) {
-                    $succ = 1;
+                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                        $succ = 1;
                 }
             } elseif (isset($drop_placeHome) && isset($drop_placeID) && $drop_placeID > 0){
                 $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :rentEndplaceID,  :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':rentEndplaceID'=>$drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
                 if ($query->getDbq()->rowCount() > 0) {
-                    $succ = 1;
+                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                        $succ = 1;
                 }
             }
         }
@@ -223,11 +226,11 @@ if(isset($_POST)) {
                     }
                 else
                     $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-around flex-wrap gap-2'><b>Nincs extra.</b></span></div>";
-
+                $rent_price_formated = number_format($rent_price, 2, '.', '');
                 $data[1] .="</div>
 <div class='col-lg-4 col-sm-12 d-flex flex-column gap-2 px-2'>
  <h5 class='text-center'>Fizetendő összeg</h5>
- <div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>$full_rent</b><span>$rent_price €</span></span></div>
+ <div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>$full_rent</b><span>$rent_price_formated €</span></span></div>
 ";
 
                 $total_rent_price = $rent_price;
@@ -247,6 +250,7 @@ if(isset($_POST)) {
                         $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>1x Szállítási költség</b><span>$DELIVERY_PRICE €</span></span></div>";
                 }
                 $total_rent_price = number_format($total_rent_price, 2, '.', '');
+
                 $data[1] .= "<hr class='m-5'>
     <div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>Összesítve: </b><span>$total_rent_price €</span></span></div>
 </div>

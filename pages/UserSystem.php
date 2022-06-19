@@ -13,7 +13,7 @@ class UserSystem
                 [':username' => $username, ':password' => $password, ':firstname' => $firstname, ':lastname' => $lastname, ':birthdate' => $birthdate, ':email' => $email, ':phonenumber' => $phone, ':idcardNumber' => $id_card, ':licensecardNumber' => $license_number, ':licensecardPlace' => $license_place, ':token' => $token, ':state' => 0]
             );
             if ($query->getDbq()->rowCount() > 0) {
-                if (UserSystem::sendEmail($firstname, $lastname, $email, $token, "register")) {
+                if (UserSystem::sendEmail("activation",$email,$firstname, $lastname,"activate.php", "?token=".$token)) {
                     $returnValue = "Sikeres regisztráció.";
                 } else {
                     $returnValue = "Nem sikerült elküldeni az email-t.";
@@ -57,7 +57,7 @@ class UserSystem
                         [':token' => $token, ':email' => $email, ':username' => $username]
                     );
                     if ($query2->getDbq()->rowCount() > 0) {
-                        self::sendEmail($res->firstname, $res->lastname, $email, $token, "recovery");
+                        self::sendEmail("recovery",$email, $res->firstname, $res->lastname, "activate.php", "?token=".$token);
 
                         $returnValue = true;
                     }
@@ -229,28 +229,33 @@ class UserSystem
         return $returnValue;
     }
 
-    public static function sendEmail($firstname, $lastname, $mail, $token="", $type = ""): bool
+    public static function sendEmail($message_type, $mail, $firstname, $lastname, $site="", $token="", $carname="", $carid="", $archive_code=""): bool
     {
-        $header = "From: Hash Carrent <no-reply@hash.proj.vts.su.ac.rs>\n";
+        $mail_type = [
+            'activation' => "Felhasználó aktiváció!",
+            'recovery' => "Jelszó visszaállítás!",
+            'order' => 'Rendelési információk!',
+            'order_approved' => "Rendelés megerősítve!",
+            'order_denied' => "Rendelés elutasítva!",
+            'order_resigned' => "Rendelés lemondva!",
+            'order_archived' => "Rendelés befejezve!"
+        ];
+        $header = "From: Hash - do not reply <no-reply@hash.proj.vts.su.ac.rs>\n";
         $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";
         $header .= "X-Mailer: PHP/" . phpversion();
         $header .= "X-Priority: 1\n";
-        $header .= "Reply-To: support@hash.proj.vts.su.ac.rs\r\n";
+        $header .= "Reply-To: no-reply@hash.proj.vts.su.ac.rs\r\n";
         $header .= "Content-Type: text/html; charset=UTF-8\n";
-
-        $sub = "";
-        $message = "Data:\n\n user: $firstname $lastname \n \n www.vts.su.ac.rs";
-        $message .= "\n\n ";
-        if($type == "register") {
-            $message .= "to activate";
-            $sub = "Account activation";
-        }elseif ($type == "recovery"){
-            $message .= "to recovery";
-            $sub = "Password recovery";
+        require_once "config.php";
+        if (!empty($mail_type))
+            $subject = $mail_type[$message_type];
+        else
+            $subject = "Hash. üzenet önnek!";
+        if (isset($site)){
+            $site = SITE . $site;
         }
-        $message .= " your account click on the link: " . SITE . "activate.php?token=$token";
         $to = $mail;
-        $subject = $sub." at VTS";
+        $message = getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $token, $carname, $carid, $archive_code);
         return mail($to, $subject, $message, $header);
     }
 }

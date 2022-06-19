@@ -47,7 +47,7 @@ $(document).ready(function () {
                 data: $(this).serialize(),
                 dataType: 'html',
                 success: function (data) {
-                    $('#reg-result').html(data);
+                    $('#register-result').html(data);
                     $('#register-modal').animate({scrollTop: 0}, 400);
                 },
             });

@@ -5,7 +5,7 @@ $session = new Session();
 
 if ($session->get('userID') && time() > $session->get('logged')){
     $session->clear();
-    redirection('index.php?log=13');
+    redirection('index.php?message=14');
 }
 else
     $session->set('logged', time()+3600);

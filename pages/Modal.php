@@ -31,7 +31,7 @@ class Modal
                 <h5 class='modal-title fw-2' id='register'>$this->header</h5>
                 <button type='button' class='button d-flex justify-content-center align-items-center' data-bs-dismiss='modal' aria-label='Close'><i class='fa-solid fa-xmark'></i></button>
             </div>
-            <div id='result'></div>
+            <div id='$this->name-result'></div>
             $this->content
             <div class='modal-footer d-flex gap-2'>";
             foreach ($this->buttons as $button){

@@ -25,14 +25,14 @@ if(!empty($_POST) && !empty($_POST['token'])){
                 $success = !empty(trim($password_old)) && strlen(trim($password_old)) >= 8 ? UserSystem::tryUpdatePassword($password1, $token, true, $password_old) : null;
             }
             if ($success)
-                redirection('index.php?rec=10');
+                redirection('index.php?message=10');
             else
-                redirection("index.php?rec=9");
+                redirection("index.php?message=13");
         }else{
-            redirection('index.php?rec=9');
+            redirection('index.php?message=13');
         }
     }else{
-        redirection('index.php?rec=9');
+        redirection('index.php?message=13');
     }
 }
 
