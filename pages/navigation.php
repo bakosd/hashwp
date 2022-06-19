@@ -202,8 +202,6 @@ else
             <button id='logout-user' type='submit' form='logout' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
             <a href='dashboard.php' class='sub-link d-flex align-items-center link  w-100 ";
     if ($currentFile == "dashboard.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
-            <a href='ratings.php' class='sub-link d-flex align-items-center link w-100 ";
-    if ($currentFile == "ratings.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
             <a href='history.php' class='sub-link d-flex align-items-center link w-100 ";
     if ($currentFile == "history.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>";
             if($session->get('level') == 3)

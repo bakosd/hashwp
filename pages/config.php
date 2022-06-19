@@ -194,7 +194,7 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
             $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
         }
     } elseif ($type == "comments") {
-        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, likes, dislikes, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID ORDER BY (likes-dislikes) DESC;", [':carID' => $carID]);
+        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID ORDER BY rating DESC;", [':carID' => $carID]);
         $result = $query->getResult();
         if ($result != null) {
             foreach ($result as $item) {
@@ -265,6 +265,16 @@ function tryGetResultToOrderPage():array{
         $car_banner = "$result->releasedate $result->manufacturer $result->carname";
     }
     return [$carID, $result, $car_full_name, $car_banner];
+}
+
+function generateNumbersToken():string{
+    $rand = rand(1000, 9999);
+    $string = $rand . "-";
+    $rand = rand(1000, 9999);
+    $string .= $rand . "-";
+    $rand = rand(1000, 9999);
+    $string .= $rand;
+    return $string;
 }
 
 function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $token, $carname, $id, $archive_code):string

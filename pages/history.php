@@ -1,5 +1,42 @@
 <?php
 require_once "config.php";
+$session = new Session();
+
+if (isset($_POST) && isset($_POST['order-key'])){
+    $returnValue = "error";
+    if (isset($_POST['comment-title']) && isset($_POST['comment-body']) && isset($_POST['rating']) && isset($_POST['carID']) && isset($_POST['orderID'])) {
+        $orderKey = trim($_POST['order-key']);
+        $title = trim($_POST['comment-title']);
+        $comment = trim($_POST['comment-body']);
+        $rating = (float)trim($_POST['rating']);
+        $orderID = (int)trim($_POST['orderID']);
+        $carID = (int)trim($_POST['carID']);
+        if (!empty($title) && !empty($comment) && !empty($rating) && $carID > 0) {
+            $query = new SQLQuery("SELECT * FROM orders WHERE ordersID = :orderID AND carID = :carID AND code = :key LIMIT 1", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+            if ($query->getResult() != null) {
+                $result = $query->getResult()[0];
+                if ($result->status < 4 && $result->code != "0000-0000-0000" && $result->code != "") {
+                    $query = new SQLQuery("INSERT INTO ratings (carID, userID, orderID, rating, commentTitle, comment) VALUES (:carID, :userID, :orderID, :rating, :commentTitle, :comment)", [':userID' => $session->get('userID'), ':orderID' => $orderID, ':carID' => $carID, ':rating' => $rating, ':commentTitle' => $title, ':comment' => $comment]);
+                    if ((int)$query->lastInsertId > 0) {
+                        $query = new SQLQuery("UPDATE orders SET code = '', status = 4 WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+                        if ($query->getDbq()->rowCount() > 0)
+                            $returnValue = "success";
+                        else
+                            $returnValue = "error5";
+                    } else
+                        $returnValue = "error4";
+                }else
+                    $returnValue = "error3";
+
+            } else
+                $returnValue = "error2";
+        }
+        else
+            $returnValue = "error1";
+    }
+
+    exit($returnValue);
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,19 +104,26 @@ foreach ($query->getResult() as $value){
     } else {
         if ($value->status == 3) {
             $rating = "<button class='button px-2' data-bs-toggle='modal' data-bs-target='#rating_$value->ordersID-modal'>Értékelés</button>";
-            $rating_modal = "<form id='#rating_$value->ordersID-form'></form>
-    <div class='d-flex flex-column align-items-center m-4 gap-3 justify-content-center'><div class='px-1 py-1'>
+            $rating_modal = "<form id='rating_$value->ordersID-form' data-rat='1'><input type='hidden' name='carID' value='$value->carID'><input type='hidden' name='orderID' value='$value->ordersID'></form>
+    <div class='d-flex flex-column align-items-center m-4 gap-3 justify-content-center'>
+    <div class='px-1 py-1'>
+        <label for='order-key' class='user-select-none'>E-mailban kapott megerősító kód</label>
+        <div class='login-input input-with-icon d-flex align-items-center'>
+            <i class='px-2 fa-solid fa-key'></i>
+            <input type='text' id='order-key' name='order-key' form='rating_$value->ordersID-form' data-ordk='rating_$value->ordersID-form' minlength='8' placeholder='1234-1234-1234' autocomplete='false'>
+        </div>
+    </div><div class='px-1 py-1'>
         <label for='comment-title' class='user-select-none'>Hozzászólás címe</label>
         <div class='login-input input-with-icon d-flex align-items-center'>
             <i class='px-2 fa-solid fa-heading'></i>
-            <input type='text' id='comment-title' name='comment-title' minlength='8' placeholder='Hozzászólás címe' autocomplete='false'>
+            <input type='text' id='comment-title' name='comment-title' form='rating_$value->ordersID-form' data-ct='rating_$value->ordersID-form' minlength='8' placeholder='Hozzászólás címe' autocomplete='false'>
         </div>
     </div>
     <div class='px-1 py-1'>
         <label for='comment-body' class='user-select-none'>Hozzászólás szövege</label>
         <div class='login-input input-with-icon d-flex align-items-center'>
             <i class='px-2 fa-solid fa-message'></i>
-            <textarea id='comment-body' name='comment-body' minlength='8' placeholder='Hozzászólás szövege' autocomplete='false'></textarea>
+            <textarea id='comment-body' name='comment-body' form='rating_$value->ordersID-form' data-cb='rating_$value->ordersID-form' minlength='10' placeholder='Hozzászólás szövege' autocomplete='false'></textarea>
         </div>
     </div>
     <div class='px-1 py-1'>
@@ -88,40 +132,14 @@ foreach ($query->getResult() as $value){
         ";
             for ($i = 1; $i <= 5; $i += 0.5){
                 if ($i == 5)
-                    $rating_modal.= "<div class='d-flex flex-column align-items-center justify-contetn-center'><input class='ratings' type='radio' name='rating' id='radio_$i' value='$i' checked><label class='form-check-label' for='radio_$i'>$i</label></div>";
+                    $rating_modal.= "<div class='d-flex flex-column align-items-center justify-contetn-center'><input class='ratings' type='radio' name='rating' id='radio_$i' form='rating_$value->ordersID-form' value='$i' checked><label class='form-check-label' for='radio_$i'>$i</label></div>";
                 else
-                    $rating_modal.= "<div class='d-flex flex-column align-items-center justify-contetn-center'><input class='ratings' type='radio' name='rating' id='radio_$i' value='$i'><label class='form-check-label' for='radio_$i'>$i</label></div>";
+                    $rating_modal.= "<div class='d-flex flex-column align-items-center justify-contetn-center'><input class='ratings' type='radio' name='rating' id='radio_$i' form='rating_$value->ordersID-form' value='$i'><label class='form-check-label' for='radio_$i'>$i</label></div>";
             }
             $rating_modal.= "
         </div>
     </div></div>";
-            /*<input class='d-none' type='radio' name='rating' id='r1' value='1'>
-<label for='r1'><i class='fa-solid fa-star'></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r1.5' value='1.5'>
-<label for='r1.5'><i class='fa-regular fa-star-half'></i></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r2' value='2'>
-<label for='r2'><i class='fa-solid fa-star'></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r2.5' value='2.5'>
-<label for='r2.5'><i class='fa-regular fa-star-half'></i></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r3' value='3'>
-<label for='r3'><i class='fa-solid fa-star'></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r.5' value='3.5'>
-<label for='r3.5'><i class='fa-regular fa-star-half'></i></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r4' value='4'>
-<label for='r4'><i class='fa-solid fa-star'></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r4.5' value='4.5'>
-<label for='r4.5'><i class='fa-regular fa-star-half'></i></i></label>
-
-<input class='d-none' type='radio' name='rating' id='r5' value='5'>
-<label for='r5'><i class='fa-solid fa-star'></i></label>*/
-            $modal = new Modal("rating_$value->ordersID", "#$value->carname értékelése", $rating_modal, [['name' => 'dismiss', 'type' => 'button', 'icon' => 'fa-circle-xmark', 'text' => 'Kilépés'], ['name'=>'rating_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Értékelem', 'form'=>"#rating_$value->ordersID-form"]]);
+            $modal = new Modal("rating_$value->ordersID", "$value->carname értékelése", $rating_modal, [['name' => 'dismiss', 'type' => 'button', 'icon' => 'fa-circle-xmark', 'text' => 'Kilépés'], ['name'=>'rating_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Értékelem', 'form'=>"rating_$value->ordersID-form"]]);
             echo $modal->getModal();
         }else
             $rating = "-";
@@ -182,5 +200,6 @@ require_once "footer.php";
 <script src="../scripts/admin_dataTable.js"></script>
 <script src="../scripts/button-events.js"></script>
 <script src="../scripts/events.js"></script>
+<script src="../scripts/ajax.js"></script>
 </body>
 </html>

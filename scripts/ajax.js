@@ -81,7 +81,7 @@ $(document).ready(function () {
         validateEmail(variable_array['email'])
     });
     variable_array['birthdate'].on('input', function () {
-        checkDate (variable_array['birthdate'])
+        checkDate(variable_array['birthdate'])
     });
 
     function setLabelText(variable, mess = null) {
@@ -303,23 +303,25 @@ $(document).ready(function () {
         let icon = $(this).find('i');
         let input = $(this).parent().find('input');
         let label = $(this).parent().parent().find('label');
-        if(!clickedButton){
+        if (!clickedButton) {
             icon.toggleClass('fa-wrench');
             label.append('<span class="text-danger">&nbsp; - Szerkesztés alatt!</span>');
-            label.find('span').hide().fadeIn("slow", function (){$(this).show()});
+            label.find('span').hide().fadeIn("slow", function () {
+                $(this).show()
+            });
             input.prop("disabled", false);
             clickedButton = $(this).attr('id');
-        }else if(clickedButton === $(this).attr('id')){
-            if(validateInput(input)){
+        } else if (clickedButton === $(this).attr('id')) {
+            if (validateInput(input)) {
                 let value = input.val();
                 $.ajax({
                     type: "POST",
                     url: 'dashboard.php',
                     cache: false,
-                    data: input.attr('id') +"="+ value,
+                    data: input.attr('id') + "=" + value,
                     dataType: 'text',
                     success: function (data) {
-                        setTimeout(function(){
+                        setTimeout(function () {
                             window.location.reload();
                         }, 3000);
                         $('#update-alert').html(data);
@@ -332,72 +334,73 @@ $(document).ready(function () {
                 });
             }
             icon.toggleClass('fa-wrench');
-            label.find('span').fadeOut("slow",function (){$(this).remove()});
+            label.find('span').fadeOut("slow", function () {
+                $(this).remove()
+            });
             clickedButton = false;
         } else {
             $('#update-alert').html("Már van egy másik adat szerkesztés alatt.");
             $('#message-modal').modal('show');
         }
 
-        function validateInput(input, _length = 3){
+        function validateInput(input, _length = 3) {
             let error = false;
-            if(input.attr('id') === 'birthdate'){
+            if (input.attr('id') === 'birthdate') {
                 var given = new Date(input.val()).getFullYear();
                 var now = (new Date).getFullYear();
                 if (!(given <= now - 16 && given >= now - 80))
                     error = true;
-            }else{
+            } else {
                 console.log(input.val());
-                if(!(input.val().length >= _length))
+                if (!(input.val().length >= _length))
                     error = true;
             }
-            if(error){
-                let msg = "Az adat nem megfelelő! Minimum "+_length+" karakter!";
-                if(input.attr('id') === 'birthdate') msg = "Nem megfelelő születési év! Min. 16 év!";
+            if (error) {
+                let msg = "Az adat nem megfelelő! Minimum " + _length + " karakter!";
+                if (input.attr('id') === 'birthdate') msg = "Nem megfelelő születési év! Min. 16 év!";
                 $('#update-alert').html(msg);
                 $('#message-modal').modal('show');
                 return false;
-            }
-            else
+            } else
                 return true;
         }
     });
     $('#image-submit').on('submit', function (e) {
         e.preventDefault();
         let formData = new FormData(this);
-            $.ajax({
-                type: "POST",
-                url: 'dashboard.php',
-                cache: false,
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 3000);
-                    $('#update-alert').html(data);
-                    $('#message-modal').modal('show');
-                },
-                error: function (data) {
-                    $('#update-alert').html("Ismeretlen hiba.");
-                    $('#message-modal').modal('show');
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: 'dashboard.php',
+            cache: false,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000);
+                $('#update-alert').html(data);
+                $('#message-modal').modal('show');
+            },
+            error: function (data) {
+                $('#update-alert').html("Ismeretlen hiba.");
+                $('#message-modal').modal('show');
+            }
+        });
     });
 
 
     $("#avatar").change(function (e) {
-        let file, img, _URL = window.URL || window.webkitURL, errorMsg="";
+        let file, img, _URL = window.URL || window.webkitURL, errorMsg = "";
         if ((file = this.files[0])) {
             img = new Image();
             var objectUrl = _URL.createObjectURL(file);
             img.onload = function () {
-                if(img.width !== img.height)
-                    errorMsg += "A kép dimenziói nem egyenlőek. ( "+img.width+"px * "+img.height+"px )";
-                if(file.size > 3145728)
-                    errorMsg += "<br>A kép mérete túl nagy. ( "+Math.floor(file.size/1024/1000)+"MB )";
-                if(errorMsg.length > 0) {
+                if (img.width !== img.height)
+                    errorMsg += "A kép dimenziói nem egyenlőek. ( " + img.width + "px * " + img.height + "px )";
+                if (file.size > 3145728)
+                    errorMsg += "<br>A kép mérete túl nagy. ( " + Math.floor(file.size / 1024 / 1000) + "MB )";
+                if (errorMsg.length > 0) {
                     $('#update-alert').html(errorMsg);
                     $('#message-modal').modal('show');
                 }
@@ -432,7 +435,8 @@ $(document).ready(function () {
             nextPage(e, $(this));
         }
     });
-    function nextPage(e, form, datecheck) {
+
+    function nextPage(e, form) {
         $.ajax({
             type: "POST",
             url: 'order_operation.php',
@@ -467,6 +471,56 @@ $(document).ready(function () {
             error: function (data) {
                 console.log("error: " + data);
             }
+        });
+    }
+
+    $(document).ready(function (){
+        var page = window.location.pathname.split("/").pop();
+        if (page === 'history.php'){
+            addAjaxToRatings();
+        }
+    });
+    function addAjaxToRatings() {
+        $('*[data-rat="1"]').each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                 if ($('*[data-cb="'+$(this).attr('id')+'"]').val().length >= 8 && $('*[data-ct="'+$(this).attr('id')+'"]').val().length >= 8 && $('*[data-ordk="'+$(this).attr('id')+'"]').val().length === 14) {
+                     var form = $(this);
+                     $.ajax({
+                         type: "POST",
+                         url: 'history.php',
+                         cache: false,
+                         data: $(this).serialize(),
+                         dataType: 'html',
+                         success: function (data) {
+                             if (data === 'success')
+                                 Alert2(form.parent().find('#' + form.attr('id').replace('-form', '-result')), 'Foglalható az intervallum közt!', 'success');
+                             else {
+                                 let temp;
+                                 switch (data) {
+                                     case (data === 'error5'):
+                                         temp = "Nem sikerült bevinni az adatot!";
+                                         break;
+                                     case (data === 'error4'):
+                                         temp = "Már van értékelés hozzáfűzve a rendeléshez!";
+                                         break;
+                                     case (data === 'error3' || data === 'error2'):
+                                         temp = "Nem megfelelő kód-ot írt be!";
+                                         break;
+                                     case (data === 'error1'):
+                                         temp = "Minden mezőt ki kell tölteni!";
+                                         break;
+                                     default: temp = "Valami hiba történt.";
+                                 }
+                                 Alert2(form.parent().find('#' + form.attr('id').replace('-form', '-result')), temp, 'error');
+                             }
+                         },
+                     });
+                 }
+                 else
+                   Alert2($(this).parent().find('#'+$(this).attr('id').replace('-form', '-result')), 'Nem megfelelő adatok minimum 8 karakter!', 'error');
+            });
         });
     }
 });
