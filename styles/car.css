@@ -106,6 +106,10 @@ $color17: rgba(0, 0, 0, 0.75);*/
 
 .swiper .swiper-wrapper .swiper-slide {
   padding: 1.8rem;
+  min-height: 31.25rem;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .swiper .swiper-wrapper .swiper-slide .comment-card .comment-header img {

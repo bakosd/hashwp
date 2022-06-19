@@ -2,7 +2,6 @@
 $currentFile = basename($_SERVER['SCRIPT_FILENAME']);
 require_once "config.php";
 $session = new Session();
-$session->set('admin', 1);
 
 if ($session->get('userID') && time() > $session->get('logged')){
     $session->clear();

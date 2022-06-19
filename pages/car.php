@@ -274,7 +274,7 @@
                                 <span class="px-1">4.0</span>
                             </div>
                         </div>
-                        <p class="p-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequatur doloremque dolores doloribus eligendi facere facilis, impedit ipsum itaque labore libero maiores nostrum optio pariatur, placeat praesentium quae quod sit? Asdqweqew qwerqM MMMM</p>
+                        <p class="p-2">Lorem ipsum optio pariatur, placeat praesentium quae quod sit? Asdqweqew qwerqM MMMM</p>
                     </div>
                     <div class="comment-footer d-flex flex-column gap-2 pt-3">
                         <div class="likes d-flex align-items-center gap-4">
@@ -313,7 +313,7 @@
                                 <span class="px-1">4.0</span>
                             </div>
                         </div>
-                        <p class="p-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequatur doloremque dolores doloribus eligendi facere facilis, impedit ipsum itaque labore libero maiores nostrum optio pariatur, placeat praesentium quae quod sit? Asdqweqew qwerqM MMMM</p>
+                        <p class="p-2"> Asdqweqew qwerqM MMMM</p>
                     </div>
                     <div class="comment-footer d-flex flex-column gap-2 pt-3">
                         <div class="likes d-flex align-items-center gap-4">

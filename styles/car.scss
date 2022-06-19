@@ -55,6 +55,8 @@
 
 .swiper .swiper-wrapper .swiper-slide {
   padding: 1.8rem;
+  min-height: 31.25rem;
+  justify-content: flex-start;
   .comment-card {
     .comment-header{
       img{
