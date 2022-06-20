@@ -480,6 +480,11 @@ $(document).ready(function () {
             addAjaxToRatings();
             addAjaxToResigns();
         }
+        if (page === 'admin_index.php'){
+            addAjaxOperations();
+            addAjaxDeclined();
+            addAjaxApproved();
+        }
     });
     function addAjaxToRatings() {
         $('*[data-rat="1"]').each(function () {
@@ -542,6 +547,72 @@ $(document).ready(function () {
                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Sikeresen lemondta a rendelést!', 'success');
                         else
                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Nem sikerült lemondani a rendelést!', 'error');
+                    }
+                });
+            });
+        });
+    }
+    function addAjaxOperations(){
+        $('*[data-operation="1"]').each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                let form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: 'admin_index.php',
+                    cache: false,
+                    data: $(this).serialize(),
+                    dataType: 'html',
+                    success: function (data) {
+                       /* if (data === 'success')
+                            Alert2($(document).find('#'+form.attr('id') +'-result'), 'Sikeresen lemondta a rendelést!', 'success');
+                        else
+                            Alert2($(document).find('#'+form.attr('id') +'-result'), 'Nem sikerült lemondani a rendelést!', 'error');*/
+                    }
+                });
+            });
+        });
+    }
+    function addAjaxDeclined(){
+        $('*[data-deco="1"]').each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                let form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: 'admin_index.php',
+                    cache: false,
+                    data: $(this).serialize(),
+                    dataType: 'html',
+                    success: function (data) {
+                        /* if (data === 'success')
+                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Sikeresen lemondta a rendelést!', 'success');
+                         else
+                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Nem sikerült lemondani a rendelést!', 'error');*/
+                    }
+                });
+            });
+        });
+    }
+    function addAjaxApproved(){
+        $('*[data-appo="1"]').each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                let form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: 'admin_index.php',
+                    cache: false,
+                    data: $(this).serialize(),
+                    dataType: 'html',
+                    success: function (data) {
+                        /* if (data === 'success')
+                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Sikeresen lemondta a rendelést!', 'success');
+                         else
+                             Alert2($(document).find('#'+form.attr('id') +'-result'), 'Nem sikerült lemondani a rendelést!', 'error');*/
                     }
                 });
             });

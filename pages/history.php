@@ -18,7 +18,8 @@ if (isset($_POST) && isset($_POST['order-key'])){
                 if ($result->status < 4 && $result->code != "0000-0000-0000" && $result->code != "") {
                     $query = new SQLQuery("INSERT INTO ratings (carID, userID, orderID, rating, commentTitle, comment) VALUES (:carID, :userID, :orderID, :rating, :commentTitle, :comment)", [':userID' => $session->get('userID'), ':orderID' => $orderID, ':carID' => $carID, ':rating' => $rating, ':commentTitle' => $title, ':comment' => $comment]);
                     if ((int)$query->lastInsertId > 0) {
-                        $query = new SQLQuery("UPDATE orders SET code = '' WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+                        $query = new SQLQuery("UPDATE orders SET code = '', status = 4 WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+// TODO STATUS4 IF added comment -> STATUS5 IF APPROVED!
 //                        $query = new SQLQuery("UPDATE orders SET code = '', status = 4 WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
                         if ($query->getDbq()->rowCount() > 0)
                             $returnValue = "success";
