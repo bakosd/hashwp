@@ -18,7 +18,8 @@ if (isset($_POST) && isset($_POST['order-key'])){
                 if ($result->status < 4 && $result->code != "0000-0000-0000" && $result->code != "") {
                     $query = new SQLQuery("INSERT INTO ratings (carID, userID, orderID, rating, commentTitle, comment) VALUES (:carID, :userID, :orderID, :rating, :commentTitle, :comment)", [':userID' => $session->get('userID'), ':orderID' => $orderID, ':carID' => $carID, ':rating' => $rating, ':commentTitle' => $title, ':comment' => $comment]);
                     if ((int)$query->lastInsertId > 0) {
-                        $query = new SQLQuery("UPDATE orders SET code = '', status = 4 WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+                        $query = new SQLQuery("UPDATE orders SET code = '' WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
+//                        $query = new SQLQuery("UPDATE orders SET code = '', status = 4 WHERE ordersID = :orderID AND carID = :carID AND code = :key", [':orderID' => $orderID, ':carID' => $carID, ':key' => $orderKey]);
                         if ($query->getDbq()->rowCount() > 0)
                             $returnValue = "success";
                         else
@@ -35,6 +36,17 @@ if (isset($_POST) && isset($_POST['order-key'])){
             $returnValue = "error1";
     }
 
+    exit($returnValue);
+}
+if (isset($_POST) && isset($_POST['resign_order'])){
+    $returnValue = "error";
+    if (isset($_POST['resign_order']) && $_POST['resign_order'] > 0){
+        $query = new SQLQuery("UPDATE orders SET status = -2 WHERE ordersID = :orderID AND userID = :userID",[':orderID'=>$_POST['resign_order'], ':userID'=>$session->get('userID')]);
+        if ($query->getDbq()->rowCount() > 0)
+            $returnValue = "success";
+        else
+            $returnValue = "error";
+    }
     exit($returnValue);
 }
 ?>
@@ -67,27 +79,25 @@ if (isset($_POST) && isset($_POST['order-key'])){
 <?php
 require_once "navigation.php";
 echo "<main class='container' style='margin-top: 4.5rem'>
-    <table id='customers' class='display' style='width:100%'>
+    <table id='history' class='display' style='width:100%'>
         <h2 style='overflow: hidden'>Rendeléseim</h2><hr>
         <thead><tr>
-            <th>Azonosító</th>
-            <th>Jármű</th>
-            <th>Átvétel ideje</th>
-            <th>Átvétel helye</th>
-            <th>Átadás ideje</th>
-            <th>Átadás helye</th>
-            <th>Extrák</th>
-            <th>Összeg</th>
-            <th>Megrendelve</th>
-            <th>Állapot</th>
-            <th>Értékelés</th>
+            <th class='text-center'>Azonosító</th>
+            <th class='text-center'>Jármű</th>
+            <th class='text-center'>Átvétel ideje</th>
+            <th class='text-center'>Átvétel helye</th>
+            <th class='text-center'>Átadás ideje</th>
+            <th class='text-center'>Átadás helye</th>
+            <th class='text-center'>Extrák</th>
+            <th class='text-center'>Összeg</th>
+            <th class='text-center'>Megrendelve</th>
+            <th class='text-center'>Állapot</th>
+            <th class='text-center'>Értékelés</th>
         </tr></thead><tbody>";
 $session = new Session();
-$query = new SQLQuery("SELECT CONCAT(m.name, ' ', c.carname, ' ', c.engine, ' ', c.releasedate )AS carname, o.carID, o.ordersID, o.rentStartdate, o.rentEnddate, CONCAT(p.address,', ', p.city) as place_pick, CONCAT(pp.address,', ', pp.city) as place_drop, r.rating as rating, o.rentHomeplace, o.orderdate, o.extras, o.price, o.status FROM orders o INNER JOIN cars c on o.carID = c.carsID INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID LEFT JOIN places p on o.rentStartplaceID = p.placesID LEFT JOIN places pp on o.rentEndplaceID = pp.placesID LEFT JOIN ratings r on o.carID = r.carID AND o.userID = r.userID WHERE o.userID = :userID GROUP BY o.ordersID ORDER BY o.ordersID DESC;", [':userID'=>$session->get('userID')]);
+$query = new SQLQuery("SELECT CONCAT(m.name, ' ', c.carname, ' ', c.engine, ' ', c.releasedate )AS carname, o.carID, o.ordersID, o.rentStartdate, o.rentEnddate, CONCAT(p.address,', ', p.city) as place_pick, CONCAT(pp.address,', ', pp.city) as place_drop, r.rating as rating, o.rentHomeplace, o.orderdate, o.extras, o.price, o.status FROM orders o INNER JOIN cars c on o.carID = c.carsID INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID LEFT JOIN places p on o.rentStartplaceID = p.placesID LEFT JOIN places pp on o.rentEndplaceID = pp.placesID LEFT JOIN ratings r on o.carID = r.carID AND o.userID = r.userID AND o.ordersID = r.orderID WHERE o.userID = :userID GROUP BY o.ordersID ORDER BY o.ordersID DESC;", [':userID'=>$session->get('userID')]);
 
-/*        echo "<pre>";
-var_dump($query->getResult());
-echo "</pre>";*/
+
 
 foreach ($query->getResult() as $value){
     $pick_place = $value->place_pick;
@@ -97,11 +107,20 @@ foreach ($query->getResult() as $value){
         if (!isset($value->place_drop))
             $drop_place = $value->rentHomeplace;
     }
-
+    $date1 = new DateTime($value->rentStartdate);
+    $date2 = new DateTime();
+    $date_diff = (array) date_diff($date1, $date2);
+    $canResign = $date_diff['h'] > 4 || $date_diff['days'] > 0 || $date_diff['m'] > 0;
     if (isset($value->rating) && $value->status == 4) {
         $link = "onclick=\"window.location.href='car.php?car=$value->carID'\"";
-        $rating = "<button class='button px-2' $link>Megtekint</button><br><span>" . generateStars($value->rating) . "</span>";
-    } else {
+        $stars = !empty($value->rating) ? generateStars($value->rating) : "";
+        $rating = "<button class='button px-2' $link>Megtekint</button><br><span>" . $stars . "</span>";
+    } else if ($value->status == 1 && $canResign){
+        $resign_modal = new Modal('resign_'.$value->ordersID, "Rendelés lemondása", "<p class='p-4'>Biztos szeretné lemondani a <b>$value->carname</b> (#$value->ordersID) rendelését?</p>", [['name'=>'resign_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Lemondás', 'form'=>"resign_$value->ordersID"], ['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Bezárás']]);
+        echo $resign_modal->getModal();
+        $rating = "<form id='resign_$value->ordersID' data-resgn='1' class='px-4 d-none'><input type='hidden' name='resign_order' value='$value->ordersID'></form><button class='button px-2' data-bs-toggle='modal' data-bs-target='#resign_$value->ordersID-modal' value='$value->ordersID'>Lemondás</button>";
+    }
+    else {
         if ($value->status == 3) {
             $rating = "<button class='button px-2' data-bs-toggle='modal' data-bs-target='#rating_$value->ordersID-modal'>Értékelés</button>";
             $rating_modal = "<form id='rating_$value->ordersID-form' data-rat='1'><input type='hidden' name='carID' value='$value->carID'><input type='hidden' name='orderID' value='$value->ordersID'></form>
@@ -142,7 +161,7 @@ foreach ($query->getResult() as $value){
             $modal = new Modal("rating_$value->ordersID", "$value->carname értékelése", $rating_modal, [['name' => 'dismiss', 'type' => 'button', 'icon' => 'fa-circle-xmark', 'text' => 'Kilépés'], ['name'=>'rating_submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Értékelem', 'form'=>"rating_$value->ordersID-form"]]);
             echo $modal->getModal();
         }else
-            $rating = "-";
+            $rating = "<div style='line-height: 4;'>-</div>";
     }
 
     $extras_array = json_decode($value->extras);
@@ -156,9 +175,9 @@ foreach ($query->getResult() as $value){
         $extras .= "</div>";
         $modal = new Modal("extras_$value->ordersID", "#$value->ordersID rendelés értékelése",$extras, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Kilépés']]);
         echo $modal->getModal();
-        $extras = "<button class='button px-2' data-bs-toggle='modal' data-bs-target='#extras_$value->ordersID-modal'>Megtekint</button>";
+        $extras = "<button class='button p-2 d-flex justify-content-center align-items-center' data-bs-toggle='modal' data-bs-target='#extras_$value->ordersID-modal'><i class='fa-solid fa-expand'></i></button>";
     } else {
-        $extras = "Nincs extra.";
+        $extras = "<div style='line-height: 4;'>-</div>";
     }
 
     $status = "<span class='text-muted'>Feldolgozatlan</span>";
@@ -178,16 +197,16 @@ foreach ($query->getResult() as $value){
 
 
     echo "<tr>
-            <td>$value->ordersID</td>
-            <td>$value->carname</td>
-            <td>$value->rentStartdate</td>
-            <td>$pick_place</td>
-            <td>$value->rentEnddate</td>
-            <td>$drop_place</td>
-            <td>$extras</td>
-            <td>$value->price</td>
-            <td>$value->orderdate</td>
-            <td>$status</td>          
+            <td class='text-center'>$value->ordersID</td>
+            <td class='text-center' >$value->carname</td>
+            <td class='text-center'>$value->rentStartdate</td>
+            <td class='text-center'>$pick_place</td>
+            <td class='text-center'>$value->rentEnddate</td>
+            <td class='text-center'>$drop_place</td>
+            <td class='d-flex align-items-center justify-content-center'>$extras</td>
+            <td class='text-center'>$value->price</td>
+            <td class='text-center'>$value->orderdate</td>
+            <td class='text-center'>$status</td>          
             <td class='d-flex justify-content-center align-items-center gap-1 flex-column'>$rating</td>
         </tr>";
 }

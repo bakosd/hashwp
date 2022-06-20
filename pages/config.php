@@ -181,7 +181,7 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
     if ($type == "favorites") {
 
 //     $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) WHERE r.rating is not null ORDER BY status ASC, ms.name ASC LIMIT 10;", []);
-        $query = new SQLQuery("SELECT carsID, ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) GROUP BY r.carID LIMIT 10;", []);
+        $query = new SQLQuery("SELECT carsID, ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) GROUP BY r.carID ORDER BY rating DESC LIMIT 10;", []);
         $result = $query->getResult();
         if ($result != null) {
             foreach ($result as $item) {

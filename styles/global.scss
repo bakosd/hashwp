@@ -181,7 +181,7 @@ a{
   }
 }
 
-.category-checkbox {
+.category-checkbox, .select {
   //background: $color11;
   border-radius: $border-rad-1;
   color: $color7;
@@ -229,6 +229,23 @@ a{
     overflow: hidden;
     white-space: nowrap;
   }
+}
+.select{
+  background-color: $color11 !important;
+  padding: .5rem;
+  //color: $color6;
+  outline: none !important;
+}
+.form-control:focus {
+  outline: 0;
+}
+.select option{
+  background: $color11 !important;
+}
+.select:hover{
+  transform: scale(1.005) translateX(1px) translateY(1px);
+  box-shadow: 0 0 4px $color15 !important;
+  transition: all $transition-1;
 }
 
 .droplist-button:hover ~ .droplist{

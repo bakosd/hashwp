@@ -218,7 +218,7 @@ a:active {
   cursor: pointer;
 }
 
-.category-checkbox {
+.category-checkbox, .select {
   border-radius: 0.5rem;
   color: var(--col7);
   width: fit-content;
@@ -227,19 +227,19 @@ a:active {
   border: 1px solid var(--col13);
   cursor: pointer;
 }
-.category-checkbox img {
+.category-checkbox img, .select img {
   width: 30px;
   filter: invert(11%) sepia(12%) saturate(4340%) hue-rotate(169deg) brightness(15%) contrast(87%);
 }
-.category-checkbox span {
+.category-checkbox span, .select span {
   overflow-y: hidden !important;
 }
-.category-checkbox:hover {
+.category-checkbox:hover, .select:hover {
   transform: scale(1.05);
   box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
-.category-checkbox:focus-within {
+.category-checkbox:focus-within, .select:focus-within {
   box-shadow: 0 0 4px var(--col15) !important;
   transition: all 150ms;
 }
@@ -260,6 +260,26 @@ a:active {
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.select {
+  background-color: var(--col11) !important;
+  padding: 0.5rem;
+  outline: none !important;
+}
+
+.form-control:focus {
+  outline: 0;
+}
+
+.select option {
+  background: var(--col11) !important;
+}
+
+.select:hover {
+  transform: scale(1.005) translateX(1px) translateY(1px);
+  box-shadow: 0 0 4px var(--col15) !important;
+  transition: all 150ms;
 }
 
 .droplist-button:hover ~ .droplist {

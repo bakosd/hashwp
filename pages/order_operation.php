@@ -133,7 +133,7 @@ if(isset($_POST)) {
                 } else { // PAGE2
                     $data[1] .= "<h2 class='w-100'>Átvétel típusa</h2>
 <div class='d-flex flex-column gap-4'>
-<div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='1'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Átvételi pont</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' data-droppush-content='1'>
+<div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='1'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Átvételi pont</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' style='background-color: var(--col2);' data-droppush-content='1'>
     <div class='d-flex gap-2 flex-column my-4 justify-content-center align-items-center'>
         <div class='w-100'>" . dropdownButton('Átvételi pont', 'city1', $pick_drop_place, "", false, 'order-page2') . "</div>
         <div class='w-100'>" . dropdownButton('Leadási pont', 'city2', $pick_drop_place, "", false, 'order-page2') . "</div>
@@ -143,7 +143,7 @@ if(isset($_POST)) {
 ";
                     array_unshift($pick_drop_place, (object)['city3' => 'Az átvételi pont adatai'] );
                     $data[1] .= "
-<div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='2'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Házhozszállítás</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' data-droppush-content='2'>
+<div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='2'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Házhozszállítás</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' style='background-color: var(--col2);' data-droppush-content='2'>
             <h5 class='text-center'>Házhozszállítás adatai</h5>
             <div class='w-75 mx-auto py-4'><div>
             <label for='city'>Város</label>

@@ -478,6 +478,7 @@ $(document).ready(function () {
         var page = window.location.pathname.split("/").pop();
         if (page === 'history.php'){
             addAjaxToRatings();
+            addAjaxToResigns();
         }
     });
     function addAjaxToRatings() {
@@ -494,9 +495,10 @@ $(document).ready(function () {
                          data: $(this).serialize(),
                          dataType: 'html',
                          success: function (data) {
-                             if (data === 'success')
-                                 Alert2(form.parent().find('#' + form.attr('id').replace('-form', '-result')), 'Foglalható az intervallum közt!', 'success');
-                             else {
+                             if (data === 'success') {
+                                 Alert2(form.parent().find('#' + form.attr('id').replace('-form', '-result')), 'Sikeresen hozzáadta az értékelést!', 'success');
+                             form.remove();
+                             }else {
                                  let temp;
                                  switch (data) {
                                      case (data === 'error5'):
@@ -520,6 +522,28 @@ $(document).ready(function () {
                  }
                  else
                    Alert2($(this).parent().find('#'+$(this).attr('id').replace('-form', '-result')), 'Nem megfelelő adatok minimum 8 karakter!', 'error');
+            });
+        });
+    }
+    function addAjaxToResigns(){
+        $('*[data-resgn="1"]').each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                let form = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: 'history.php',
+                    cache: false,
+                    data: $(this).serialize(),
+                    dataType: 'html',
+                    success: function (data) {
+                        if (data === 'success')
+                            Alert2($(document).find('#'+form.attr('id') +'-result'), 'Sikeresen lemondta a rendelést!', 'success');
+                        else
+                            Alert2($(document).find('#'+form.attr('id') +'-result'), 'Nem sikerült lemondani a rendelést!', 'error');
+                    }
+                });
             });
         });
     }
