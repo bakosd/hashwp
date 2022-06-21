@@ -194,11 +194,11 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
             $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
         }
     } elseif ($type == "comments") {
-        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID ORDER BY rating DESC;", [':carID' => $carID]);
+        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID AND approved = 1 ORDER BY rating DESC;", [':carID' => $carID]);
         $result = $query->getResult();
         if ($result != null) {
             foreach ($result as $item) {
-                $returnValue .= "<div class='swiper-slide'><div class='comment-card w-100'><div class='comment-header d-flex gap-2'><img id='user-image' src='";
+                $returnValue .= "<div class='swiper-slide' id='comment_$item->ratingID'><div class='comment-card w-100'><div class='comment-header d-flex gap-2'><img id='user-image' src='";
                 if ($item->avatar != null && $item->avatar != '')
                     $returnValue .= "data:image/jpeg;base64," . base64_encode($item->avatar);
                 else
@@ -293,10 +293,10 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'activation' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen regisztrált az oldalunkra, kérjük erősítenie meg a fiókját!</h2>",
         'recovery' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen rögzítettük a jelszó visszaállítási szándékát! <br>Ha nem ön volt, akkor haladéktalanul váltson jelszót!</h2>",
         'order' => "Gratulálunk kedves $lastname $firstname!<br><h2>Sikeresen megrendelte a <b>$carname</b> járművet a(z)  <b>#$id</b> azonosító számon!<br> Kollégáink a rendelés elbírálása után küldenek önnek egy újabb üzenetet, a további adatokkal!</h2>",
-        'order_approved' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink elfogadták a rendelést a megadott adatokra!</h2>",
-        'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z)<b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
+        'order_approved' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink elfogadták a rendelést a megadott adatokra! Az átvételkor be kell mutatnia a következő kódot:</h2><center><div style='font-size: x-large'>Kód: <b>$archive_code</b></div></center>",
+        'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
         'order_resigned' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelést sikeresen lemondta!",
-        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z)<b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>"
+        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>"
     ];
     $buttons_array = [
         'activation' => ["A gombra kattintva (vagy a linkre) aktiválhatja a fiókját!", "Fiók aktiválása"],

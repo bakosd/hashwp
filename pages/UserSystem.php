@@ -250,7 +250,7 @@ class UserSystem
         if (!empty($mail_type))
             $subject = $mail_type[$message_type];
         else
-            $subject = "Hash. üzenet önnek!";
+            $subject = "Hash. support - üzenet önnek!";
         if (isset($site)){
             $site = SITE . $site;
         }

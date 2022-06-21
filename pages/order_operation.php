@@ -110,9 +110,9 @@ if(isset($_POST)) {
 
     $is_success = $succ == 1 ? "bg-success" : "bg-danger";
     $data[0] .= "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>1/4</div>";
-    if ($page >= 2) $data[0] .= "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>";
-    if ($page >= 3) $data[0] .= "<div class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>";
-    if ($page == 4) $data[0] .= "<div class='progress-bar $is_success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>";
+    if ($page >= 2) $data[0] .= "<div id='prog_1' class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>";
+    if ($page >= 3) $data[0] .= "<div id='prog_2'class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>";
+    if ($page == 4) $data[0] .= "<div id='prog_3' class='progress-bar $is_success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>";
 
         $query = new SQLQuery("SELECT concat(address, ', ', city) as city1, concat(address, ', ', city) as city2, concat(address, ', ', city) as city3 FROM places ORDER BY placesID", []);
         $pick_drop_place = $query->getResult();

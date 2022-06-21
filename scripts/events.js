@@ -24,3 +24,17 @@ $('input[type=range]').on('input', function () {
         sliderProgress.css("right", "calc( 75% - " + (+(((inputNumMax.val()-gap) / (inputNumMax.attr('max')- (gap/2))) * 100) +"%") + ")" );
     }
 });
+
+
+    $(document).ready(function () {
+        let getParams = new URLSearchParams(window.location.search);
+        if (getParams.has('comment')) {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#comment_" + getParams.get('comment')).offset().top
+            }, 1500);
+            console.log(getParams.get('comment'));
+        }
+    });
+
+// onclick=\"window.location.href='car.php?car=$value->carID'\"
+//     onclick = function (){\"window.location.href='car.php?car=$value->carID'\"; scrollToComment($value->carID)}

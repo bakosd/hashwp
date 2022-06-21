@@ -41,7 +41,16 @@ $(document).ready( function () {
         order: [[9, 'desc'], [3, 'asc'], [5, 'asc'], [10, 'desc']],
         scrollX: true,
         responsive: true,
-        "iDisplayLength": 25,
+        "iDisplayLength": 5,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
+    });
+    $('#cars').DataTable({
+        order: [[0, 'asc'], [1, 'asc'], [2, 'asc']],
+        scrollX: true,
+        responsive: true,
+        "iDisplayLength": 5,
         "language":{
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
         }
