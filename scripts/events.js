@@ -34,7 +34,29 @@ $('input[type=range]').on('input', function () {
             }, 1500);
             console.log(getParams.get('comment'));
         }
+        orderByPrice();
     });
+
+    function orderByPrice(){
+        $('#order_by').on('change', function(){
+            let order = $(this).val();
+            let result = $('.width-270').sort(function (a, b) {
+                let A = parseFloat($(a).data('sort'));
+                let B = parseFloat($(b).data('sort'));
+                if (order === 'asc')
+                    return (A < B) ? -1 : (A > B) ? 1 : 0;
+                else if (order === 'desc')
+                    return (A > B) ? -1 : (A < B) ? 1 : 0;
+                else{
+                    let A = parseFloat($(a).data('discount'));
+                    let B = parseFloat($(b).data('discount'));
+                    return (A > B) ? -1 : (A < B) ? 1 : 0;
+                }
+
+            });
+            $('#cars').html(result);
+        });
+    }
 
 // onclick=\"window.location.href='car.php?car=$value->carID'\"
 //     onclick = function (){\"window.location.href='car.php?car=$value->carID'\"; scrollToComment($value->carID)}

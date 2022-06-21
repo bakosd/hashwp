@@ -107,8 +107,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
          var_dump($_POST);
      echo "</pre>";*/
     if ($result != null) {
-        $returnValue = '<div class="col width-270">';
-        $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+        $i = 0;
         foreach ($result as $item) {
             if (isset($_POST['pick-date']) && isset($_POST['drop-date'])) {
                 $session = new Session();
@@ -123,18 +122,24 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
                     }
                 }
             }
-
+            $discount = 0;
+            if ($item->discount > 0) {
+                $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
+            }
+            if ($i++ == 0){
+                $returnValue = "<div class='col width-270' data-sort='$item->price' data-discount='$discount'>";
+                $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+            }
             if ($type == "carousel-item" && $item == $result[0])
-                $returnValue .= '<div class="carousel-item active">';
+                $returnValue .= "<div class='carousel-item active'>";
             else if ($type == "carousel-item")
-                $returnValue .= '<div class="carousel-item">';
+                $returnValue .= "<div class='carousel-item'>";
             else if ($type == 'carousel' && $item != $result[0])
-                $returnValue .= '</div><div class="col width-270"><div class="carousel">';
-            else $returnValue .= '<div class="carousel">';
+                $returnValue .= "</div><div class='col width-270' data-sort='$item->price' data-discount='$discount'><div class='carousel'>";
+            else $returnValue .= "<div class='carousel'>";
 //                $returnValue .= "<button style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;' onclick='location.href=\"../pages/car.php?car=".$item->manufacturer.$item->carname.$item->releasedate."\"'>";
             $returnValue .= "<button onclick='location.href=\"../pages/car.php?car=" . $item->carsID . "\"' style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;'>" . "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$item->manufacturer.png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
             if ($item->discount > 0) {
-                $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
                 $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
             } else
                 $returnValue .= "<span>Napi ár:</span>&nbsp;<span class='price'><b>$item->price €</b></span>";
