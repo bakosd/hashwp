@@ -177,7 +177,7 @@ function generateStars(float $rating): string
 
 function cardSmall(string $type = "favorites", int $carID = 1): string
 {
-    $returnValue = "<div class='swiper mySwiper' style='padding: .5rem; overflow-x: hidden;'><div class='swiper-wrapper'>";
+    $returnValue = "<div class='swiper mySwiper' style='padding: .5rem; overflow-x: hidden !important;'><div class='swiper-wrapper'>";
     if ($type == "favorites") {
 
 //     $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) WHERE r.rating is not null ORDER BY status ASC, ms.name ASC LIMIT 10;", []);
