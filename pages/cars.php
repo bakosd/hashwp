@@ -52,7 +52,7 @@
             <option value='desc'>Ár Legnagyobb -> Legkisebb</option>
         </select>
     </div>
-    <div class='row gap-3' style='margin-bottom: 4.5rem;'>
+    <div class='row gap-3' id='cars' style='margin-bottom: 4.5rem;'>
     <?php
         echo cardBig('carousel', $search_options_array);
     ?>
