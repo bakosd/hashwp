@@ -15,40 +15,24 @@ if (!empty($_POST)) {
         $licensecardNumber = trim($_POST['licensecardNumber']);
         $licensecardPlace = trim($_POST['licensecardPlace']);
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $response = Alert($messages[0], 'error');
+            $response = Alert($messages[17], 'error');
             $error = true;
         }
         if (strlen($password1x) < 8 || strlen($password2x) < 8 || $password1x !== $password2x) {
             $response = Alert($messages[2], 'error');
             $error = true;
         }
-        if (strlen($firstname) < 3) {
+        if (strlen($firstname) < 3 || strlen($licensecardPlace) < 3 || strlen($lastname) < 3) {
             $response = Alert($messages[3], 'error');
             $error = true;
         }
-        if (strlen($lastname) < 3) {
-            $response = Alert($messages[3], 'error');
-            $error = true;
-        }
-        if (strlen($phonenumber) < 8) {
-            $response = Alert($messages[4], 'error');
-            $error = true;
-        }
-        if (strlen($idcardNumber) < 8) {
-            $response = Alert($messages[4], 'error');
-            $error = true;
-        }
-        if (strlen($licensecardNumber) < 8) {
+        if (strlen($phonenumber) < 8 || strlen($licensecardNumber) < 8 || strlen($idcardNumber) < 8) {
             $response = Alert($messages[4], 'error');
             $error = true;
         }
         $diff = date_diff(date_create($birthdate), date_create());
         if($diff->y < 16 || $diff->y > 99){
             $response = Alert($messages[5], 'error');
-            $error = true;
-        }
-        if (strlen($licensecardPlace) < 3) {
-            $response = Alert($messages[3], 'error');
             $error = true;
         }
 

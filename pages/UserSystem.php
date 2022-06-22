@@ -122,7 +122,7 @@ class UserSystem
 
         if (UserSystem::checkUserExistence($user)) {
             $query = new SQLQuery(
-                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
+                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar, subscribed FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
                 [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {

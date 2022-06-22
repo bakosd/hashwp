@@ -80,6 +80,7 @@ a{
   border: 1px solid $color14;
   label{
     color: $color7;
+    width: 12% !important;
   }
   textarea, input, button {
     background: none;
@@ -88,9 +89,8 @@ a{
     padding: .15rem !important;
     border-left: 1px solid rgba(73, 73, 73, 0.25);
     color: $color7;
-    //width: 13vw;
     width: 15vw;
-    min-width: 150px;
+    min-width: 88% !important;
   }
   &:hover{
     transform: scale(1.005);

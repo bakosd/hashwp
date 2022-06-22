@@ -239,7 +239,7 @@ $(document).ready(function () {
             color += 'warning';
             type = "Figyelmeztetés!";
         }
-        let string = "<div class='alert d-flex align-items-center justify-content-between gap-2 "+color+" alert-dismissible fade show' role='alert'><span class='p-0'><strong>" + type + "</strong>&nbsp;" + message + "</span><button type=\"button\" class=\"close button\" data-bs-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>";
+        let string = "<div class='alert d-flex align-items-center justify-content-between gap-2 "+color+" alert-dismissible fade show col-lg-12 col-sm-12' role='alert'><span class='p-0'><strong>" + type + "</strong>&nbsp;" + message + "</span><button type=\"button\" class=\"close button\" data-bs-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>";
         if (append)
             $(e).append(string);
         else
@@ -261,11 +261,11 @@ $(document).ready(function () {
                     let data2 = data1.parent().parent();
                     if (data === "available") {
                         Alert(data2, 'Foglalható az intervallum közt!', 'success');
-                        data2.parent().parent().prepend("<form id='order-form' method='get' action='order.php'><input type='hidden' name='car' value='" + $("#date-check-form :input[name='car']").val() + "'></form>");
-                        data1.fadeOut("slow", function () {
+                        data2.parent().parent().prepend("<form id='order-form' method='get' action='order.php' class='col-lg-7 col-sm-12'><input type='hidden' name='car' value='" + $("#date-check-form :input[name='car']").val() + "'></form>");
+                        data1.fadeOut(100, function () {
                             $(this).remove();
                         });
-                        $('#submit-data-order-btn').attr('form', 'order-form').attr('name', '').html('Foglalás megkezdése <i class=\'fa-solid fa-angle-right\'></i>');
+                        $('#submit-data-order-btn').attr('form', 'order-form').attr('name', '').html('Foglalás megkezdése <i class=\'fa-solid fa-angle-right\'></i>').addClass('col-lg-7');
                     }
                     if (data === "not-available")
                         Alert(data2, 'Sajnos a kiválasztott intervallumban foglalt!', 'error');
@@ -441,17 +441,15 @@ $(document).ready(function () {
                     Alert(data1, 'Sajnos a kiválasztott intervallumban foglalt!', 'error');
                 if (data !== "error" && data !== "available" && data !== "not-available") {
                     let json = JSON.parse(data);
-                    //$('#progress-bar').fadeOut("fast", function () {
-                        // $(this).fadeIn("slow", function () {
+
                             let width = json[0].substr(json[0].indexOf('%')-2, 2);
                             let id = json[0].substr(json[0].indexOf('id=')+4, 6);
-                            //$(this).html(json[0]);
+
                     $('#progress-bar').html(json[0]);
                             $('#'+id).animate({
                                 width: width+"%"
                             }, 300 );
-                        //});
-                    //});
+
 
                     $('#container-data').fadeOut("slow", function () {
                         $(this).fadeIn(1000, function () {

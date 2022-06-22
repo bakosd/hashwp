@@ -54,10 +54,14 @@ if(!empty($_POST) && !empty($_POST['subscribe'])){
     $session = new Session();
     $user = $session->get('email');
     if(isset($_POST['newsletter-email'])) {$user = filter_var(trim($_POST['newsletter-email']), FILTER_VALIDATE_EMAIL) ? trim($_POST['newsletter-email']) : null; $is_user = false;}
-    if($user != null && UserSystem::tryUpdateSubscription($user, $_POST['subscribe'], $is_user))
-        redirection("index.php?sub=".$_POST['subscribe']);
-    else
-        redirection("index.php?sub=0");
+    if($user != null && UserSystem::tryUpdateSubscription($user, $_POST['subscribe'], $is_user)) {
+        $session->set('newsletter', $_POST['subscribe']);
+        if ($_POST['subscribe'] > 0)
+            redirection("index.php?message=15");
+        else
+            redirection("index.php?message=16");
+    } else
+        redirection("index.php?message=0");
 
     exit();
 }

@@ -17,7 +17,7 @@ function auto_loader($className)
 spl_autoload_register("auto_loader", true);
 
 $messages = [
-    0 => 'Nem megfelelő e-mail formátum!',
+    0 => 'Nem sikerült a művelet!',
     1 => 'Nem megfelelő formátum!',
     2 => 'A jelszavak nem egyeznek vagy nem elég hosszúak.!',
     3 => 'Vezetéknév/Keresztnév/Kiadási hely minimum 3 karakter!',
@@ -32,6 +32,9 @@ $messages = [
     12 => 'Lejárt a munkamenet! Jelentkezz be újra.',
     13 => 'Nem sikerült a visszaállítani a jelszavad!',
     14 => 'Lejárt a munkamenet! Jelentkezz be újra!',
+    15 => 'Sikeresen feliratkoztál a hírlevélre!',
+    16 => 'Sikeresen leíratkoztál a hírlevélről!',
+    17 => 'Nem megfelelő e-mail formátum!',
 ];
 
 $input_names_arr = ['lastname' => 'Vezetéknév', 'firstname' => 'Keresztnév', 'phonenumber' => 'Telefonszám', 'birthdate' => 'Születésnap', 'idcardNumber' => 'Személyi/Útlevél szám', 'licensecardNumber' => 'Vezetői engedély szám', 'licensecardPlace' => 'Vezetői engedély kiadási helye', 'avatar' => 'Profilkép'];
