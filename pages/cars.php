@@ -17,7 +17,9 @@
 </head>
 <body>
 <?php
+    include "config.php";
     require_once "navigation.php";
+
     $search_options_array = null;
     $arr_key = 0;
     if (isset($_POST)) {
@@ -54,13 +56,41 @@
     </div>
     <div class='row gap-3' id='cars' style='margin-bottom: 4.5rem;'>
     <?php
-        echo cardBig('carousel', $search_options_array);
+        if($session->get('level') == 3 && $session->get('edit')==1)
+        {
+            echo '<div class="col width-270">
+                <div class="carousel">
+                    <button id="modalopen" data-bs-toggle="modal" data-bs-target="#newcar-modal">
+                        <p style="font-size: 8rem; text-align: center; margin:0">+</p>
+                        <span>Jármű hozzáadas</span>
+                    </button>
+                </div>
+            </div>';
+        }
+            echo cardBig('carousel', $search_options_array);
     ?>
     </div>
 
 </main>
 
+<?php
+        $sql = new SQLQuery("SELECT * FROM manufactures",[]);
+        $result = $sql -> getResult();
+        foreach($result as $manufacture)
+        {
+            $asd .= "<option value=".$manufacture->manufacturesID.">".$manufacture->name."</option>";
+        
+        $content = "<div class='p-3'><form id='newcar' method='post' action='car_action.php' enctype='multipart/form-data'><div class='form-group'><label>Gyártó</label><select name='manufacturer'>".$asd."</select></div><div class='form-group'><label>Modell</label><input type='text' name='modell'></div><div class='form-group'><label>Motor</label><input type='text' name='motor'></div><div class='form-group'><label>Teljesítmény</label><input type='number' name='horsepower'></div><div class='form-group'><label>Váltó</label><input type='text' name='gear'></div><div class='form-group'><label>Üzemagyag</label><select name='fuel'><option value='Benzin'>Benzin</option><option value='Dízel'>Dízel</option><option value='Hybrid'>Hybrid</option><option value='Elektromos'>Elektromos</option></select></div><div class='form-group'><label>Ajtók száma</label><input type='number' name='doors'></div><div class='form-group'><label>Ülések száma</label><input type='number' name='seats'></div><div class='form-group'><label>Klíma</label><select name='airconditioner'><option value='Nincs'>Nincs</option><option value='Manuális'>Manuális</option><option value='Automata'>Automata</option><option value='Kétzónás'>Kétzónás</option></select></div><div class='form-group'><label>Emisszió</label><input type='number' name='emission'></div><div class='form-group'><label>Évjárat</label><input type='number' name='year'></div><div class='form-group'><label>Karosszéria</label><select name='bodywork'><option value='Szedan'>Szedan</option><option value='Kabrio'>Kabrio</option><option value='Limuzin'>Limuzin</option><option value='Coupe'>Coupe</option><option value='Hatchback'>Hatchback</option><option value='Kombi'>Kombi</option><option value='SUV'>SUV</option><option value='Terepjaro'>Terepjaro</option></select></div><div class='form-group'><label>Megtett út</label><input type='number' name='distance'></div><div class='form-group'><label>Szervít</label><input type='number' value='15000' name='servisdistance'></div><div class='form-group'><label>Fogyasztás</label><input type='number' name='consumtions' step='0.1'></div><div class='form-group'><label>Felszereltség</label><div class='multi-selector'><div class='select-field'><input class='input-selector' type='text' placeholder='Felszereltség' disabled><span class='down-arrow'><i class='fa-solid fa-angle-down'></i></span></div><div class='list'><div class='item'><input type='checkbox' name='gps' id='gps'><label for='gps'>GPS</label></div><hr style='margin: 10px 0'><div class='item'><input type='checkbox' name='hook' id='hook'><label for='hook'>Vonóhorog</label></div><hr style='margin: 10px 0'><div class='item'><input type='checkbox' name='parkingasistant' id='parkingasistant'><label for='parkingasistant'>Parkolókamera</label></div><hr style='margin: 10px 0'><div class='item'><input type='checkbox' name='roof' id='roof'><label for='roof'>Tetőcsomagtartó</label></div><hr style='margin: 10px 0'><div class='item'><input type='checkbox' name='seatheater' id='seatheater'><label for='seatheater'>Ülésfűtés</label></div><hr style='margin: 10px 0'><div class='item'><input type='checkbox' name='tempomat' id='tempomat'><label for='tempomat'>Tempomat</label></div></div></div></div><div class='form-group'><label>Képek hozzáadás</label><input type='file' name='image[]' multiple></div><div class='form-group'><label>Ár</label><input type='number' name='price' step='0.1'></div><div class='form-group'><label>Kedvezmény(%)</label><input type='number' name='discount'></div></form></div>";
+        }
+        $modal = new Modal("newcar", "Jármű hozzáadás", $content, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Mégsem'], ['name'=>'upload_car', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Hozzáad', 'form'=>'newcar']]);
+        echo $modal->getModal();
+    ?>
 
+    <script>
+        document.querySelector('.select-field').addEventListener('click',function(){
+            document.querySelector('.list').classList.toggle('show');
+        });
+    </script>
 
     <script src='../scripts/button-events.js'></script>
     <script src='../scripts/events.js'></script>
@@ -68,6 +98,7 @@
 
 </body>
 <?php
-require_once "footer.php";
+require_once 'footer.php';
 ?>
+
 </html>

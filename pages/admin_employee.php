@@ -33,418 +33,51 @@
                 <hr>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                        <th>ID</th>
-                        <th>Ár</th>
+                    <th>Felhasználónév</th>
+                        <th>Vezetéknév</th>
+                        <th>Keresztnév</th>
+                        <th>Születési év</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Kiállítási hely</th>
+                        <th></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011-04-25</td>
-                        <td>$320,800</td>
-                        <td>4</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011-07-25</td>
-                        <td>$170,750</td>
-                        <td>14</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009-01-12</td>
-                        <td>$86,000</td>
-                        <td>3</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012-03-29</td>
-                        <td>$433,060</td>
-                        <td>45</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008-11-28</td>
-                        <td>$162,700</td>
-                        <td>92</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012-12-02</td>
-                        <td>$372,000</td>
-                        <td>20</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012-08-06</td>
-                        <td>$137,500</td>
-                        <td>21</td>
-                        <td>20</td>
-                    </tr>
-                    
+                <?php
+                    $sql = new SQLQuery("SELECT * FROM users WHERE level = 2", []);
+                    $result = $sql -> getResult();
+                    foreach($result as $row)
+                    {
+                        
+                        //echo $row->username."<br>";
+                        if($row->level > 0){
+                            echo '<tr id="'.$row->usersID.'">';
+                        }
+                        else{
+                            echo '<tr style="color: red;" id="'.$row->usersID.'">';
+                        }
+                        echo'
+                            <td style="display: none;" data-target = "idNum">'.$row->idcardNumber.'</td>
+                            <td style="display: none;" data-target = "licenseNum">'.$row->licensecardNumber.'</td>
+                            <td style="display: none;" data-target = "level">'.$row->level.'</td>
+                            <td data-target = "usname">'.$row->username.'</td>
+                            <td data-target = "lastname">'.$row->lastname.'</td>
+                            <td data-target = "firstname">'.$row->firstname.'</td>
+                            <td data-target = "birthdate">'.$row->birthdate.'</td>
+                            <td data-target = "email">'.$row->email.'</td>
+                            <td data-target = "phone">'.$row->phonenumber.'</td>
+                            <td data-target = place>'.$row->licensecardPlace.'</td>
+                            <td><a href="#" data-role="update" data-id="'.$row->usersID.'">Valami</a></td>
+                        </tr>';
+                    }
+                    $content = "<div class='p-3';'><div class='form-group'><label>Email</label><br><input id='emailc' type='email'></div><div class='form-group'><label>Vezetéknév</label><br><input id='lname' type='text'></div><div class='form-group'><label>Keresztknév</label><br><input id='fname' type='text'></div><div class='form-group'><label>Telefonszám</label><br><input id='phone' type='number'></div><div class='form-group'><label>Születési dátum</label><br><input id='birthd' type='date'></div><div class='form-group'><label>Személyi/útlevél szám</label><br><input id='idNum' type='number'></div><div class='form-group'><label>Vezetői engedély szám</label><br><input id='licensenum' type='number'></div><div class='form-group'><label>Kiadási helye</label><br><input id='licenseplace' type='text'></div><div class='form-group'><label>Szint</label><br><select id='level' class='sel'><option value = -1>Tiltás</option><option value = 1>Felhasználó</option><option value = 2>Alkalmazott</option><option value = 3>Admin</option></select></div></i></small></p></p></div><input type='hidden' id='usname'><input type='hidden' id='ID'><input type='hidden' id='ID'>";
+                    $modal = new Modal("customerdata", "Adat módosítás", $content, [['name'=>'del', 'type'=>'submit', 'icon'=>'fa-circle-xmark', 'text'=>'Mégsem'], ['name'=>'update', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Mentés', 'form'=>'customerdata']]);
+                    echo $modal->getModal();
+                    ?>
                     
             </table>
         </div>
@@ -456,6 +89,6 @@
 
     <script src="../scripts/button-events.js"></script>
     <script src="../scripts/events.js"></script>
-
+    <script src="../scripts/admin_ajax.js"></script>
 </body>
 </html>

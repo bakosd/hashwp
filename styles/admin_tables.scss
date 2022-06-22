@@ -1,8 +1,51 @@
+@import "variables";
+
 .customer, .employee{
     padding: 15px;
     margin: 10px 0;
     box-shadow: 0 7px 12px rgba(0,0,0,0.15);
     border-radius: 10px;
+}
+
+.p-3{
+    color: $color1;
+}
+
+#customers_paginate a, #customers_info, label, select{
+    color: $color9 !important;
+}
+
+.customer a{
+    border: 1px solid gray;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.form-group{
+    padding: .5rem 2rem ;
+}
+
+.form-group input{
+    width: 100%;
+    padding: .5rem 0 .5rem .5rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 4px $color12;
+    border: 1px solid $color14;
+    background-color: $color11;
+}
+
+.form-group select{
+    width: 100%;
+    color: black !important;
+    background-color: $color11 !important;
+    padding: 0.5rem;
+    border-radius: .5rem;
+    border: 1px solid $color14;
+    box-shadow: 0 0 4px $color12;
+}
+
+tr a{
+    color: $color9;
 }
 
 

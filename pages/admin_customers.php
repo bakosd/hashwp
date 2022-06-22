@@ -24,54 +24,75 @@
 <body>
 <?php
     require_once "navigation.php";
+    require_once "config.php";
 ?>
 
 <div class="container" style="margin-top: 3rem">
         <div class="customer">
             <table id="customers" class="display" style="width:100%">
-            
-            <h2 style="overflow: hidden">Felhasználók</h2>
+            <h4 style="overflow: hidden;">Felhasználók</h4>
                 <hr>
+                
                 <thead>
                     <tr>
                         <th>Felhasználónév</th>
-                        <th>Név</th>
-                        <th>Kor</th>
+                        <th>Vezetéknév</th>
+                        <th>Keresztnév</th>
+                        <th>Születési év</th>
                         <th>Email</th>
                         <th>Telefon</th>
-                        <th>Állapot</th>
+                        <th>Kiállítási hely</th>
                         <th></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    
-                        <tr>
-                        <form method="post" id="myform"></form>
-                            <td>Junior Technical Author</td>
-                            <td>System Architect</td>
-                            <td>29</td>
-                            <td>Tiger_valami@gmail.com</td>
-                            <td>063456277</td>
-                            <td>Aktív</td>
-                            <td><button type="submit" name="sub" form="myform">asdasd</button></td>
-                        </tr>
-    
+ 
+                    <?php
+                    $sql = new SQLQuery("SELECT * FROM users WHERE level = 1 OR level = -1", []);
+                    $result = $sql -> getResult();
+                    foreach($result as $row)
+                    {
+                        
+                        //echo $row->username."<br>";
+                        if($row->level > 0){
+                            echo '<tr id="'.$row->usersID.'">';
+                        }
+                        else{
+                            echo '<tr style="color: red;" id="'.$row->usersID.'">';
+                        }
+                        echo'
+                            <td style="display: none;" data-target = "idNum">'.$row->idcardNumber.'</td>
+                            <td style="display: none;" data-target = "licenseNum">'.$row->licensecardNumber.'</td>
+                            <td style="display: none;" data-target = "level">'.$row->level.'</td>
+                            <td data-target = "usname">'.$row->username.'</td>
+                            <td data-target = "lastname">'.$row->lastname.'</td>
+                            <td data-target = "firstname">'.$row->firstname.'</td>
+                            <td data-target = "birthdate">'.$row->birthdate.'</td>
+                            <td data-target = "email">'.$row->email.'</td>
+                            <td data-target = "phone">'.$row->phonenumber.'</td>
+                            <td data-target = place>'.$row->licensecardPlace.'</td>
+                            <td><a href="#" data-role="update" data-id="'.$row->usersID.'">Valami</a></td>
+                        </tr>';
+                    }
+                    $content = "<div class='p-3';'><div class='form-group'><label>Email</label><br><input id='emailc' type='email'></div><div class='form-group'><label>Vezetéknév</label><br><input id='lname' type='text'></div><div class='form-group'><label>Keresztknév</label><br><input id='fname' type='text'></div><div class='form-group'><label>Telefonszám</label><br><input id='phone' type='number'></div><div class='form-group'><label>Születési dátum</label><br><input id='birthd' type='date'></div><div class='form-group'><label>Személyi/útlevél szám</label><br><input id='idNum' type='number'></div><div class='form-group'><label>Vezetői engedély szám</label><br><input id='licensenum' type='number'></div><div class='form-group'><label>Kiadási helye</label><br><input id='licenseplace' type='text'></div><div class='form-group'><label>Szint</label><br><select id='level' class='sel'><option value = -1>Tiltás</option><option value = 1>Felhasználó</option><option value = 2>Alkalmazott</option><option value = 3>Admin</option></select></div></i></small></p></p></div><input type='hidden' id='usname'><input type='hidden' id='ID'><input type='hidden' id='ID'>";
+                    $modal = new Modal("customerdata", "Adat módosítás", $content, [['name'=>'del', 'type'=>'submit', 'icon'=>'fa-circle-xmark', 'text'=>'Mégsem'], ['name'=>'update', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Mentés', 'form'=>'customerdata']]);
+                    echo $modal->getModal();
+                    ?>
+                   
             </table>
         </div>
+        
     </div>
     </div>
-    <?php
-        if(isset($_POST['sub']))
-        {
-            echo 'hali';
-        }
-    ?>
     
 
     <script src="../scripts/admin_dataTable.js"></script>
 
     <script src="../scripts/button-events.js"></script>
     <script src="../scripts/events.js"></script>
-
+    <script src="../scripts/admin_ajax.js"></script>
 </body>
 </html>

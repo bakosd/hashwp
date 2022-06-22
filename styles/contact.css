@@ -16,7 +16,7 @@ html {
   --col-nosucc: hsl(11, 100%, 30%);
 }
 
-html[data-theme=dark] {
+html[data-theme='dark'] {
   --col1: hsl(0, 0%, 15%);
   --col2: hsl(0, 1%, 34%);
   --col9: hsl(0, 1%, 82%);
@@ -60,6 +60,7 @@ form span {
   margin: 2rem;
   border-bottom: 1px solid gray;
 }
+
 .info p {
   margin: 1rem 0;
 }
@@ -68,5 +69,4 @@ form span {
   color: var(--col6);
   font-size: 14px;
 }
-
 /*# sourceMappingURL=contact.css.map */

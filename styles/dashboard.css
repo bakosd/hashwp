@@ -16,7 +16,7 @@ html {
   --col-nosucc: hsl(11, 100%, 30%);
 }
 
-html[data-theme=dark] {
+html[data-theme='dark'] {
   --col1: hsl(0, 0%, 15%);
   --col2: hsl(0, 1%, 34%);
   --col9: hsl(0, 1%, 82%);
@@ -49,19 +49,25 @@ $color17: rgba(0, 0, 0, 0.75);*/
 .rounded-image {
   image-resolution: snap;
   border-radius: 50%;
-  box-shadow: 0 0 25px var(--col12) !important;
+  -webkit-box-shadow: 0 0 25px var(--col12) !important;
+          box-shadow: 0 0 25px var(--col12) !important;
 }
 
 main .input-with-icon:hover {
-  transform: none !important;
-  box-shadow: 0 0 4px var(--col12) !important;
+  -webkit-transform: none !important;
+          transform: none !important;
+  -webkit-box-shadow: 0 0 4px var(--col12) !important;
+          box-shadow: 0 0 4px var(--col12) !important;
+  -webkit-transition: none !important;
   transition: none !important;
 }
 
 main .input-with-icon2:hover {
-  transform: scale(1.005) !important;
-  box-shadow: 0 0 4px var(--col15) !important;
+  -webkit-transform: scale(1.005) !important;
+          transform: scale(1.005) !important;
+  -webkit-box-shadow: 0 0 4px var(--col15) !important;
+          box-shadow: 0 0 4px var(--col15) !important;
+  -webkit-transition: all 150ms !important;
   transition: all 150ms !important;
 }
-
 /*# sourceMappingURL=dashboard.css.map */
