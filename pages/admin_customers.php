@@ -27,8 +27,8 @@
     require_once "config.php";
 ?>
 
-<div class="container">
-        <div class="customer" id="customer">
+<div class="container" style="margin-top: 3rem">
+        <div class="customer">
             <table id="customers" class="display" style="width:100%">
             <h4 style="overflow: hidden;">Felhasználók</h4>
                 <hr>

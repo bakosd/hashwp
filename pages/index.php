@@ -31,7 +31,8 @@ echo dropdownButton('Karosszéria', 'bodywork', $bodywork_array, 'icons/carspecs
 
     echo "</div><div class='p-1 d-flex flex-column justify-content-center align-items-center w-100 slider-outer-wrap'><label class='px-1 text-left user-select-none w-100'>Bérleti ár</label><div class='d-flex justify-content-center p-1 gap-2 w-100 num-input'><div class='submit-input input-with-icon d-flex align-items-center min'><label for='min1' class='pe-3 fa-solid fa-circle-minus'></label><input class='ms-1 w-50' type='number' id='min1' name='min' value='0' min='0' max='400' disabled></div><div class='submit-input input-with-icon d-flex align-items-center max'><label for='max1' class='pe-3 fa-solid fa-circle-plus'></label><input class='ms-1 w-50' type='number' id='max1' name='max' value='500' min='100' max='500' disabled></div></div><div class='slider position-relative w-100'><div class='slider-bg w-100 position-absolute'></div><div class='slider-progress position-absolute'></div><input type='hidden' name='gap' value='200'><div class='slider-input w-100'><input class='w-100 position-absolute' name='min' type='range' min='0' max='400' value='0' step='1'><input class='w-100 position-absolute' name='max' type='range' min='100' max='500' value='500' step='1'></div></div></div><div class='p-1 w-100'><input class='button w-100' type='submit' name='search-submit' value='Járművek listázása'></div></form></div></div></div><main class='container'><div class='row'><h2>Heti akciós járművek</h2></div><div class='row gap-3' style='margin-bottom: 4.5rem;'>";
 
-    echo cardBig('carousel-item', null, 'discount ASC');
+//    echo cardBig('carousel-item', null, 'discount ASC');
+    echo cardBig('carousel-item', array(["data"=>"discount", "op"=>" > ", "val"=>"0"]), 'discount ASC');
     echo cardBig("carousel", null, 'discount DESC', 1);
     echo "</div><div class='row' style='margin-top: 2rem;'><h2>Legjobb értékelésű járművek</h2></div>";
     echo cardSmall();
@@ -42,7 +43,8 @@ echo dropdownButton('Karosszéria', 'bodywork', $bodywork_array, 'icons/carspecs
 
 if (isset($_GET['message'])){
     require_once "config.php";
-    $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."</div>";
+    $count = !empty($_GET['count'])? ' ('.$_GET['count'].' db)' : "";
+    $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."$count</div>";
     $modal_message = new Modal("message", "Értesítés", $modal_msg, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Bezárás']]);
     $modal_message->showModal();
     echo "<script>window.history.replaceState({}, '','../pages/index.php');</script>";

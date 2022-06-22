@@ -1,4 +1,5 @@
 <?php
+define('HASH_MAIL', 'hash_support@gmail.hu');
 function redirection($url)
 {
     header("Location:$url");
@@ -17,7 +18,7 @@ function auto_loader($className)
 spl_autoload_register("auto_loader", true);
 
 $messages = [
-    0 => 'Nem megfelelő e-mail formátum!',
+    0 => 'Nem sikerült a művelet!',
     1 => 'Nem megfelelő formátum!',
     2 => 'A jelszavak nem egyeznek vagy nem elég hosszúak.!',
     3 => 'Vezetéknév/Keresztnév/Kiadási hely minimum 3 karakter!',
@@ -32,6 +33,13 @@ $messages = [
     12 => 'Lejárt a munkamenet! Jelentkezz be újra.',
     13 => 'Nem sikerült a visszaállítani a jelszavad!',
     14 => 'Lejárt a munkamenet! Jelentkezz be újra!',
+    15 => 'Sikeresen feliratkoztál a hírlevélre!',
+    16 => 'Sikeresen leíratkoztál a hírlevélről!',
+    17 => 'Nem megfelelő e-mail formátum!',
+    18 => 'Nem sikerült elküldeni-e az üzenetet!',
+    19 => 'Sikeresen elküldte az üzenetet a csapatunknak!',
+    20 => 'Sikeresen körbeküldte a hírlevelet!',
+    21 => 'Nem sikerült körbeküldeni a hírlevelet!',
 ];
 
 $input_names_arr = ['lastname' => 'Vezetéknév', 'firstname' => 'Keresztnév', 'phonenumber' => 'Telefonszám', 'birthdate' => 'Születésnap', 'idcardNumber' => 'Személyi/Útlevél szám', 'licensecardNumber' => 'Vezetői engedély szám', 'licensecardPlace' => 'Vezetői engedély kiadási helye', 'avatar' => 'Profilkép'];
@@ -72,7 +80,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
     $returnValue = "";
     $order_by = $order_by == null ? '' : ', ' . $order_by;
     $conditions = '';
-    if ($where != null) {
+    if ($where != null && !empty($where)) {
         $conditions = 'WHERE ';
         $counter = 0;
         foreach ($where as $value) {
@@ -107,8 +115,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
          var_dump($_POST);
      echo "</pre>";*/
     if ($result != null) {
-        $returnValue = '<div class="col width-270">';
-        $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+        $i = 0;
         foreach ($result as $item) {
             if (isset($_POST['pick-date']) && isset($_POST['drop-date'])) {
                 $session = new Session();
@@ -123,18 +130,24 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
                     }
                 }
             }
-
+            $discount = 0;
+            if ($item->discount > 0) {
+                $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
+            }
+            if ($i++ == 0){
+                $returnValue = "<div class='col width-270' data-sort='$item->price' data-discount='$discount'>";
+                $returnValue = $type == "carousel-item" ? $returnValue . '<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-inner">' : $returnValue . '';
+            }
             if ($type == "carousel-item" && $item == $result[0])
-                $returnValue .= '<div class="carousel-item active">';
+                $returnValue .= "<div class='carousel-item active'>";
             else if ($type == "carousel-item")
-                $returnValue .= '<div class="carousel-item">';
+                $returnValue .= "<div class='carousel-item'>";
             else if ($type == 'carousel' && $item != $result[0])
-                $returnValue .= '</div><div class="col width-270"><div class="carousel">';
-            else $returnValue .= '<div class="carousel">';
+                $returnValue .= "</div><div class='col width-270' data-sort='$item->price' data-discount='$discount'><div class='carousel'>";
+            else $returnValue .= "<div class='carousel'>";
 //                $returnValue .= "<button style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;' onclick='location.href=\"../pages/car.php?car=".$item->manufacturer.$item->carname.$item->releasedate."\"'>";
             $returnValue .= "<button onclick='location.href=\"../pages/car.php?car=" . $item->carsID . "\"' style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;'>" . "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/$item->manufacturer.png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
             if ($item->discount > 0) {
-                $discount = number_format((double)$item->price - ((double)$item->price * (double)$item->discount / 100), 2);
                 $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
             } else
                 $returnValue .= "<span>Napi ár:</span>&nbsp;<span class='price'><b>$item->price €</b></span>";
@@ -177,11 +190,11 @@ function generateStars(float $rating): string
 
 function cardSmall(string $type = "favorites", int $carID = 1): string
 {
-    $returnValue = "<div class='swiper mySwiper' style='padding: .5rem; overflow-x: hidden;'><div class='swiper-wrapper'>";
+    $returnValue = "<div class='swiper mySwiper' style='padding: .5rem; overflow-x: hidden !important;'><div class='swiper-wrapper'>";
     if ($type == "favorites") {
 
 //     $query = new SQLQuery("SELECT ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) WHERE r.rating is not null ORDER BY status ASC, ms.name ASC LIMIT 10;", []);
-        $query = new SQLQuery("SELECT carsID, ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) GROUP BY r.carID LIMIT 10;", []);
+        $query = new SQLQuery("SELECT carsID, ms.name AS manufacturer, carname, engine, releasedate, p.price, p.discount, AVG(r.rating) as rating FROM (cars INNER JOIN manufactures AS ms ON cars.manufacturerID=ms.manufacturesID INNER JOIN prices p on cars.carsID = p.carID INNER JOIN ratings r on cars.carsID = r.carID) GROUP BY r.carID ORDER BY rating DESC LIMIT 10;", []);
         $result = $query->getResult();
         if ($result != null) {
             foreach ($result as $item) {
@@ -194,11 +207,11 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
             $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
         }
     } elseif ($type == "comments") {
-        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, likes, dislikes, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID ORDER BY (likes-dislikes) DESC;", [':carID' => $carID]);
+        $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID AND approved = 1 ORDER BY rating DESC;", [':carID' => $carID]);
         $result = $query->getResult();
         if ($result != null) {
             foreach ($result as $item) {
-                $returnValue .= "<div class='swiper-slide'><div class='comment-card w-100'><div class='comment-header d-flex gap-2'><img id='user-image' src='";
+                $returnValue .= "<div class='swiper-slide' id='comment_$item->ratingID'><div class='comment-card w-100'><div class='comment-header d-flex gap-2'><img id='user-image' src='";
                 if ($item->avatar != null && $item->avatar != '')
                     $returnValue .= "data:image/jpeg;base64," . base64_encode($item->avatar);
                 else
@@ -267,6 +280,16 @@ function tryGetResultToOrderPage():array{
     return [$carID, $result, $car_full_name, $car_banner];
 }
 
+function generateNumbersToken():string{
+    $rand = rand(1000, 9999);
+    $string = $rand . "-";
+    $rand = rand(1000, 9999);
+    $string .= $rand . "-";
+    $rand = rand(1000, 9999);
+    $string .= $rand;
+    return $string;
+}
+
 function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $token, $carname, $id, $archive_code):string
 {
     $title = "<div style='font-size: 2rem'>Hash.</div style='font-size: 2rem'>";
@@ -277,16 +300,20 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_approved' => "Rendelés megerősítve!",
         'order_denied' => "Rendelés elutasítva!",
         'order_resigned' => "Rendelés lemondva!",
-        'order_archived' => "Rendelés befejezve!"
+        'order_archived' => "Rendelés befejezve!",
+        'contact'=> "$lastname $firstname üzente",
+        'newsletter' => "Hash - hírlevél"
     ];
     $message_array = [
         'activation' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen regisztrált az oldalunkra, kérjük erősítenie meg a fiókját!</h2>",
         'recovery' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen rögzítettük a jelszó visszaállítási szándékát! <br>Ha nem ön volt, akkor haladéktalanul váltson jelszót!</h2>",
         'order' => "Gratulálunk kedves $lastname $firstname!<br><h2>Sikeresen megrendelte a <b>$carname</b> járművet a(z)  <b>#$id</b> azonosító számon!<br> Kollégáink a rendelés elbírálása után küldenek önnek egy újabb üzenetet, a további adatokkal!</h2>",
-        'order_approved' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink elfogadták a rendelést a megadott adatokra!</h2>",
-        'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z)<b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
+        'order_approved' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink elfogadták a rendelést a megadott adatokra! Az átvételkor be kell mutatnia a következő kódot:</h2><center><div style='font-size: x-large'>Kód: <b>$archive_code</b></div></center>",
+        'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
         'order_resigned' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelést sikeresen lemondta!",
-        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z)<b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>"
+        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>",
+        'contact'=> "<b>$token</b><br><hr></hr>Üzenet:<br> $carname",
+        'newsletter' => "$token"
     ];
     $buttons_array = [
         'activation' => ["A gombra kattintva (vagy a linkre) aktiválhatja a fiókját!", "Fiók aktiválása"],
@@ -295,7 +322,9 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_approved' => ["", ""],
         'order_denied' => ["", ""],
         'order_resigned' => ["", ""],
-        'order_archived' => ["", ""]
+        'order_archived' => ["", ""],
+        'contact' => ["Üzenet küldéséhez $token számára kattintson a gombra!", "Reply küldése"],
+        'newsletter'=> ["",""]
     ];
 
     $title .= $mail_type[$message_type];
@@ -376,7 +405,10 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
     if (strlen($buttons_array[$message_type][0]) > 0) {
         $small_message = $buttons_array[$message_type][0];
         $button_message = $buttons_array[$message_type][1];
-        $button_link = $site . $token;
+        if (!$message_type == 'contact')
+            $button_link = $site . $token;
+        else
+            $button_link = "mailto:$token";
         $returnValue .= "<p class='text-center'>$small_message</p>
                                   <table class='button large expand'>
                                     <tr>

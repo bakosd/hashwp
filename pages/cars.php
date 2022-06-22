@@ -44,12 +44,17 @@
                 $search_options_array[$arr_key++] = ["data"=>"gearbox", "op"=>" LIKE ", "val"=>$value];
     }
 ?>
-<main class="container">
+<main class='container'>
 
-    <div class="row" style="margin-top: 4.5rem">
+    <div class='row' style='margin-top: 4.5rem'>
         <h2>Jármű kinálatok</h2>
+        <select name='order_by' id='order_by' class='select px-2 my-4'>
+            <option value='discount'>Legnagyobb akció</option>
+            <option value='asc'>Ár Legkisebb -> Legnagyobb</option>
+            <option value='desc'>Ár Legnagyobb -> Legkisebb</option>
+        </select>
     </div>
-    <div class="row gap-3" style="margin-bottom: 4.5rem;">
+    <div class='row gap-3' id='cars' style='margin-bottom: 4.5rem;'>
     <?php
         if($session->get('level') == 3 && $session->get('edit')==1)
         {
@@ -87,8 +92,8 @@
         });
     </script>
 
-    <script src="../scripts/button-events.js"></script>
-    <script src="../scripts/events.js"></script>
+    <script src='../scripts/button-events.js'></script>
+    <script src='../scripts/events.js'></script>
 
 
 </body>

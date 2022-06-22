@@ -122,7 +122,7 @@ class UserSystem
 
         if (UserSystem::checkUserExistence($user)) {
             $query = new SQLQuery(
-                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
+                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar, subscribed FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
                 [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {
@@ -238,7 +238,9 @@ class UserSystem
             'order_approved' => "Rendelés megerősítve!",
             'order_denied' => "Rendelés elutasítva!",
             'order_resigned' => "Rendelés lemondva!",
-            'order_archived' => "Rendelés befejezve!"
+            'order_archived' => "Rendelés befejezve!",
+            'contact' => "$lastname $firstname üzent",
+            'newsletter' => "Hash - hírlevél",
         ];
         $header = "From: Hash - do not reply <no-reply@hash.proj.vts.su.ac.rs>\n";
         $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";
@@ -250,7 +252,7 @@ class UserSystem
         if (!empty($mail_type))
             $subject = $mail_type[$message_type];
         else
-            $subject = "Hash. üzenet önnek!";
+            $subject = "Hash. support - üzenet önnek!";
         if (isset($site)){
             $site = SITE . $site;
         }

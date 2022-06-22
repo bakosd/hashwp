@@ -68,7 +68,7 @@ class Session
         return $this;
     }
 
-    public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $password)
+    public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $password, $subscribed)
     {
         $this->set('userID', $usersID);
         $this->set('username', $username);
@@ -78,6 +78,7 @@ class Session
         $this->set('state', $state);
         $this->set('level', $level);
         $this->set('avatar', $avatar);
+        $this->set('newsletter', $subscribed);
         $this->set('logged', time());
     }
 }

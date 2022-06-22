@@ -23,7 +23,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             if($currentFile == "index.php")
             {
                 $session->set('edit', 0);
-                header("Refresh: 0"); 
+                echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
             }
 
             echo"
@@ -58,7 +58,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             {
                 if($session->get('level') == 3){
                     $session->set('edit', 1);
-                    header("Refresh: 0");
+                    echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
                 }
                 else{
                     header('Location: index.php');
@@ -95,6 +95,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             </div>";
         }
 if ($currentFile == "cars.php" || $currentFile == "car.php") {
+    if ($session->get('edit') != 1)
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>
@@ -202,8 +203,8 @@ else
             <button id='logout-user' type='submit' form='logout' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
             <a href='dashboard.php' class='sub-link d-flex align-items-center link  w-100 ";
     if ($currentFile == "dashboard.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-user-pen'></i><span>Profilom</span></a>
-            <a href='ratings.php' class='sub-link d-flex align-items-center link w-100 ";
-    if ($currentFile == "ratings.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-star-half-stroke'></i><span>Értékelések</span></a>
+            <a href='favorites.php' class='sub-link d-flex align-items-center link w-100 ";
+    if ($currentFile == "favorites.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-heart'></i><span>Kedvenceim</span></a>
             <a href='history.php' class='sub-link d-flex align-items-center link w-100 ";
     if ($currentFile == "history.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>";
             if($session->get('level') == 3)

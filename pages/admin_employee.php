@@ -26,7 +26,7 @@
     require_once "navigation.php";
 ?>
 
-<div class="container">
+<div class="container" style="margin-top: 3rem">
         <div class="customer">
             <table id="customers" class="display" style="width:100%">
             <h2 style="overflow: hidden">Alkalmazottak  </h2>

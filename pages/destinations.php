@@ -71,7 +71,6 @@
 
 
 
-echo "<main class='container'>$destinations";
-
-    echo "</main><script src='../scripts/button-events.js'></script><script src='../scripts/events.js'></script><script src='../scripts/auto-swipe.js'></script></body></html>";
+echo "<main class='container'>$destinations</main>";
 require_once "footer.php";
+    echo "<script src='../scripts/button-events.js'></script><script src='../scripts/events.js'></script></body></html>";

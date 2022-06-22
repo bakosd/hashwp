@@ -1,11 +1,14 @@
 // ---- admin_index ----
 
-$(document).ready( function () {
+/*$(document).ready( function () {
     $('#example').DataTable({
         scrollX: true,
-        darkmode: true
+        darkmode: true,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
     });
-} );
+} );*/
 
 // ---- Customers ----
 
@@ -13,6 +16,9 @@ $(document).ready( function () {
     $('#customers').DataTable({
         scrollX: true,
         "iDisplayLength": 25,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
     });
     
 } );
@@ -22,14 +28,41 @@ $(document).ready( function () {
 $(document).ready( function () {
     $('#employee').DataTable({
         scrollX: true,
-        "iDisplayLength": 25
+        "iDisplayLength": 25,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
     });
 } );
 
-// ---- Megrendeléseim ----
+// ---- Histroy - Admin index ----
 $(document).ready( function () {
     $('#history').DataTable({
+        order: [[9, 'desc'], [3, 'asc'], [5, 'asc'], [10, 'desc']],
         scrollX: true,
-        "iDisplayLength": 25,
+        responsive: true,
+        "iDisplayLength": 5,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
     });
-} );
+    $('#cars').DataTable({
+        order: [[0, 'asc'], [1, 'asc'], [2, 'asc']],
+        scrollX: true,
+        responsive: true,
+        "iDisplayLength": 5,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
+    });
+
+    $('#favorites').DataTable({
+        order: [[0, 'asc']],
+        scrollX: true,
+        responsive: true,
+        "iDisplayLength": 5,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
+    });
+});
