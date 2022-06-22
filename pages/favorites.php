@@ -37,7 +37,6 @@ if (isset($_POST) && isset($_POST['favorite'])) {
         <link rel="stylesheet" href="../styles/dashboard.css">
         <link rel="stylesheet" href="../styles/admin_tables.css">
         <link rel="stylesheet" href="../styles/cards.css">
-        <link rel="stylesheet" href="../styles/cars.css">
         <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">

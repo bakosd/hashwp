@@ -42,7 +42,8 @@ echo dropdownButton('Karosszéria', 'bodywork', $bodywork_array, 'icons/carspecs
 
 if (isset($_GET['message'])){
     require_once "config.php";
-    $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."</div>";
+    $count = !empty($_GET['count'])? ' ('.$_GET['count'].' db)' : "";
+    $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."$count</div>";
     $modal_message = new Modal("message", "Értesítés", $modal_msg, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Bezárás']]);
     $modal_message->showModal();
     echo "<script>window.history.replaceState({}, '','../pages/index.php');</script>";

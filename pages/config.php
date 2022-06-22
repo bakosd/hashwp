@@ -38,6 +38,8 @@ $messages = [
     17 => 'Nem megfelelő e-mail formátum!',
     18 => 'Nem sikerült elküldeni-e az üzenetet!',
     19 => 'Sikeresen elküldte az üzenetet a csapatunknak!',
+    20 => 'Sikeresen körbeküldte a hírlevelet!',
+    21 => 'Nem sikerült körbeküldeni a hírlevelet!',
 ];
 
 $input_names_arr = ['lastname' => 'Vezetéknév', 'firstname' => 'Keresztnév', 'phonenumber' => 'Telefonszám', 'birthdate' => 'Születésnap', 'idcardNumber' => 'Személyi/Útlevél szám', 'licensecardNumber' => 'Vezetői engedély szám', 'licensecardPlace' => 'Vezetői engedély kiadási helye', 'avatar' => 'Profilkép'];
@@ -299,7 +301,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_denied' => "Rendelés elutasítva!",
         'order_resigned' => "Rendelés lemondva!",
         'order_archived' => "Rendelés befejezve!",
-        'contact'=> "$lastname $firstname üzent"
+        'contact'=> "$lastname $firstname üzente",
+        'newsletter' => "Hash - hírlevél"
     ];
     $message_array = [
         'activation' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen regisztrált az oldalunkra, kérjük erősítenie meg a fiókját!</h2>",
@@ -309,7 +312,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
         'order_resigned' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelést sikeresen lemondta!",
         'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>",
-        'contact'=> "<b>$token</b><br><hr></hr>Üzenet:<br> $carname"
+        'contact'=> "<b>$token</b><br><hr></hr>Üzenet:<br> $carname",
+        'newsletter' => "$token"
     ];
     $buttons_array = [
         'activation' => ["A gombra kattintva (vagy a linkre) aktiválhatja a fiókját!", "Fiók aktiválása"],
@@ -319,7 +323,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_denied' => ["", ""],
         'order_resigned' => ["", ""],
         'order_archived' => ["", ""],
-        'contact' => ["Üzenet küldéséhez $token számára kattintson a gombra!", "Reply küldése"]
+        'contact' => ["Üzenet küldéséhez $token számára kattintson a gombra!", "Reply küldése"],
+        'newsletter'=> ["",""]
     ];
 
     $title .= $mail_type[$message_type];
