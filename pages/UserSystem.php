@@ -238,7 +238,8 @@ class UserSystem
             'order_approved' => "Rendelés megerősítve!",
             'order_denied' => "Rendelés elutasítva!",
             'order_resigned' => "Rendelés lemondva!",
-            'order_archived' => "Rendelés befejezve!"
+            'order_archived' => "Rendelés befejezve!",
+            'contact' => "$lastname $firstname üzent"
         ];
         $header = "From: Hash - do not reply <no-reply@hash.proj.vts.su.ac.rs>\n";
         $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";

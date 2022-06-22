@@ -1,4 +1,5 @@
 <?php
+define('HASH_MAIL', 'hash_support@gmail.hu');
 function redirection($url)
 {
     header("Location:$url");
@@ -35,6 +36,8 @@ $messages = [
     15 => 'Sikeresen feliratkoztál a hírlevélre!',
     16 => 'Sikeresen leíratkoztál a hírlevélről!',
     17 => 'Nem megfelelő e-mail formátum!',
+    18 => 'Nem sikerült elküldeni-e az üzenetet!',
+    19 => 'Sikeresen elküldte az üzenetet a csapatunknak!',
 ];
 
 $input_names_arr = ['lastname' => 'Vezetéknév', 'firstname' => 'Keresztnév', 'phonenumber' => 'Telefonszám', 'birthdate' => 'Születésnap', 'idcardNumber' => 'Személyi/Útlevél szám', 'licensecardNumber' => 'Vezetői engedély szám', 'licensecardPlace' => 'Vezetői engedély kiadási helye', 'avatar' => 'Profilkép'];
@@ -295,7 +298,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_approved' => "Rendelés megerősítve!",
         'order_denied' => "Rendelés elutasítva!",
         'order_resigned' => "Rendelés lemondva!",
-        'order_archived' => "Rendelés befejezve!"
+        'order_archived' => "Rendelés befejezve!",
+        'contact'=> "$lastname $firstname üzent"
     ];
     $message_array = [
         'activation' => "Üdvözöljük kedves $lastname $firstname!<br><h2>Sikeresen regisztrált az oldalunkra, kérjük erősítenie meg a fiókját!</h2>",
@@ -304,7 +308,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_approved' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink elfogadták a rendelést a megadott adatokra! Az átvételkor be kell mutatnia a következő kódot:</h2><center><div style='font-size: x-large'>Kód: <b>$archive_code</b></div></center>",
         'order_denied' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése feldolgozásra került! Az alkalmazottaink nem fogadták el a rendelést a megadott adatokra!</h2>",
         'order_resigned' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelést sikeresen lemondta!",
-        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>"
+        'order_archived' => "Üdvözöljük kedves $lastname $firstname!<br><h2>A(z) <b>$carname</b>, <b>#$id</b> azonosítójú rendelése lezárva! <br>Kérjük írjon egy megjegyzést a tapasztalatiról, a járműről!</h2><br><center><div style='font-size: x-large'>Az ehhez szükséges kód: <b>$archive_code</b></div></center>",
+        'contact'=> "<b>$token</b><br><hr></hr>Üzenet:<br> $carname"
     ];
     $buttons_array = [
         'activation' => ["A gombra kattintva (vagy a linkre) aktiválhatja a fiókját!", "Fiók aktiválása"],
@@ -313,7 +318,8 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
         'order_approved' => ["", ""],
         'order_denied' => ["", ""],
         'order_resigned' => ["", ""],
-        'order_archived' => ["", ""]
+        'order_archived' => ["", ""],
+        'contact' => ["Üzenet küldéséhez $token számára kattintson a gombra!", "Reply küldése"]
     ];
 
     $title .= $mail_type[$message_type];
@@ -394,7 +400,10 @@ function getHTMLFormattedMessage($message_type, $lastname, $firstname, $site, $t
     if (strlen($buttons_array[$message_type][0]) > 0) {
         $small_message = $buttons_array[$message_type][0];
         $button_message = $buttons_array[$message_type][1];
-        $button_link = $site . $token;
+        if (!$message_type == 'contact')
+            $button_link = $site . $token;
+        else
+            $button_link = "mailto:$token";
         $returnValue .= "<p class='text-center'>$small_message</p>
                                   <table class='button large expand'>
                                     <tr>

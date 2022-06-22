@@ -1,5 +1,16 @@
 <?php
 //TODO: sendEmail to hash@gmail.com
+require_once "config.php";
+if (isset($_POST['last_name']) && isset($_POST['first_name']) && isset($_POST['email']) && isset($_POST['message']) && !empty($lastname = trim($_POST['last_name'])) && !empty($first_name = trim($_POST['first_name'])) && !empty($comment =trim($_POST['message'])) && !empty($mail =trim($_POST['email']))){
+    if (filter_var($mail, FILTER_VALIDATE_EMAIL))
+        if (UserSystem::sendEmail('contact',HASH_MAIL, $first_name, $lastname, null, $mail, $comment))
+           $message = 19;
+        else
+            $message = 18;
+    else
+        $message = 17;
+    redirection("index.php?message=$message");
+}
 echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'></script><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><link rel='icon' type='image/x-icon' href='../images/icons/logo-100.png'><link rel='stylesheet' href='../styles/global.css'><link rel='stylesheet' href='../styles/navbar.css'><link rel='stylesheet' href='../styles/index.css'><link rel='stylesheet' href='../styles/cards.css'><link rel='stylesheet' href='../styles/contact.css'><meta name='viewport' content='width=device-width,height=device-heightinitial-scale=1'><link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'><title>Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
     require_once "navigation.php";
     $session = new Session();
@@ -9,9 +20,9 @@ echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='styl
     $last_name = "";
     $email = "";
     if ($session->get('userID')) {
-        $first_name = "value = '" . $session->get('firstname') . "' disabled";
-        $last_name = "value = '" . $session->get('lastname') . "' disabled";
-        $email = "value = '" . $session->get('email') . "' disabled";
+        $first_name = "value = '" . $session->get('firstname') . "' readonly='readonly'";
+        $last_name = "value = '" . $session->get('lastname') . "' readonly='readonly'";
+        $email = "value = '" . $session->get('email') . "' readonly='readonly'";
     }
 echo "<main class='container' style='margin-top: 4.5rem'>
    
@@ -34,18 +45,19 @@ echo "<main class='container' style='margin-top: 4.5rem'>
                     </div>
                 </div>
                 <h6 class='mx-4 title'>Vegye fel a kapcsolatot űrlap formájában!</h6>
-                <form class='d-flex flex-column gap-2 px-4'>
+                <form class='d-flex flex-column gap-2 px-4' method='post' id='contact-form'>
                     
                <div class='d-flex justify-content-between gap-2 flex-wrap'> <div class='col'>    <label class='text-nowrap'>Vezetéknév <span>*</span></label><br>
-                    <input type='text' class='input-with-icon w-100' $last_name></div>
+                    <input type='text' class='input-with-icon w-100' name='last_name' $last_name></div>
                
                    <div class='col'> <label class='text-nowrap'>Keresztnév <span>*</span></label>
-                    <input type='text' class='input-with-icon w-100' $first_name></div></div>
+                    <input type='text' class='input-with-icon w-100' name='first_name' $first_name></div></div>
                     
                     <label>Email <span>*</span></label>
-                    <input type='email' class='input-with-icon w-100' $email>
+                    <input type='email' class='input-with-icon w-100' name='email' $email>
+                    
                     <label>Üzenet <span>*</span></label>
-                    <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;'></textarea><br>
+                    <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;' name='message'></textarea><br>
                     <input type='submit' class='button w-100 mt-4' value='Küldés'>
                 </form>
             </div>
