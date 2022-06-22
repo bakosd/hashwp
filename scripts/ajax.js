@@ -651,18 +651,6 @@ $(document).ready(function () {
                         results[0] += "<br><div class='text-danger w-100'>3 másodperc múlva újratöltődik az oldal!</div>"
                         Alert(resultShower, results[0], results[1]);
                         $(document).find('#' + form.replace('-form', '-modal').replace('approve', 'operation').replace('decline', 'operation')).animate({scrollTop: 0}, 400);
-                        //let modal = $(document).find('#' + form.replace('-form', '-modal').replace('approve', 'operation').replace('decline', 'operation'));
-
-                           /* modal.removeClass("in");
-                            $(".modal-backdrop").remove();
-                            modal.hide();*/
-                            // $("#orders").load(location.href+" #orders>*","");
-                         /*   $("#history-body").load(location.href+" #history-body>*","");
-                            $('#history').each(function() {
-                                dt = $(this).dataTable();
-                                dt.fnDraw();
-                            })
-                            modal.load(location.href+" #"+modal.attr('id')+">*","");*/
                         setTimeout(function () {
                                 window.location.reload();
                         }, 3000);
@@ -671,6 +659,31 @@ $(document).ready(function () {
             });
         });
     }
+    $('#contact-form').on('submit', function (e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        let f_name = $('#first_name');
+        let l_name = $('#last_name');
+        let email = $('#email');
+        let message = $('#message');
+        let error = false;
+        if (!email.val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+            error = "Nem megfelelő e-mail formátum!";
+        }
+        if (validateInput(l_name)) {
+            if (l_name.val().length < 3)
+                error = "A keresztnév nem megfelelő hosszúságú!";
+        } else
+                error = "A keresznév nem tartalmazhat csak betűket.";
+        if (validateInput(f_name)) {
+            if (f_name.val().length < 3)
+                error = "A vezetéknév nem megfelelő hosszúságú!";
+        } else
+            error = "A vezetéknév nem tartalmazhat csak betűket.";
+        if (message.val().length < 15)
+            error = "A szöveg legyen bár 16 karakter hosszú!";
+        Alert($(this), error, 'error');
+    });
 });
 
 
