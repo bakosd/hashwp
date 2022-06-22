@@ -47,3 +47,5 @@ if (!empty($_POST)) {
         echo $response;
     }
 }
+else
+    redirection('index.php');

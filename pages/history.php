@@ -1,8 +1,8 @@
 <?php
 require_once "config.php";
 $session = new Session();
-
-if (isset($_POST) && isset($_POST['order-key'])){
+if($session->get('userID') > 0){
+if (!empty($_POST) && isset($_POST['order-key'])){
     $returnValue = "error";
     if (isset($_POST['comment-title']) && isset($_POST['comment-body']) && isset($_POST['rating']) && isset($_POST['carID']) && isset($_POST['orderID'])) {
         $orderKey = trim($_POST['order-key']);
@@ -38,7 +38,7 @@ if (isset($_POST) && isset($_POST['order-key'])){
 
     exit($returnValue);
 }
-if (isset($_POST) && isset($_POST['resign_order'])) {
+if (!empty($_POST) && isset($_POST['resign_order'])) {
     $returnValue = "error";
     if (isset($_POST['resign_order']) && $_POST['resign_order'] > 0) {
         $query = new SQLQuery("UPDATE orders SET status = -2 WHERE ordersID = :orderID AND userID = :userID", [':orderID' => $_POST['resign_order'], ':userID' => $session->get('userID')]);
@@ -217,10 +217,13 @@ echo "</tbody>
     </table>
 </main>";
 require_once "footer.php";
-?>
-<script src="../scripts/admin_dataTable.js"></script>
-<script src="../scripts/button-events.js"></script>
-<script src="../scripts/events.js"></script>
-<script src="../scripts/ajax.js"></script>
+echo "<script src='../scripts/admin_dataTable.js'></script>
+<script src='../scripts/button-events.js'></script>
+<script src='../scripts/events.js'></script>
+<script src='../scripts/ajax.js'></script>
 </body>
-</html>
+</html>";
+}
+    else redirection('index.php');
+?>
+

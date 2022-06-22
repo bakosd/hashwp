@@ -1,5 +1,7 @@
 <?php
 require_once "config.php";
+$session = new Session();
+if (!empty($session->get('userID'))) {
 if (isset($_FILES['avatar'])) {
     $exitVal = "Hiba.";
     if (is_array($_FILES) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
@@ -51,7 +53,6 @@ function tryUpdateData($name, $value, $needed_length = 3, $sess = true): ?array
 }
 if(!empty($_POST) && !empty($_POST['subscribe'])){
     $is_user = true;
-    $session = new Session();
     $user = $session->get('email');
     if(isset($_POST['newsletter-email'])) {$user = filter_var(trim($_POST['newsletter-email']), FILTER_VALIDATE_EMAIL) ? trim($_POST['newsletter-email']) : null; $is_user = false;}
     if($user != null && UserSystem::tryUpdateSubscription($user, $_POST['subscribe'], $is_user)) {
@@ -65,8 +66,7 @@ if(!empty($_POST) && !empty($_POST['subscribe'])){
 
     exit();
 }
-$session = new Session();
-if (!empty($session->get('userID'))) {
+
     $userID = $session->get('userID');
     $query = new SQLQuery("SELECT phonenumber, birthdate, idcardNumber, licensecardNumber, licensecardPlace FROM users WHERE usersID = :usersID LIMIT 1", [':usersID' => $session->get("userID")]);
     $result = $query->getResult()[0];

@@ -11,7 +11,7 @@ if (isset($_POST['last_name']) && isset($_POST['first_name']) && isset($_POST['e
         $message = 17;
     redirection("index.php?message=$message");
 }
-echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'></script><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><link rel='icon' type='image/x-icon' href='../images/icons/logo-100.png'><link rel='stylesheet' href='../styles/global.css'><link rel='stylesheet' href='../styles/navbar.css'><link rel='stylesheet' href='../styles/index.css'><link rel='stylesheet' href='../styles/cards.css'><link rel='stylesheet' href='../styles/contact.css'><meta name='viewport' content='width=device-width,height=device-heightinitial-scale=1'><link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'><title>Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
+echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'></script><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><link rel='icon' type='image/x-icon' href='../images/icons/logo-100.png'><link rel='stylesheet' href='../styles/global.css'><link rel='stylesheet' href='../styles/navbar.css'><link rel='stylesheet' href='../styles/index.css'><link rel='stylesheet' href='../styles/cards.css'><link rel='stylesheet' href='../styles/contact.css'><meta name='viewport' content='width=device-width,height=device-heightinitial-scale=1'><title>Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
     require_once "navigation.php";
     $session = new Session();
     $query = new SQLQuery("SELECT city, address, phone, email FROM places ORDER BY placesID ASC LIMIT 1", []);
@@ -33,7 +33,6 @@ echo "<main class='container' style='margin-top: 4.5rem'>
                     <div>
                         <p><i class='fa-solid fa-location-dot'></i>&nbsp;Fő irodánk</p>
                         <span>$office->address, <b>$office->city</b></span>
-
                     </div>
                     <div>
                         <p><i class='fa-solid fa-phone'></i>&nbsp;Telefon</p>
@@ -64,11 +63,11 @@ echo "<main class='container' style='margin-top: 4.5rem'>
             <div class='col-lg-6 col-sm-12 p-2' id='map'>
             <h6 class='mx-4 title'>Tekintse meg az irodáinkat!</h6>
                 <!--<iframe src='https://www.google.com/maps/d/embed?mid=1LXQo4_dupajUdCrkUqIBmI3VmfNPEvSs&ehbc=2E312F' width='100%' height='860'></iframe>-->
-                <iframe style='border-radius: 1rem !important; border: 1px solid #000; box-shadow: 0 2px 12px #000;' src='https://my.atlistmaps.com/map/9cd1d586-5b21-4b4e-be98-37a5d8e6434f?share=true' allow='geolocation' width='100%' height='830' frameborder='0' scrolling='no' allowfullscreen></iframe>
+                <iframe style='border-radius: 1rem !important; border: 1px solid #000; box-shadow: 0 2px 12px #000;' src='https://my.atlistmaps.com/map/9cd1d586-5b21-4b4e-be98-37a5d8e6434f?share=true' allow='geolocation' width='100%' height='890' frameborder='0' scrolling='no' allowfullscreen></iframe>
             </div>
         </div>
 </main>";
     include_once "footer.php";
-    echo '<script src="../scripts/button-events.js"></script><script src="../scripts/events.js"></script><script src="../scripts/auto-swipe.js"></script></body></html>';
+    echo '<script src="../scripts/button-events.js"></script><script src="../scripts/events.js"></script></body></html>';
 ?>
 

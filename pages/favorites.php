@@ -1,6 +1,7 @@
 <?php
 require_once "config.php";
 $session = new Session();
+if ($session->get('userID') > 0){
 if (isset($_POST) && isset($_POST['favorite'])) {
     $returnValue = "error";
     $queryS = new SQLQuery("SELECT favoritesID FROM favorites WHERE carID = :carID AND userID = :userID LIMIT 1", [':carID' => $_POST['favorite'], ':userID'=>$session->get('userID')]);
@@ -68,10 +69,11 @@ echo "</tbody>
     </table>
 </main>";
 require_once "footer.php";
-?>
-<script src="../scripts/admin_dataTable.js"></script>
-<script src="../scripts/button-events.js"></script>
-<script src="../scripts/events.js"></script>
-<script src="../scripts/ajax.js"></script>
-    </body>
-</html>
+    echo "<script src='../scripts/admin_dataTable.js'></script>
+<script src='../scripts/button-events.js'></script>
+<script src='../scripts/events.js'></script>
+<script src='../scripts/ajax.js'></script>
+</body>
+</html>";
+}
+else redirection('index.php');

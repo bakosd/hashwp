@@ -60,6 +60,9 @@ form span {
   margin: 2rem;
   border-bottom: 1px solid gray;
 }
+.info p {
+  margin: 1rem 0;
+}
 
 .info span {
   color: var(--col6);

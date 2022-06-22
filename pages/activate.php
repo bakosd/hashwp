@@ -1,15 +1,16 @@
 <?php
 require_once "config.php";
-$token = trim($_GET['token']);
+if (!empty($_GET)) {
+    $token = trim($_GET['token']);
 
 
-if (!empty($token) AND strlen($token) === 40) { //if token 40 then it's user activation
-    if(UserSystem::tryActivate($token))
-        redirection('index.php?message=6');
-    else
-        redirection('index.php?message=7');
-}elseif (!empty($token) AND strlen($token) === 50){ //if token 50 it's password recovery.
-    echo '<!DOCTYPE html>
+    if (!empty($token) and strlen($token) === 40) { //if token 40 then it's user activation
+        if (UserSystem::tryActivate($token))
+            redirection('index.php?message=6');
+        else
+            redirection('index.php?message=7');
+    } elseif (!empty($token) and strlen($token) === 50) { //if token 50 it's password recovery.
+        echo '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,8 +27,8 @@ if (!empty($token) AND strlen($token) === 40) { //if token 40 then it's user act
     <title>Hash | Járműbérlés egyszerűen, gyorsan.</title>
 </head>
 <body>';
-    include_once "navigation.php";
-    echo '<main class="container">
+        include_once "navigation.php";
+        echo '<main class="container">
 <form id="rpassword" class="d-flex flex-column align-items-center px-4 py-4 gap-3" method="post" action="recovery.php">
     <div class="px-1 py-1">
         <label for="rpassword1" class="user-select-none">Új jelszó</label>
@@ -43,7 +44,7 @@ if (!empty($token) AND strlen($token) === 40) { //if token 40 then it's user act
             <input type="password" id="rpassword2" name="rpassword2" minlength="8" placeholder="Új jelszó megerősítése" autocomplete="false">
         </div>
     </div>
-    <input type="hidden" name="token" value="'.$token.'">
+    <input type="hidden" name="token" value="' . $token . '">
     <input class="button px-4" type="submit" name="recovery-submit" value="Jelszó visszaállítása">
 </form>
 <div id="alert-box" class="alert alert-info alert-dismissible fade show m-3 d-none" role="alert">
@@ -70,7 +71,7 @@ function checkData(){
     const info = document.getElementById("info");
     if(document.getElementById("rpassword1").value !== document.getElementById("rpassword2").value && 
     document.getElementById("rpassword1").value.length < 8 || document.getElementById("rpassword2").value.length < 8){
-        info.innerHTML = "'.$messages[2].'";
+        info.innerHTML = "' . $messages[2] . '";
         returnValue = false;
     }
     if(!returnValue)
@@ -79,5 +80,7 @@ function checkData(){
 }
 </script>
 </html>';
-}
+    }
+}else
+    redirection('index.php?message=0');
 

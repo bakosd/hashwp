@@ -95,6 +95,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             </div>";
         }
 if ($currentFile == "cars.php" || $currentFile == "car.php") {
+    if ($session->get('edit') != 1)
     echo "<button id='search-options' class='button nav-item d-flex align-items-center justify-content-center' onclick='toggleSubmenu(1)'><i class='fa-solid fa-sliders'></i></button>";
 }
 echo "</div>

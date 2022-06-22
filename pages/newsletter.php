@@ -2,7 +2,7 @@
 require_once "config.php";
 $session = new Session();
 if (!$session->get('userID') && $session->get('level') < 2)
-    redirection('index.php?message=0');
+    redirection('index.php');
 $queryS = new SQLQuery("SELECT carsID, CONCAT(m.name, ' ', c.carname, ' ', c.engine, ' ', c.releasedate) as carname, p.discount as discount_percent, ROUND((p.price - (p.price * discount / 100)),2) as discounted_price, price FROM cars c INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID INNER JOIN prices p on c.carsID = p.carID AND p.discount > 0", []);
 if ($queryS->getResult() != null) {
     $newsletter_string = "<table class='row display mx-auto' style='width: 100% !important;'>

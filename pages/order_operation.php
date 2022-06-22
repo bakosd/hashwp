@@ -1,118 +1,121 @@
 <?php
 require_once "config.php";
-$temp = tryGetResultToOrderPage();
-$carID = $temp[0];
-$result = $temp[1];
-$session = new Session();
-if (isset($_POST['pick-date']) && isset($_POST['drop-date']) && !empty($carID)){
-    $drop = null; $pick = null;
-    if (isset($_POST['pick-date'])) {
-        $pick = $_POST['pick-date'];
-        $session->set('temp_rent_start', $pick);
-    }
-    if (isset($_POST['drop-date'])){
-        $drop = $_POST['drop-date'];
-        $session->set('temp_rent_end', $drop);
-    }
-    $q = new SQLQuery("SELECT rentStartdate, rentEnddate, status FROM orders where carID = :carID", [":carID"=>$carID]);
-    $res = $q->getResult();
-    $is_available = "available";
-    foreach ($res as $item)
-        if( (($item->rentStartdate <= $drop) && ($item->rentEnddate >= $pick)))
-            $is_available = "not-available";
-    exit($is_available);
-}
-$page = 0; $succ = 0;
-$car_full_name = $temp[2]; $data = null; $pick_place = ""; $drop_place = "";
-$pick_deliver_needed = false;
-$drop_deliver_needed = false;
-$DELIVERY_PRICE = 18.99;
-
-if(isset($_POST)) {
-    $data[0] = "";
-    $data[1] = "";
-    if (isset($_POST['selectedextras'])) {
-        $selectedExtras = null;
-        foreach ($_POST['selectedextras'] as $key => $value) {
-            $selectedExtras[$key] = $value;
-            $session->set('temp_selected_extras', $selectedExtras);
+if (!empty($_POST)) {
+    $temp = tryGetResultToOrderPage();
+    $carID = $temp[0];
+    $result = $temp[1];
+    $session = new Session();
+    if (isset($_POST['pick-date']) && isset($_POST['drop-date']) && !empty($carID)) {
+        $drop = null;
+        $pick = null;
+        if (isset($_POST['pick-date'])) {
+            $pick = $_POST['pick-date'];
+            $session->set('temp_rent_start', $pick);
         }
-    }else if ($_POST['next'] == "2") $session->remove('temp_selected_extras');
-    if (isset($_POST['next'])) {
-        if ($_POST['next'] == "2")
-            $page = 2;
-        if ($_POST['next'] == "3")
-            $page = 3;
-        if ($_POST['next'] == "4")
-            $page = 4;
-    }
-    if ($_POST['next'] == 3){
-        if ((isset($_POST['city1']) && isset($_POST['city2'])) || (isset($_POST['city']) && isset($_POST['zipcode']) && isset($_POST['street']) &&isset($_POST['house']) && isset($_POST['city3']))) {
-            if (isset($_POST['city1']) && isset($_POST['city2'])) {
-                $pick_place = $_POST['city1'][0];
-                $drop_place = $_POST['city2'][0];
-            }
-            if (isset($_POST['city']) && isset($_POST['zipcode']) && isset($_POST['street']) && isset($_POST['house']) && isset($_POST['city3'])) {
-                $pick_place = $_POST['street'] . " " . $_POST['house'] . ", " . $_POST['city'] . ", " . $_POST['zipcode'];
-                $pick_deliver_needed = true;
-                if(isset($_POST['city3']) && $_POST['city3'][0] == "Az átvételi pont adatai") $drop_deliver_needed = true;
-                isset($_POST['city3']) && $_POST['city3'][0] != "Az átvételi pont adatai" ? $drop_place = $_POST['city3'][0] : $drop_place = $_POST['street'] . " " . $_POST['house'] . ", " . $_POST['city'] . ", " . $_POST['zipcode'];
-            }
+        if (isset($_POST['drop-date'])) {
+            $drop = $_POST['drop-date'];
+            $session->set('temp_rent_end', $drop);
         }
-        else
-            exit('error2');
+        $q = new SQLQuery("SELECT rentStartdate, rentEnddate, status FROM orders where carID = :carID", [":carID" => $carID]);
+        $res = $q->getResult();
+        $is_available = "available";
+        foreach ($res as $item)
+            if ((($item->rentStartdate <= $drop) && ($item->rentEnddate >= $pick)))
+                $is_available = "not-available";
+        exit($is_available);
     }
-    if ($_POST['next'] == 4){
-        if (isset($_POST['pick_place']) && isset($_POST['drop_place']) && !empty($session->get('temp_rent_start')) && !empty($session->get('temp_rent_end')) && !empty($session->get('temp_rent_price'))){
-            $drop_placeHome = "";
-            $selected_extras = [];
-            if (!empty($session->get('temp_selected_extras')))
-                $selected_extras = $session->get('temp_selected_extras');
-            $selected_extras = json_encode($selected_extras);
-            $query = new SQLQuery("SELECT placesID FROM places WHERE CONCAT(address, ', ', city) = :place LIMIT 1", [':place'=>$_POST['pick_place']]);
-            if (!empty($query->getResult())){
-                $pick_placeID = $query->getResult()[0];
-                $pick_placeID = $pick_placeID->placesID;
-            }
-            else
-                $pick_placeHome = $_POST['pick_place'];
+    $page = 0;
+    $succ = 0;
+    $car_full_name = $temp[2];
+    $data = null;
+    $pick_place = "";
+    $drop_place = "";
+    $pick_deliver_needed = false;
+    $drop_deliver_needed = false;
+    $DELIVERY_PRICE = 18.99;
 
-            $query = new SQLQuery("SELECT placesID FROM places WHERE CONCAT(address, ', ', city) = :place LIMIT 1", [':place' => $_POST['drop_place']]);
-            if (!empty($query->getResult())) {
-                $drop_placeID = $query->getResult()[0];
-                $drop_placeID = $drop_placeID->placesID;
+    if (isset($_POST)) {
+        $data[0] = "";
+        $data[1] = "";
+        if (isset($_POST['selectedextras'])) {
+            $selectedExtras = null;
+            foreach ($_POST['selectedextras'] as $key => $value) {
+                $selectedExtras[$key] = $value;
+                $session->set('temp_selected_extras', $selectedExtras);
             }
-            else
-                $drop_placeHome = $_POST['drop_place'];
-            if (isset($pick_placeID) && isset($drop_placeID) && $pick_placeID > 0 && $drop_placeID > 0) {
-                $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentStartplaceID, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentStartplaceID, :rentEndplaceID, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentStartplaceID' => (int)$pick_placeID, ':rentEndplaceID' => (int)$drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
-                if ($query->getDbq()->rowCount() > 0) {
-                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
-                        $succ = 1;
+        } else if ($_POST['next'] == "2") $session->remove('temp_selected_extras');
+        if (isset($_POST['next'])) {
+            if ($_POST['next'] == "2")
+                $page = 2;
+            if ($_POST['next'] == "3")
+                $page = 3;
+            if ($_POST['next'] == "4")
+                $page = 4;
+        }
+        if ($_POST['next'] == 3) {
+            if ((isset($_POST['city1']) && isset($_POST['city2'])) || (isset($_POST['city']) && isset($_POST['zipcode']) && isset($_POST['street']) && isset($_POST['house']) && isset($_POST['city3']))) {
+                if (isset($_POST['city1']) && isset($_POST['city2'])) {
+                    $pick_place = $_POST['city1'][0];
+                    $drop_place = $_POST['city2'][0];
                 }
-            } elseif (isset($drop_placeHome) && !isset($pick_placeID) && !isset($drop_placeID)){
-                $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
-                if ($query->getDbq()->rowCount() > 0) {
-                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
-                        $succ = 1;
+                if (isset($_POST['city']) && isset($_POST['zipcode']) && isset($_POST['street']) && isset($_POST['house']) && isset($_POST['city3'])) {
+                    $pick_place = $_POST['street'] . " " . $_POST['house'] . ", " . $_POST['city'] . ", " . $_POST['zipcode'];
+                    $pick_deliver_needed = true;
+                    if (isset($_POST['city3']) && $_POST['city3'][0] == "Az átvételi pont adatai") $drop_deliver_needed = true;
+                    isset($_POST['city3']) && $_POST['city3'][0] != "Az átvételi pont adatai" ? $drop_place = $_POST['city3'][0] : $drop_place = $_POST['street'] . " " . $_POST['house'] . ", " . $_POST['city'] . ", " . $_POST['zipcode'];
                 }
-            } elseif (isset($drop_placeHome) && isset($drop_placeID) && $drop_placeID > 0){
-                $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :rentEndplaceID,  :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':rentEndplaceID'=>$drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
-                if ($query->getDbq()->rowCount() > 0) {
-                    if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
-                        $succ = 1;
+            } else
+                exit('error2');
+        }
+        if ($_POST['next'] == 4) {
+            if (isset($_POST['pick_place']) && isset($_POST['drop_place']) && !empty($session->get('temp_rent_start')) && !empty($session->get('temp_rent_end')) && !empty($session->get('temp_rent_price'))) {
+                $drop_placeHome = "";
+                $selected_extras = [];
+                if (!empty($session->get('temp_selected_extras')))
+                    $selected_extras = $session->get('temp_selected_extras');
+                $selected_extras = json_encode($selected_extras);
+                $query = new SQLQuery("SELECT placesID FROM places WHERE CONCAT(address, ', ', city) = :place LIMIT 1", [':place' => $_POST['pick_place']]);
+                if (!empty($query->getResult())) {
+                    $pick_placeID = $query->getResult()[0];
+                    $pick_placeID = $pick_placeID->placesID;
+                } else
+                    $pick_placeHome = $_POST['pick_place'];
+
+                $query = new SQLQuery("SELECT placesID FROM places WHERE CONCAT(address, ', ', city) = :place LIMIT 1", [':place' => $_POST['drop_place']]);
+                if (!empty($query->getResult())) {
+                    $drop_placeID = $query->getResult()[0];
+                    $drop_placeID = $drop_placeID->placesID;
+                } else
+                    $drop_placeHome = $_POST['drop_place'];
+                if (isset($pick_placeID) && isset($drop_placeID) && $pick_placeID > 0 && $drop_placeID > 0) {
+                    $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentStartplaceID, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentStartplaceID, :rentEndplaceID, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentStartplaceID' => (int)$pick_placeID, ':rentEndplaceID' => (int)$drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
+                    if ($query->getDbq()->rowCount() > 0) {
+                        if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                            $succ = 1;
+                    }
+                } elseif (isset($drop_placeHome) && !isset($pick_placeID) && !isset($drop_placeID)) {
+                    $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
+                    if ($query->getDbq()->rowCount() > 0) {
+                        if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                            $succ = 1;
+                    }
+                } elseif (isset($drop_placeHome) && isset($drop_placeID) && $drop_placeID > 0) {
+                    $query = new SQLQuery("INSERT INTO orders (userID, carID, rentStartdate, rentEnddate, rentHomeplace, rentEndplaceID, price, extras) VALUES (:userID, :carID, :rentStartdate, :rentEnddate, :rentHomeplace, :rentEndplaceID,  :price, :extras)", [':userID' => (int)$session->get('userID'), ':carID' => (int)$carID, ':rentStartdate' => $session->get('temp_rent_start'), ':rentEnddate' => $session->get('temp_rent_end'), ':rentHomeplace' => $pick_placeHome, ':rentEndplaceID' => $drop_placeID, ':price' => $session->get('temp_rent_price'), ':extras' => $selected_extras]);
+                    if ($query->getDbq()->rowCount() > 0) {
+                        if (UserSystem::sendEmail('order', $session->get('email'), $session->get('firstname'), $session->get('lastname'), null, null, $car_full_name, $query->lastInsertId))
+                            $succ = 1;
+                    }
                 }
             }
+
         }
 
-    }
 
-
-    $is_success = $succ == 1 ? "bg-success" : "bg-danger";
-    $data[0] .= "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>1/4</div>";
-    if ($page >= 2) $data[0] .= "<div id='prog_1' class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>";
-    if ($page >= 3) $data[0] .= "<div id='prog_2'class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>";
-    if ($page == 4) $data[0] .= "<div id='prog_3' class='progress-bar $is_success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>";
+        $is_success = $succ == 1 ? "bg-success" : "bg-danger";
+        $data[0] .= "<div class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>1/4</div>";
+        if ($page >= 2) $data[0] .= "<div id='prog_1' class='progress-bar bg-success' role='progressbar' style='width: 35%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>2/4</div>";
+        if ($page >= 3) $data[0] .= "<div id='prog_2'class='progress-bar bg-success' role='progressbar' style='width: 15%; border-right: 2px solid black' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>3/4</div>";
+        if ($page == 4) $data[0] .= "<div id='prog_3' class='progress-bar $is_success' role='progressbar' style='width: 15%;' aria-valuenow='30' aria-valuemin='10' aria-valuemax='100'>4/4</div>";
 
         $query = new SQLQuery("SELECT concat(address, ', ', city) as city1, concat(address, ', ', city) as city2, concat(address, ', ', city) as city3 FROM places ORDER BY placesID", []);
         $pick_drop_place = $query->getResult();
@@ -141,7 +144,7 @@ if(isset($_POST)) {
     <button type='submit' form='order-page2' id='order-page2-btn' class='button px-3 d-flex justify-content-center align-items-center gap-2 w-75 mx-auto'>Tovább<i class='fa-solid fa-angle-right'></i></button>
 </div></div>
 ";
-                    array_unshift($pick_drop_place, (object)['city3' => 'Az átvételi pont adatai'] );
+                    array_unshift($pick_drop_place, (object)['city3' => 'Az átvételi pont adatai']);
                     $data[1] .= "
 <div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center'><div class='row w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='2'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Házhozszállítás</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' style='background-color: var(--col2);' data-droppush-content='2'>
             <h5 class='text-center'>Házhozszállítás adatai</h5>
@@ -184,7 +187,7 @@ if(isset($_POST)) {
                     </div>
                 </div></div></div>
                 <h5 class='text-center'>Leadás helye </h5><div class='w-75 mx-auto'>
-                ".dropdownButton('Leadási pont', 'city3', $pick_drop_place, "", false, 'order-page2')."
+                " . dropdownButton('Leadási pont', 'city3', $pick_drop_place, "", false, 'order-page2') . "
 </div><button type='submit' form='order-page2' id='order-page2-btn' class='button px-3 d-flex justify-content-center align-items-center gap-2 w-75 mx-auto'>Tovább<i class='fa-solid fa-angle-right'></i></button>
 ";
                 }
@@ -193,11 +196,11 @@ if(isset($_POST)) {
                 $d1 = new DateTime($drop, new DateTimeZone('Europe/Belgrade'));
                 $d2 = new DateTime($pick, new DateTimeZone('Europe/Belgrade'));
                 $full_rent = $d1->diff($d2)->format('%d nap, %h óra');
-                $time = ($d1->diff($d2)->h/24) + ($d1->diff($d2)->days) + ($d1->diff($d2)->m / 30) + ($d1->diff($d2)->i /60);
+                $time = ($d1->diff($d2)->h / 24) + ($d1->diff($d2)->days) + ($d1->diff($d2)->m / 30) + ($d1->diff($d2)->i / 60);
                 $rent_price = (double)($result->price * $time);
                 if ($d1->diff($d2)->i > 0)
                     $full_rent .= $d1->diff($d2)->format(' és %i perc');
-                if($d1->diff($d2)->days > 30)
+                if ($d1->diff($d2)->days > 30)
                     $full_rent = $d1->diff($d2)->format('%m hónap, %d nap, %h óra és %i perc');
                 $drop = $d1->format('Y-m-d H:i');
                 $pick = $d2->format('Y-m-d H:i');
@@ -220,14 +223,14 @@ if(isset($_POST)) {
  <h5 class='text-center'>Kiválasztott extrák</h5>";
                 if (!empty($session->get('temp_selected_extras')))
                     foreach ($session->get('temp_selected_extras') as $item) {
-                        $query = new SQLQuery("SELECT name FROM order_extras WHERE orderextrasID = :id LIMIT 1", [':id'=>$item]);
+                        $query = new SQLQuery("SELECT name FROM order_extras WHERE orderextrasID = :id LIMIT 1", [':id' => $item]);
                         $item = $query->getResult()[0];
                         $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-around flex-wrap gap-2'><b>$item->name</b></span></div>";
                     }
                 else
                     $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-around flex-wrap gap-2'><b>Nincs extra.</b></span></div>";
                 $rent_price_formated = number_format($rent_price, 2, '.', '');
-                $data[1] .="</div>
+                $data[1] .= "</div>
 <div class='col-lg-4 col-sm-12 d-flex flex-column gap-2 px-2'>
  <h5 class='text-center'>Fizetendő összeg</h5>
  <div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>$full_rent</b><span>$rent_price_formated €</span></span></div>
@@ -236,14 +239,14 @@ if(isset($_POST)) {
                 $total_rent_price = $rent_price;
                 if (!empty($session->get('temp_selected_extras')))
                     foreach ($session->get('temp_selected_extras') as $item) {
-                        $query = new SQLQuery("SELECT name, price FROM order_extras WHERE orderextrasID = :id LIMIT 1", [':id'=>$item]);
+                        $query = new SQLQuery("SELECT name, price FROM order_extras WHERE orderextrasID = :id LIMIT 1", [':id' => $item]);
                         $item = $query->getResult()[0];
                         $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>1x $item->name</b><span>$item->price €</span></span></div>";
                         $total_rent_price += (double)$item->price;
                     }
                 if ($pick_deliver_needed) $total_rent_price += $DELIVERY_PRICE;
                 if ($drop_deliver_needed) $total_rent_price += $DELIVERY_PRICE;
-                if ($pick_deliver_needed || $drop_deliver_needed){
+                if ($pick_deliver_needed || $drop_deliver_needed) {
                     if ($pick_deliver_needed && $drop_deliver_needed)
                         $data[1] .= "<div class='link w-100 px-2'><span class='user-select-none d-flex justify-content-between flex-wrap gap-2'><b>2x Szállítási költség</b><span>$DELIVERY_PRICE €</span></span></div>";
                     else
@@ -263,18 +266,19 @@ if(isset($_POST)) {
                 $session->set('temp_rent_price', $total_rent_price);
             }
         } else { //PAGE4
-            if($succ == 1)
+            if ($succ == 1)
                 $data[1] .= "<div class='row d-flex gap-4 justify-content-center'><h2 class='w-100 text-center'>Gratulálunk, sikeres rendelés!</h2><div class='col-lg-6 col-sm-12 p-2 d-flex flex-column gap-5 align-items-center '><div class='carousel w-100 justify-content-center'><div class='slider-img' style='border-radius: .5rem'><img src='../images/cars/$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png' class='d-block w-75 mx-auto' alt='$result->manufacturer/$result->releasedate $result->manufacturer $result->carname.png'></div></div></div><p class='text-center'>Sikeresen megrendelte a <b>$car_full_name</b> járművet!<br>A rendelés adataival elküldtünk egy emailt. <br> Mikor egy alkalmazottunk jóváhagyja a rendelést, egy újabb emailt fog kapni!</p>";
             else
                 $data[1] .= "<div class='row d-flex gap-4 justify-content-center'><h2 class='w-100 text-center'>Sajnáljuk, nem sikerült a rendelés!</h2><p class='w-auto mx-auto text-left'>Lehetséges opciók: <br>- A járművet a rendelés folyamán valaki más megrendelte!<br>- A rendelést nem sikerült rögzíteni a szerverünkre. <br>- A bevitt adatok nem voltak megfelelőek!</p><br><b class='text-center'>Ha ön szerint más probléma akadt, lépjen velünk kapcsolatba!</b><br><span class='text-center'>support@hash.com</span>";
 
 
-
         }
-}
+    }
 
-if(isset($data))
-    echo json_encode($data);
-else
-    echo "error";
+    if (isset($data))
+        echo json_encode($data);
+    else
+        echo "error";
+} else
+    redirection('index.php');
 //sleep(5);
