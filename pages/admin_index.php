@@ -446,7 +446,7 @@ $operation_modal .="<div class='d-flex flex-column'><b>Jármű</b><span>$value->
                     $link = "onclick = \"window.location.href='car.php?car=$item->carsID'\"";
                     $stars = !empty($item->total_rating) ? generateStars($item->total_rating) : "<span class='text-center'>Még nincs<br>értékelés!</span>";
                     $operation = "<button class='button px-2' $link>Megtekint</button>";
-                    $status = $item->status == 1 ? "<span class='text-success'>Aktív</span>" : "<span class='text-danger'>Szervíz allatt</span>";
+                    $status = $item->status == 0 ? "<span class='text-success'>Aktív</span>" : "<span class='text-danger'>Szervíz allatt</span>";
                     echo "<tr>
                     <td class='text-center'>$item->carsID</td>
                     <td class='text-center'>$item->manufacturer</td>

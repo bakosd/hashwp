@@ -23,7 +23,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             if($currentFile == "index.php")
             {
                 $session->set('edit', 0);
-                header("Refresh: 0"); 
+                echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
             }
 
             echo"
@@ -58,7 +58,7 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             {
                 if($session->get('level') == 3){
                     $session->set('edit', 1);
-                    header("Refresh: 0");
+                    echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
                 }
                 else{
                     header('Location: index.php');
