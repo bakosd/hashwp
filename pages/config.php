@@ -78,7 +78,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
     $returnValue = "";
     $order_by = $order_by == null ? '' : ', ' . $order_by;
     $conditions = '';
-    if ($where != null) {
+    if ($where != null && !empty($where)) {
         $conditions = 'WHERE ';
         $counter = 0;
         foreach ($where as $value) {

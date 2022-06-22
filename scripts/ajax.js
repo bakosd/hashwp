@@ -476,6 +476,33 @@ $(document).ready(function () {
         if (page === 'admin_index.php'){
             addAjaxOperations();
         }
+        $('#favorite_button').on('click', function (e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let button = $(this);
+            $.ajax({
+                type: "POST",
+                url: 'favorites.php',
+                cache: false,
+                data: 'favorite='+$(this).data('favorite'),
+                dataType: 'text',
+                success: function (data) {
+                    let icon = button.find('i');
+                    if (data === 'insert'){
+                        icon.removeClass('fa-heart-broken');
+                        icon.addClass('fa-heart fa-beat');
+                        icon.css('color','var(--col-nosucc)');
+                        setTimeout(function (){icon.removeClass('fa-beat')}, 1000);
+                    }
+                    if (data === 'delete'){
+                        icon.removeClass('fa-heart');
+                        icon.addClass('fa-heart-broken fa-beat');
+                        icon.css('color','#000');
+                        setTimeout(function (){icon.removeClass('fa-beat')}, 1000);
+                    }
+                }
+            });
+        });
     });
     function addAjaxToRatings() {
         $('*[data-rat="1"]').each(function () {

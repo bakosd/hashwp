@@ -320,6 +320,17 @@ a{
   }
 }
 
+.button-favorite{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  &:hover{
+    i{
+      color: $color-nosucc;
+    }
+  }
+}
+
 .loader,
 .loader:after {
   border-radius: 50%;

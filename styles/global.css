@@ -344,6 +344,15 @@ a:active {
   background-color: var(--col14);
 }
 
+.button-favorite {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.button-favorite:hover i {
+  color: var(--col-nosucc);
+}
+
 .loader,
 .loader:after {
   border-radius: 50%;
