@@ -74,6 +74,9 @@ $color17: rgba(0, 0, 0, 0.75);*/
   border: none !important;
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
+  height: 100%;
+  position: relative;
+  background-color: var(--col2);
 }
 
 .carousel img {
@@ -86,6 +89,18 @@ $color17: rgba(0, 0, 0, 0.75);*/
           transform: scale(0.985);
   -webkit-box-shadow: 0 0 12px var(--col7);
           box-shadow: 0 0 12px var(--col7);
+}
+
+.carousel button {
+  padding: 1rem 0;
+  margin: 0;
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  outline: inherit;
+  font: inherit;
+  height: 100%;
 }
 
 .row h2 {
@@ -327,6 +342,88 @@ footer .col {
   margin-bottom: 20px;
 }
 
+.carousel #modalopen {
+  width: 100%;
+}
+
+.form-group {
+  padding: .5rem 2rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: .5rem 0 .5rem .5rem;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0 4px var(--col12);
+          box-shadow: 0 0 4px var(--col12);
+  border: 1px solid var(--col14);
+  background-color: var(--col11);
+}
+
+.form-group select {
+  width: 100%;
+  color: black !important;
+  background-color: var(--col11) !important;
+  padding: 0.5rem;
+  border-radius: .5rem;
+  border: 1px solid var(--col14);
+  -webkit-box-shadow: 0 0 4px var(--col12);
+          box-shadow: 0 0 4px var(--col12);
+}
+
+.select-field {
+  position: relative;
+}
+
+.down-arrow {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  -webkit-transform: translate(-50%, -40%);
+          transform: translate(-50%, -40%);
+}
+
+.list {
+  border: 1px solid gray;
+  background-color: #dbd7d7;
+  padding: .5rem;
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.input-selector {
+  cursor: context-menu;
+}
+
+.list input[type=checkbox] {
+  width: auto;
+}
+
+.list .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.list label {
+  width: 100%;
+}
+
+#newcar input::-webkit-outer-spin-button, input::-webkit-inner-spin-button, input[type=number] {
+  /* Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+  margin: 0;
+  /* Firefox */
+  -moz-appearance: textfield;
+}
+
 @media only screen and (max-width: 991px) {
   .width-270 {
     -webkit-box-flex: 1;
@@ -356,6 +453,9 @@ footer .col {
   }
   .text img {
     width: 35px;
+  }
+  .carousel p {
+    font-size: 5rem !important;
   }
 }
 /*# sourceMappingURL=cards.css.map */

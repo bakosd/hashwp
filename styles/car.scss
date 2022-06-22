@@ -1,0 +1,103 @@
+@import "variables";
+
+.manufacturer-logo{
+  background-color: $color7;
+  border-radius: .5rem;
+}
+
+.slider-img{
+  border-radius: $border-rad-1;
+}
+.car-specs-wrap {
+  background-color: $color2;
+  padding: .5rem;
+  width: inherit !important;
+  border-radius: $border-rad-1;
+  }
+.specs-img{
+  padding: .25rem .5rem;
+  background-color: $color7;
+  border-radius: $border-rad-1;
+  opacity: .7;
+  img{
+    width: 2rem;
+  }
+  .car-specs {
+    display: block;
+    overflow: hidden !important;
+    width: calc(99%);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.rate-price-buttons{
+  background-color: $color2;
+  padding: 1rem;
+  border-radius: $border-rad-1;
+  box-shadow: 0 0 10px $color17;
+  color: $color7;
+  .available{
+    color: $color-succ;
+  }
+  .not-available{
+    color: $color-nosucc;
+  }
+}
+
+.navigation-header{
+  padding: 1rem;
+  //border-bottom: .15rem solid $color15;
+  //border-top: .15rem solid $color15;
+  margin-bottom: 2.5rem;
+  margin-top: 4.5rem;
+}
+
+//COMMENTS ON BOTTOM OF PAGE
+.swiper .swiper-wrapper {
+
+  .swiper-slide {
+    padding: 1.8rem;
+    .comment-card {
+      .comment-header {
+        img {
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: $border-rad-5;
+        }
+      }
+
+      .comment-body {
+        .rate {
+          font-size: .8em;
+          color: $color7;
+        }
+
+        p {
+          font-size: .85em;
+          word-break: break-all;
+          overflow-wrap: break-word;
+          inline-size: calc(100%);
+        }
+      }
+
+      .comment-footer {
+        border-top: .1rem solid $color15;
+
+        .like {
+          color: $color-succ;
+        }
+
+        .dislike {
+          color: $color-nosucc;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+
+  .width-270 {
+    flex: 1 0 100%;
+  }
+}

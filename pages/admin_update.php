@@ -2,7 +2,7 @@
 
 include "config.php";
 
-{
+
     if(isset($_POST['email']))
     {
         $id = $_POST['id'];
@@ -24,4 +24,3 @@ include "config.php";
             return "Data";
         }
     }
-}
