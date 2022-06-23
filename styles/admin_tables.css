@@ -16,7 +16,7 @@ html {
   --col-nosucc: hsl(11, 100%, 30%);
 }
 
-html[data-theme='dark'] {
+html[data-theme=dark] {
   --col1: hsl(0, 0%, 15%);
   --col2: hsl(0, 1%, 34%);
   --col9: hsl(0, 1%, 82%);
@@ -49,8 +49,7 @@ $color17: rgba(0, 0, 0, 0.75);*/
 .customer, .employee {
   padding: 15px;
   margin: 10px 0;
-  -webkit-box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
-          box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 }
 
@@ -69,15 +68,14 @@ $color17: rgba(0, 0, 0, 0.75);*/
 }
 
 .form-group {
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: .5rem 0 .5rem .5rem;
-  border-radius: .5rem;
-  -webkit-box-shadow: 0 0 4px var(--col12);
-          box-shadow: 0 0 4px var(--col12);
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4px var(--col12);
   border: 1px solid var(--col14);
   background-color: var(--col11);
 }
@@ -87,13 +85,13 @@ $color17: rgba(0, 0, 0, 0.75);*/
   color: black !important;
   background-color: var(--col11) !important;
   padding: 0.5rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--col14);
-  -webkit-box-shadow: 0 0 4px var(--col12);
-          box-shadow: 0 0 4px var(--col12);
+  box-shadow: 0 0 4px var(--col12);
 }
 
 tr a {
   color: var(--col9);
 }
+
 /*# sourceMappingURL=admin_tables.css.map */

@@ -111,7 +111,7 @@ $(document).ready(function () {
         let spinner = input.parent().next('.loader');
         if (regex !== '')
             if (regex === 'number')
-                validateInput(input, '[0-9]+');
+                validateInput(input, 'number');
             else
                 validateInput(input);
         if ((input.val().length >= _length) && regex) {
@@ -161,8 +161,11 @@ $(document).ready(function () {
         }
     }
 
-    function validateInput(input, regex = "/^[a-zA-Z\\s]*$/") {
-        return regex.test(input.val());
+    function validateInput(input, regex = 'string') {
+        if (regex === 'number')
+            return /[0-9]+/.test(input.val());
+        else
+            return /^[a-zA-Z\\s]*$/.test(input.val());
     }
 
     function validateEmail(input) {
@@ -476,7 +479,7 @@ $(document).ready(function () {
         if (page === 'admin_index.php'){
             addAjaxOperations();
         }
-        $('#favorite_button').on('click', function (e){
+        $('[data-favorite]').on('click', function (e){
             e.preventDefault();
             e.stopImmediatePropagation();
             let button = $(this);
@@ -683,6 +686,12 @@ $(document).ready(function () {
         if (message.val().length < 15)
             error = "A szöveg legyen bár 16 karakter hosszú!";
         Alert($(this), error, 'error');
+    });
+    $('.modal').on('shown', function () {
+
+        $(this).handleUpdate()
+
+
     });
 });
 

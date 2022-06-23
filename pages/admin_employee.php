@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    $sql = new SQLQuery("SELECT * FROM users WHERE level = 2", []);
+                    $sql = new SQLQuery("SELECT * FROM users WHERE level > 1", []);
                     $result = $sql -> getResult();
                     foreach($result as $row)
                     {
@@ -71,7 +71,7 @@
                             <td data-target = "email">'.$row->email.'</td>
                             <td data-target = "phone">'.$row->phonenumber.'</td>
                             <td data-target = place>'.$row->licensecardPlace.'</td>
-                            <td><a href="#" data-role="update" data-id="'.$row->usersID.'">Valami</a></td>
+                            <td><button data-role="update" data-id="'.$row->usersID.'" class="button px-2 d-flex align-items-center justify-content-center"><i class="fa-solid fa-wrench"></i></button></td>
                         </tr>';
                     }
                     $content = "<div class='p-3';'><div class='form-group'><label>Email</label><br><input id='emailc' type='email'></div><div class='form-group'><label>Vezetéknév</label><br><input id='lname' type='text'></div><div class='form-group'><label>Keresztknév</label><br><input id='fname' type='text'></div><div class='form-group'><label>Telefonszám</label><br><input id='phone' type='number'></div><div class='form-group'><label>Születési dátum</label><br><input id='birthd' type='date'></div><div class='form-group'><label>Személyi/útlevél szám</label><br><input id='idNum' type='number'></div><div class='form-group'><label>Vezetői engedély szám</label><br><input id='licensenum' type='number'></div><div class='form-group'><label>Kiadási helye</label><br><input id='licenseplace' type='text'></div><div class='form-group'><label>Szint</label><br><select id='level' class='sel'><option value = -1>Tiltás</option><option value = 1>Felhasználó</option><option value = 2>Alkalmazott</option><option value = 3>Admin</option></select></div></i></small></p></p></div><input type='hidden' id='usname'><input type='hidden' id='ID'><input type='hidden' id='ID'>";
