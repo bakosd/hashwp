@@ -65,4 +65,13 @@ $(document).ready( function () {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
         }
     });
+    $('#reports').DataTable({
+        order: [[0, 'asc']],
+        scrollX: true,
+        responsive: true,
+        "iDisplayLength": 5,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+        }
+    });
 });

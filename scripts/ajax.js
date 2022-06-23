@@ -162,7 +162,7 @@ $(document).ready(function () {
         if (regex === 'number')
             return /[0-9]+/.test(input.val());
         else
-            return /^[a-zA-Z\\s]*$/.test(input.val());
+            return /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(input.val());
     }
 
     function validateEmail(input) {

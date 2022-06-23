@@ -415,7 +415,7 @@ $operation_modal .="<div class='d-flex flex-column'><b>Jármű</b><span>$value->
         }
 
         echo "</tbody></table></div>
-<div class='customer mb-5'>
+<div class='orders'>
             <table id='cars' class='display' style='width:100%'>
                 <h2 style='overflow: hidden'>Járművek</h2><hr>
                 <thead><tr>
@@ -486,7 +486,38 @@ foreach ($result as $value)
 
 echo "        </tbody>
         </table></div>
+        <div class='orders mb-5'>
+        <table id='reports' class='display' style='width:100%'>
+                <h2 style='overflow: hidden'>Jelentések</h2><hr>
+                <thead><tr>
+                    <th class='text-center'>ID</th>
+                    <th class='text-center'>Jármű</th>
+                    <th class='text-center'>Felhasználó</th>
+                    <th class='text-center'>Alkalmazott</th>
+                    <th class='text-center'>Hibák/törések</th>
+                    <th class='text-center'>Hozzászólás</th>
+                    <th class='text-center'>Megtett út</th>
+                    <th class='text-center'>Jelentés/jármű leadva</th>
+        </tr></thead><tbody>";
+$query = new SQLQuery("SELECT reportsID, created, traveledDistance, damage, comment, e.username as employee, u.username as user, CONCAT(m.name, ' ',c.carname, ' ', c.engine, ' ', c.releasedate) as carname  FROM reports r LEFT JOIN cars c on r.carID = c.carsID LEFT JOIN users u on r.userID = u.usersID LEFT JOIN users e on r.employeeID = e.usersID INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID",[]);
+$result = $query->getResult();
+if ($result != null){
+    foreach ($result as $item){
+        echo "<tr><td class='text-center'>$item->reportsID</td>
+              <td class='text-center'>$item->carname</td>
+              <td class='text-center'>$item->user</td>
+              <td class='text-center'>$item->employee</td>
+              <td class='text-center'>$item->damage</td>
+              <td class='text-center'>$item->comment</td>
+              <td class='text-center'>$item->traveledDistance</td>
+              <td class='text-center'>$item->created</td></tr>";
+    }}
+echo "</tbody>
+        </table>
+        <div>
+</div>
     </div>
+</div>
 </div>
 
 <script>var array1 = '".json_encode($array_fuels_count)."'; var array2 = '".json_encode($array_orders_count)."'</script>
