@@ -59,7 +59,7 @@
         if($session->get('level') == 3 && $session->get('edit')==1)
         {
             echo '<div class="col width-270">
-                <div class="carousel">
+                <div class="carousel h-100">
                     <button id="modalopen" data-bs-toggle="modal" data-bs-target="#newcar-modal">
                         <p style="font-size: 8rem; text-align: center; margin:0">+</p>
                         <span>Jármű hozzáadas</span>
