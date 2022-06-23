@@ -122,7 +122,7 @@ class UserSystem
 
         if (UserSystem::checkUserExistence($user)) {
             $query = new SQLQuery(
-                "SELECT password, usersID, username, email, firstname, lastname, state, level, avatar, subscribed FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
+                "SELECT usersID, username, email, firstname, lastname, state, level, avatar, password, subscribed FROM users WHERE (username = :user OR email = :user ) LIMIT 1",
                 [':user' => $user]
             );
             if ($query->getDbq()->rowCount() > 0) {
@@ -130,7 +130,13 @@ class UserSystem
                 if (password_verify($password, $result->password)) {
                     if ((int)$result->state > 0) {
                         $session = new Session();
-                        $session->createUser(...(array)$result);
+                        $result_array = array_values((array)$result);
+                        unset($result_array[8]);
+                        ksort($result_array);
+                        $session->createUser(...$result_array);
+                        ob_start();
+                        var_dump($_SESSION);
+                        error_log(ob_get_clean());
                         return "Sikeresen bejelentkeztél!";
                     } else
                         return "Hiba, aktiváld a fiókot!";

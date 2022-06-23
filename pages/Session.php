@@ -10,12 +10,12 @@ class Session
             if ($cacheExpire !== null) {
                 session_cache_expire($cacheExpire); // To add expire time to a session
             }
-            session_set_cookie_params(array(
+            /*session_set_cookie_params(array(
                 'samesite' => $samesite,
                 'domain' => $_SERVER['HTTP_HOST'],
                 'secure' => true,
                 'httponly' => true
-            ));
+            ));*/
             session_start();
         }
     }
@@ -40,7 +40,7 @@ class Session
         return null;
     }
 
-    public function remove(string $key): void
+    public function remove(string $key)
     {
         if ($this->exists($key)) {
             unset($_SESSION[$key]);
@@ -68,7 +68,7 @@ class Session
         return $this;
     }
 
-    public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $password, $subscribed)
+    public function createUser($usersID, $username, $email, $firstname, $lastname, $state, $level, $avatar, $subscribed)
     {
         $this->set('userID', $usersID);
         $this->set('username', $username);

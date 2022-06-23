@@ -2,6 +2,14 @@
 require_once "config.php";
 $session = new Session();
 if (!empty($session->get('userID'))) {
+    function checkDataLength($data, $len):bool{
+        return strlen($data) >= $len;
+    }
+    function tryUpdateData($name, $value, $needed_length = 3, $sess = true): array
+    {
+        $value = trim($value);
+        if(!isset($value) || !checkDataLength($value, $needed_length) || !empty(UserSystem::value($name, true, $value, $sess))) return []; else return [$name, $value];
+    }
 if (isset($_FILES['avatar'])) {
     $exitVal = "Hiba.";
     if (is_array($_FILES) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
@@ -43,14 +51,7 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
     }
     exit($exitVal);
 }
-function checkDataLength($data, $len):bool{
-    return strlen($data) >= $len;
-}
-function tryUpdateData($name, $value, $needed_length = 3, $sess = true): ?array
-{
-    $value = trim($value);
-    if(!isset($value) || !checkDataLength($value, $needed_length) || !empty(UserSystem::value($name, true, $value, $sess))) return null; else return [$name, $value];
-}
+
 if(!empty($_POST) && !empty($_POST['subscribe'])){
     $is_user = true;
     $user = $session->get('email');

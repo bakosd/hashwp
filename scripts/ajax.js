@@ -109,12 +109,9 @@ $(document).ready(function () {
 
     function checkInputLength(input, _length, regex='') {
         let spinner = input.parent().next('.loader');
-        if (regex !== '')
-            if (regex === 'number')
-                validateInput(input, 'number');
-            else
-                validateInput(input);
-        if ((input.val().length >= _length) && regex) {
+        let validString = validateInput(input, regex);
+        console.log(validString);
+        if ((input.val().length >= _length) && validString) {
             if (input.parent().hasClass('invalid-data'))
                 input.parent().removeClass('invalid-data');
             if (spinner.hasClass('loader-bad'))
