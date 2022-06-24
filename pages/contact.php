@@ -68,6 +68,6 @@ echo "<main class='container' style='margin-top: 4.5rem'>
         </div>
 </main>";
     include_once "footer.php";
-    echo '<script src="../scripts/ajax.js"></script></body></html>';
+    echo '<script src="../scripts/ajax.js"></script><script src="../scripts/button-events.js"></script></body></html>';
 ?>
 

@@ -10,35 +10,21 @@
     });
 } );*/
 
-// ---- Customers ----
+// ---- Adding Jquery DataTable to selected items in array ----
 
 $(document).ready( function () {
-    $('#customers').DataTable({
-        scrollX: true,
-        "iDisplayLength": 25,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
-        }
+    $.each([$('#customers'), $('#admins'), $('#employee'), $('#favorites'), $('#reports')], function () {
+        $(this).DataTable({
+            scrollX: true,
+            "iDisplayLength": 5,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
+            }
+        });
     });
-    
-} );
-
-// ---- Employee ----
-
-$(document).ready( function () {
-    $('#employee').DataTable({
-        scrollX: true,
-        "iDisplayLength": 25,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
-        }
-    });
-} );
-
-// ---- Histroy - Admin index ----
-$(document).ready( function () {
+    //Admin_index, history (orders list)
     $('#history').DataTable({
-        order: [[9, 'desc'], [3, 'asc'], [5, 'asc'], [10, 'desc']],
+        order: [[9, 'desc'], [2, 'asc'], [4, 'asc'], [10, 'desc']],
         scrollX: true,
         responsive: true,
         "iDisplayLength": 5,
@@ -46,27 +32,9 @@ $(document).ready( function () {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
         }
     });
+    //Admin_index cars list
     $('#cars').DataTable({
         order: [[0, 'asc'], [1, 'asc'], [2, 'asc']],
-        scrollX: true,
-        responsive: true,
-        "iDisplayLength": 5,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
-        }
-    });
-
-    $('#favorites').DataTable({
-        order: [[0, 'asc']],
-        scrollX: true,
-        responsive: true,
-        "iDisplayLength": 5,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Hungarian.json"
-        }
-    });
-    $('#reports').DataTable({
-        order: [[0, 'asc']],
         scrollX: true,
         responsive: true,
         "iDisplayLength": 5,

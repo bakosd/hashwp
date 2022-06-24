@@ -134,9 +134,6 @@ class UserSystem
                         unset($result_array[8]);
                         ksort($result_array);
                         $session->createUser(...$result_array);
-                        ob_start();
-                        var_dump($_SESSION);
-                        error_log(ob_get_clean());
                         return "Sikeresen bejelentkeztél!";
                     } else
                         return "Hiba, aktiváld a fiókot!";

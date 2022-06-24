@@ -33,7 +33,7 @@ echo dropdownButton('Karosszéria', 'bodywork', $bodywork_array, 'icons/carspecs
 
 //    echo cardBig('carousel-item', null, 'discount ASC');
     echo cardBig('carousel-item', array(["data"=>"discount", "op"=>" > ", "val"=>"0"]), 'discount ASC');
-    echo cardBig("carousel", null, 'discount DESC', 1);
+    echo cardBig("carousel", array(["data"=>"discount", "op"=>" > ", "val"=>"0"]), 'discount DESC', 1);
     echo "</div><div class='row' style='margin-top: 2rem;'><h2>Legjobb értékelésű járművek</h2></div>";
     echo cardSmall();
 

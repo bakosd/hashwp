@@ -30,7 +30,7 @@
     if ($session->get('level') > 2) {
         echo '
     <div class="customer">
-        <table id="customers" class="display" style="width:100%">
+        <table id="admins" class="display" style="width:100%">
             <h2 style="overflow: hidden">Rendszergazdák  </h2>
             <hr>
             <thead>
@@ -79,7 +79,7 @@
 
 
    echo '<div class="customer">
-            <table id="customers" class="display" style="width:100%">
+            <table id="employee" class="display" style="width:100%">
             <h2 style="overflow: hidden">Alkalmazottak  </h2>
                 <hr>
                 <thead>
@@ -98,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody>';
-                    $sql = new SQLQuery("SELECT * FROM users WHERE level > 1", []);
+                    $sql = new SQLQuery("SELECT * FROM users WHERE level = 2", []);
                     $result = $sql -> getResult();
                     foreach($result as $row)
                     {
