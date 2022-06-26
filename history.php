@@ -62,12 +62,12 @@ if (!empty($_POST) && isset($_POST['resign_order'])) {
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="../images/icons/logo-100.png">
-    <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/navbar.css">
-    <link rel="stylesheet" href="../styles/dashboard.css">
-    <link rel="stylesheet" href="../styles/admin_tables.css">
-    <link rel="stylesheet" href="../styles/cards.css">
+    <link rel="icon" type="image/x-icon" href="images/icons/logo-100.png">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/admin_tables.css">
+    <link rel="stylesheet" href="styles/cards.css">
     <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -217,10 +217,10 @@ echo "</tbody>
     </table>
 </main>";
 require_once "footer.php";
-echo "<script src='../scripts/admin_dataTable.js'></script>
-<script src='../scripts/button-events.js'></script>
-<script src='../scripts/events.js'></script>
-<script src='../scripts/ajax.js'></script>
+echo "<script src='scripts/admin_dataTable.js'></script>
+<script src='scripts/button-events.js'></script>
+<script src='scripts/events.js'></script>
+<script src='scripts/ajax.js'></script>
 </body>
 </html>";
 }

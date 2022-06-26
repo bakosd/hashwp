@@ -71,7 +71,7 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
     $query = new SQLQuery("SELECT phonenumber, birthdate, idcardNumber, licensecardNumber, licensecardPlace FROM users WHERE usersID = :usersID LIMIT 1", [':usersID' => $session->get("userID")]);
     $result = $query->getResult()[0];
 
-    echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'></script><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><link rel='icon' type='image/x-icon' href='../images/icons/logo-100.png'><link rel='stylesheet' href='../styles/global.css'><link rel='stylesheet' href='../styles/navbar.css'><link rel='stylesheet' href='../styles/car.css'><link rel='stylesheet' href='../styles/dashboard.css'><link rel='stylesheet' href='../styles/cards.css'><meta name='viewport' content='width=device-width,height=device-heightinitial-scale=1'><link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'><title>Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
+    echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'></script><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><link rel='icon' type='image/x-icon' href='images/icons/logo-100.png'><link rel='stylesheet' href='styles/global.css'><link rel='stylesheet' href='styles/navbar.css'><link rel='stylesheet' href='styles/car.css'><link rel='stylesheet' href='styles/dashboard.css'><link rel='stylesheet' href='styles/cards.css'><meta name='viewport' content='width=device-width,height=device-heightinitial-scale=1'><link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'><title>Hash | Járműbérlés egyszerűen, gyorsan.</title></head><body>";
 
     require_once "navigation.php";
 
@@ -105,7 +105,7 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
             <input type='password' id='rpassword2' name='rpassword2' minlength='8' placeholder='Új jelszó megerősítése' autocomplete='false'>
         </div>
     </div>
-    <input type='hidden' name='token' value='".UserSystem::createToken(16)."'>
+    <input type='hidden' name='token' value='" .UserSystem::createToken(16)."'>
 </form>";
     $unsubscribe_modal_content = "<p class='p-2'>Biztos le szeretne íratkozni a <b>hírlevelünk</b>-ről?<br> Ha leíratkozik fog több értesítést kapni a legújabb akcióinkról.</p>";
     $password_change_modal = new Modal("password-change", "Jelszó változtatás", $password_change_modal_content, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Mégsem'], ['name'=>'password-change-submit', 'type'=>'submit', 'icon'=>'fa-circle-check', 'text'=>'Megváltoztatás', 'form'=>'rpassword']]);
@@ -147,7 +147,7 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
                     <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-signature'></i>
-                            <input id='firstname' type='text' value='".$session->get('firstname')."' disabled>
+                            <input id='firstname' type='text' value='".$session->get('firstname'). "' disabled>
                         </div>
                     </div>
                     <button class='button' id='firstname-btn' data-d-btn='true' data-d='firstname'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
@@ -236,7 +236,7 @@ if ((isset($_POST) && (!empty($_POST['lastname']) || !empty($_POST['firstname'])
     echo $modal_message->getModal();
     require_once "footer.php";
 
-    echo '<script src="../scripts/button-events.js"></script><script src="../scripts/events.js"></script><script src="../scripts/ajax.js"></script></body></html>';
+    echo '<script src="scripts/button-events.js"></script><script src="scripts/events.js"></script><script src="scripts/ajax.js"></script></body></html>';
 }else
     redirection("index.php");
 

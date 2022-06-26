@@ -7,11 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="../images/icons/logo-100.png">
-    <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/navbar.css">
-    <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/cards.css">
+    <link rel="icon" type="image/x-icon" href="images/icons/logo-100.png">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/cards.css">
     <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <title>Hash | Járműbérlés egyszerűen, gyorsan.</title>
@@ -19,7 +19,7 @@
 <body>';
  require_once "navigation.php";
 
-echo "<div id='header-wrap' class='container-fluid position-relative'><img id='image-bg' class='w-100 user-select-none' src='../images/bg-image.jpg' alt='bg'><div id='wrap-header-content' class='d-flex position-absolute top-0 w-100 h-100 px-1 align-items-center justify-content-evenly gap-2'><div id='header-text-content'><h6 class='user-select-none '>Hash.</h6><p class='user-select-none '>Az idő pénz. Béreljen gyorsan és egyszerűen.</p></div><div id='header-card' class='p-2 d-flex justify-content-center'>
+echo "<div id='header-wrap' class='container-fluid position-relative'><img id='image-bg' class='w-100 user-select-none' src='images/bg-image.jpg' alt='bg'><div id='wrap-header-content' class='d-flex position-absolute top-0 w-100 h-100 px-1 align-items-center justify-content-evenly gap-2'><div id='header-text-content'><h6 class='user-select-none '>Hash.</h6><p class='user-select-none '>Az idő pénz. Béreljen gyorsan és egyszerűen.</p></div><div id='header-card' class='p-2 d-flex justify-content-center'>
 <form id='search' action='cars.php' method='post' class='d-flex justify-content-center flex-column align-items-center gap-2 container-fluid'><div class='p-1 w-100'><label for='pick-date' class='user-select-none'>Átvétel ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='pick-date' class='px-2 fa-solid fa-calendar'></label>
 <input type='datetime-local' id='pick-date' name='pick-date'></div></div><div class='p-1 w-100'><label for='drop-date' class='user-select-none'>Leadás ideje</label><div class='submit-input input-with-icon d-flex align-items-center w-100'><label for='drop-date' class='px-2 fa-solid fa-calendar'></label>
 <input type='datetime-local' id='drop-date' name='drop-date'></div></div> <div class='p-1 w-100'>";
@@ -49,4 +49,4 @@ if (isset($_GET['message'])){
     $modal_message->showModal();
     echo "<script>window.history.replaceState({}, '','../pages/index.php');</script>";
 }
-echo "<script src='../scripts/button-events.js'></script><script src='../scripts/events.js'></script><script src='../scripts/auto-swipe.js'></script></body></html>";
+echo "<script src='scripts/button-events.js'></script><script src='scripts/events.js'></script><script src='scripts/auto-swipe.js'></script></body></html>";

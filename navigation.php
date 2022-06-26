@@ -26,10 +26,10 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
                 echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
             }
 
-            echo"
+            echo "
             <a id='logo-wrap' href='index.php'>
                 <div id='logo' class='navbar-brand d-flex align-items-center mx-2 my-1'>
-                    <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
+                    <img class='user-select-none' src='images/icons/logo-100.png' alt='logo'>
                     <span class='fw-bold fs-6'>Hash.</span>
                 </div>
             </a>";
@@ -69,10 +69,10 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
                     header('Location: index.php');
                 }
             }
-            echo"
+            echo "
             <a id='logo-wrap' href='index.php'>
                 <div id='logo' class='navbar-brand d-flex align-items-center mx-2 my-1'>
-                    <img class='user-select-none' src='../images/icons/logo-100.png' alt='logo'>
+                    <img class='user-select-none' src='images/icons/logo-100.png' alt='logo'>
                     <span class='fw-bold fs-6'>Hash.</span>
                 </div>
             </a>";
@@ -108,7 +108,7 @@ echo "</div>
             <button id='theme-changer' class='button nav-item d-flex align-items-center justify-content-center'><i class='fa-solid fa-moon'></i></button>";
 
 if ($currentFile != "activate.php" && !$session->exists('username'))
-    echo "<script src='../scripts/ajax.js'></script><button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
+    echo "<script src='scripts/ajax.js'></script><button id='login-button' class='button nav-item d-flex align-items-center justify-content-center px-3' onclick='toggleSubmenu(3)'><i class='me-1 fa-solid fa-user'></i>Belépés</button>";
 
 if ($session->exists('username') && $session->get('state') > 0) {
     echo "<button id='user-data' onclick='toggleSubmenu(2)' class='button'><img src='";
@@ -140,7 +140,7 @@ if ($currentFile == "cars.php" || $currentFile == "car.php") {
     echo "<div id='search-options-content' class='justify-content-center align-items-center'>" . "
             <form id='search' action='cars.php' method='post' class='d-flex justify-content-center flex-column align-items-center gap-2 container-fluid px-4 py-4'>
                     <div class='p-1 w-100'>
-                        ".dropdownButton('Gyártó', 'manufacturer', $manufacturers_array, 'manufacturers')."
+                        " .dropdownButton('Gyártó', 'manufacturer', $manufacturers_array, 'manufacturers')."
                     </div>
                 <div class='d-flex w-100'>
                     <div class='p-1 w-50'>
@@ -192,7 +192,7 @@ if ($session->exists('username') && $session->get('state') > 0){
 echo "<!--LOGGED USER-->
         <form name='logout' id='logout' action='logout.php' method='post'></form>
         <div id='user-data-content' class='justify-content-center align-items-center flex-wrap flex-column gap-2'>
-            <button type='button' onclick='".'location.href="dashboard.php";'."' id='user-data-link' class='button'><img id='user-image' src='";
+            <button type='button' onclick='" .'location.href="dashboard.php";'."' id='user-data-link' class='button'><img id='user-image' src='";
 
 if($session->get('avatar')!= null && $session->get('avatar') != '')
     echo "data:image/jpeg;base64,".base64_encode($session->get('avatar'));
@@ -203,7 +203,7 @@ else
             if($session->get('level') > 1){
                 echo "<i class='ms-2 fa-solid fa-circle-check'></i>";
                 }
-            echo"</label>
+            echo "</label>
             
             <button id='logout-user' type='submit' form='logout' class='button d-flex align-items-center gap-2 px-3 py-1 mb-2'><i class='fa-solid fa-right-from-bracket'></i><span>Kijelentkezés</span></button>
             <a href='dashboard.php' class='sub-link d-flex align-items-center link  w-100 ";

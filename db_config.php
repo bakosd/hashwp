@@ -1,10 +1,10 @@
 <?php
 if(defined('SECRET') AND SECRET === "ogGM_pzr3ybW") {
-    define("SITE", "https://hash.proj.vts.su.ac.rs/test/pages/");
+    define("SITE", "http://localhost/Carrent/pages/");
     define("HOST", "localhost");
-    define("USER", "hash");
-    define("PASSWORD", "ze6R1JivqbJ2ECz");
-    define("DATABASE", "hash");
+    define("USER", "root");
+    define("PASSWORD", "");
+    define("DATABASE", "car");
     //ogGM_pzr3ybW
     try {
         $dbh = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE,

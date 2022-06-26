@@ -147,7 +147,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
                 $returnValue .= "</div><div class='col width-270' data-sort='$item->price' data-discount='$discount'><div class='carousel'>";
             else $returnValue .= "<div class='carousel'>";
 //                $returnValue .= "<button style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;' onclick='location.href=\"../pages/car.php?car=".$item->manufacturer.$item->carname.$item->releasedate."\"'>";
-            $returnValue .= "<button onclick='location.href=\"../pages/car.php?car=" . $item->carsID . "\"' style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;'>" . "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/".strtolower($item->manufacturer).".png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
+            $returnValue .= "<button onclick='location.href=\"car.php?car=" . $item->carsID . "\"' style='width:100%; margin: 0; background: none;color: inherit;border: none;padding: 0;font: inherit;cursor: pointer;outline: inherit;'>" . "<div class='slider-img'><img src='../images/cars/$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png' class='d-block w-75 mx-auto' alt='$item->manufacturer/$item->releasedate $item->manufacturer $item->carname.png'></div><div class='text'><div><img src='../images/manufacturers/".strtolower($item->manufacturer).".png' width='45px' class='px-1' alt='$item->manufacturer icon'>&nbsp;<b>$item->carname</b>&nbsp;<span>$item->engine $item->releasedate</span></div><div class='action-price'>";
             if ($item->discount > 0) {
                 $returnValue .= "<span>Akciós ár:</span>&nbsp;<span class='price'><b>$discount €</b><del>$item->price €</del></span>";
             } else
@@ -162,7 +162,7 @@ function cardBig(string $type = "", array $where = null, string $order_by = null
         else
             $returnValue .= '</div></div></div>';
     } else {
-        $returnValue .= "<div class='width-270 col'><div class='carousel'><div class='slider-img'><img src='../images/cars/ghost.png' class='d-block mx-auto py-5' alt='ghost.png'><div class='text-center'><div class='text'>Nincs jármű találat.</div></div></div></div></div>";
+        $returnValue .= "<div class='width-270 col'><div class='carousel'><div class='slider-img'><img src='images/cars/ghost.png' class='d-block mx-auto py-5' alt='ghost.png'><div class='text-center'><div class='text'>Nincs jármű találat.</div></div></div></div></div>";
     }
     return $returnValue;
     //return "";
@@ -205,7 +205,7 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
                 $returnValue .= '</div></div></div></button></div>';
             }
         } else {
-            $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
+            $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
         }
     } elseif ($type == "comments") {
         $query = new SQLQuery("SELECT CONCAT(u.lastname, ' ', u.firstname) AS name, u.avatar AS avatar, commentTitle, comment, created, rating, ratingID FROM ratings INNER JOIN users u on ratings.userID = u.usersID WHERE carID = :carID AND approved = 1 ORDER BY rating DESC;", [':carID' => $carID]);
@@ -222,7 +222,7 @@ function cardSmall(string $type = "favorites", int $carID = 1): string
                 $returnValue .= "</div></div><p class='p-2'>$item->comment</p></div><div class='comment-footer d-flex flex-column gap-2 pt-3'></div></div></div>";
             }
         } else {
-            $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='../images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
+            $returnValue .= "<div class='swiper-slide w-100 position-relative'><img src='images/cars/ghost.png'  class='py-5' style='width: 100px;' alt='ghost.png'><div class='w-100 text position-absolute'>Nincs értékelés.</div></div>";
         }
     }
     $returnValue .= "</div><div class='swiper-button-next'></div><div class='swiper-button-prev'></div></div>";
