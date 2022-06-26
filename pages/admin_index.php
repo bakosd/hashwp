@@ -108,7 +108,7 @@ if (isset($_POST) && isset($_POST['operation'])) {
                 break;
             case 2:
                 { //REPORT
-                    if (isset($_POST['comment']) && isset($_POST['damages']) && !empty($_POST['traveled_distance'])) {
+                    if (isset($_POST['comment']) && isset($_POST['damages']) && !empty($_POST['traveled_distance']) && !empty($_POST['takeover'])) {
 
                         $query = new SQLQuery("UPDATE orders SET status = 3 WHERE ordersID = :orderID AND carID = :carID AND userID = :userID AND status = 2", [':orderID' => $orderID, ':carID' => $carID, ':userID' => $userID]);
                         $traveledDistance = 0;
@@ -122,7 +122,7 @@ if (isset($_POST) && isset($_POST['operation'])) {
                         }
 
                         if ($query->getDbq()->rowCount() > 0) {
-                            $query_insert = new SQLQuery('INSERT INTO reports (carID, userID, orderID, employeeID, traveledDistance, damage, comment) VALUES (:carID, :userID, :orderID, :employeeID, :traveledDistance, :damage, :comment)', [':carID' => $carID, ':userID' => $userID, ':orderID' => $orderID, ':employeeID' => $employeeID, ':traveledDistance' => $traveledDistance, ':damage' => $_POST['damages'], ':comment' => $_POST['comment']]);
+                            $query_insert = new SQLQuery('INSERT INTO reports (carID, userID, orderID, employeeID, traveledDistance, damage, comment, takeover) VALUES (:carID, :userID, :orderID, :employeeID, :traveledDistance, :damage, :comment, :takeover)', [':carID' => $carID, ':userID' => $userID, ':orderID' => $orderID, ':employeeID' => $employeeID, ':traveledDistance' => $traveledDistance, ':damage' => $_POST['damages'], ':comment' => $_POST['comment'], ':takeover'=> $_POST['takeover']]);
                             if ($query_insert->lastInsertId > 0) {
                                 $car_query = new SQLQuery("UPDATE cars SET distance = distance + :distance, servisdistance = servisdistance - :distance, status = (CASE WHEN servisdistance - :distance <= 500 THEN 1 ELSE status END) WHERE carsID = :carID", [':distance' => $traveledDistance, ':carID' => $carID]);
                                 $userData_query = new SQLQuery("SELECT email, lastname as lname, firstname as fname FROM users WHERE usersID = :userID LIMIT 1", [':userID' => $userID]);
@@ -321,7 +321,7 @@ $total_employee = $query->getResult()[0];
                     else if ($value->status == 2) {
                         $car_query = new SQLQuery("SELECT distance, servisdistance FROM cars WHERE carsID = :carID LIMIT 1", [':carID' => $value->carID]);
                         $car = $car_query->getResult()[0];
-                        $operation_modal .= "<div class='p-2 w-100 fs-4 text-center'>Átvételi kód: <b>$value->code</b></div><div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center w-100'><div class='w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='$value->ordersID'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Jelentés leadása</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' style='background-color: var(--col2)' data-droppush-content='$value->ordersID-3'><div class='p-2 w-100 fs-5 text-center'>Kilóméteróra előző állása: <b>$car->distance</b> km</div><div class='p-2 w-100 fs-5 text-center'>Szervíz mérő állása: <b>".(int)($car->servisdistance-500)."</b> km múlva<br>(Ebből még vonja ki a jelenlegit!)</div><div class='px-1 py-1'><label for='traveled_distance' class='user-select-none'>Kilóméteróra állása</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-gauge-high'></i><input type='text' id='traveled_distance' name='traveled_distance' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Kilóméteróra állása'></div></div><div class='px-1 py-1'><label for='damages' class='user-select-none'>Talált hibák, törések</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-triangle-exclamation'></i><textarea id='damages' name='damages' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Üres->nincs hiba' class='w-100'></textarea></div></div><div class='px-1 py-1'><label for='comment' class='user-select-none'>Megjegyzések</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-message'></i><textarea id='comment' name='comment' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Üres->Nincs megjegyzés'  class='w-100'></textarea></div></div><input type='hidden' name='operation' form='operation_$value->ordersID-form' value='" . $value->status . "' class='d-none'><button type='submit' form='operation_$value->ordersID-form'  class='button w-100 p-2'>Jelentés leadása</button></div></div>";
+                        $operation_modal .= "<div class='p-2 w-100 fs-4 text-center'>Átvételi kód: <b>$value->code</b></div><div class='dropdown-push-wrap px-2 d-flex justify-content-center flex-column align-items-center w-100'><div class='w-100 d-flex mt-4 mb-2 dropdown-push p-2 position-relative' data-droppush-btn='$value->ordersID'><i class='dropdown-push-arrow position-absolute fa-solid fa-angle-down'></i><h5 class='w-100 my-auto link car-specs-wrap'>Jelentés leadása</h5></div><div class='dropdown-push-content w-100 row d-flex flex-wrap justify-content-start align-items-center gap-2 p-2 d-none' style='background-color: var(--col2)' data-droppush-content='$value->ordersID-3'><div class='p-2 w-100 fs-5 text-center'>Kilóméteróra előző állása: <b>$car->distance</b> km</div><div class='p-2 w-100 fs-5 text-center'>Szervíz mérő állása: <b>".(int)($car->servisdistance-500)."</b> km múlva<br>(Ebből még vonja ki a jelenlegit!)</div><div class='px-1 py-1'><label for='traveled_distance' class='user-select-none'>Kilóméteróra állása</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-gauge-high'></i><input type='text' id='traveled_distance' name='traveled_distance' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Kilóméteróra állása'></div></div><div class='px-1 py-1'><label for='traveled_distance' class='user-select-none'>Visszaszállítás ideje</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-calendar'></i><input type='datetime-local' id='takeover' name='takeover' form='operation_$value->ordersID-form' autocomplete='false'></div></div><div class='px-1 py-1'><label for='damages' class='user-select-none'>Talált hibák, törések</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-triangle-exclamation'></i><textarea id='damages' name='damages' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Üres->nincs hiba' class='w-100'></textarea></div></div><div class='px-1 py-1'><label for='comment' class='user-select-none'>Megjegyzések</label><div class='login-input input-with-icon d-flex align-items-center'><i class='px-2 fa-solid fa-message'></i><textarea id='comment' name='comment' form='operation_$value->ordersID-form' autocomplete='false' placeholder='Üres->Nincs megjegyzés'  class='w-100'></textarea></div></div><input type='hidden' name='operation' form='operation_$value->ordersID-form' value='" . $value->status . "' class='d-none'><button type='submit' form='operation_$value->ordersID-form'  class='button w-100 p-2'>Jelentés leadása</button></div></div>";
                     }
                     else if ($value->status >= 3) {
                         if ($comment != null) {
@@ -415,7 +415,7 @@ $operation_modal .="<div class='d-flex flex-column'><b>Jármű</b><span>$value->
         }
 
         echo "</tbody></table></div>
-<div class='customer mb-5'>
+<div class='orders'>
             <table id='cars' class='display' style='width:100%'>
                 <h2 style='overflow: hidden'>Járművek</h2><hr>
                 <thead><tr>
@@ -438,8 +438,8 @@ $operation_modal .="<div class='d-flex flex-column'><b>Jármű</b><span>$value->
                     <th class='text-center'>Következő szervíz [km]</th>
                     <th class='text-center'>Állapot</th>
                     <th class='text-center'>Megtekint</th>
-                </tr></thead><tbody id='history-body'>";
-            $query = new SQLQuery("SELECT cars.carsID, cars.carname, cars.engine, REPLACE(cars.gearbox, ' sebesség', '') as gearbox, cars.fuel, cars.horsepower, cars.seats, cars.doors, cars.bodywork, cars.releasedate, cars.distance, cars.servisdistance, cars.status, m.name as manufacturer, p.price, ROUND(p.price - (p.price * p.discount / 100),2) as discount, ROUND(AVG(r.rating),2) as total_rating, COUNT(o.ordersID) as total_order FROM cars INNER JOIN manufactures m on cars.manufacturerID = m.manufacturesID LEFT JOIN prices p on cars.carsID = p.carID LEFT JOIN ratings r on cars.carsID = r.carID LEFT JOIN orders o on cars.carsID = o.carID GROUP BY cars.carsID;",[]);
+                </tr></thead><tbody>";
+            $query = new SQLQuery("SELECT cars.carsID, cars.carname, cars.engine, REPLACE(cars.gearbox, ' sebesség', '') as gearbox, cars.fuel, cars.horsepower, cars.seats, cars.doors, cars.bodywork, cars.releasedate, cars.distance, cars.servisdistance, cars.status, m.name as manufacturer, p.price, ROUND(p.price - (p.price * p.discount / 100),2) as discount, ROUND(AVG(r.rating),2) as total_rating, COUNT(DISTINCT CASE WHEN cars.carsID = o.carID THEN o.ordersID END) as total_order FROM cars INNER JOIN manufactures m on cars.manufacturerID = m.manufacturesID LEFT JOIN prices p on cars.carsID = p.carID LEFT JOIN ratings r on cars.carsID = r.carID LEFT JOIN orders o on cars.carsID = o.carID GROUP BY cars.carsID;",[]);
             $result = $query->getResult();
             if ($result != null){
                 foreach ($result as $item){
@@ -486,7 +486,40 @@ foreach ($result as $value)
 
 echo "        </tbody>
         </table></div>
+        <div class='orders mb-5'>
+        <table id='reports' class='display' style='width:100%'>
+                <h2 style='overflow: hidden'>Jelentések</h2><hr>
+                <thead><tr>
+                    <th class='text-center'>ID</th>
+                    <th class='text-center'>Jármű</th>
+                    <th class='text-center'>Felhasználó</th>
+                    <th class='text-center'>Alkalmazott</th>
+                    <th class='text-center'>Hibák/törések</th>
+                    <th class='text-center'>Hozzászólás</th>
+                    <th class='text-center'>Megtett út</th>
+                    <th class='text-center'>Jármű leadva</th>
+                    <th class='text-center'>Jelentés leadva</th>
+        </tr></thead><tbody>";
+$query = new SQLQuery("SELECT reportsID, created, takeover, traveledDistance, damage, comment, e.username as employee, u.username as user, CONCAT(m.name, ' ',c.carname, ' ', c.engine, ' ', c.releasedate) as carname  FROM reports r LEFT JOIN cars c on r.carID = c.carsID LEFT JOIN users u on r.userID = u.usersID LEFT JOIN users e on r.employeeID = e.usersID INNER JOIN manufactures m on c.manufacturerID = m.manufacturesID",[]);
+$result = $query->getResult();
+if ($result != null){
+    foreach ($result as $item){
+        echo "<tr><td class='text-center'>$item->reportsID</td>
+              <td class='text-center'>$item->carname</td>
+              <td class='text-center'>$item->user</td>
+              <td class='text-center'>$item->employee</td>
+              <td class='text-center'>$item->damage</td>
+              <td class='text-center'>$item->comment</td>
+              <td class='text-center'>$item->traveledDistance</td>
+              <td class='text-center'>$item->takeover</td>
+              <td class='text-center'>$item->created</td></tr>";
+    }}
+echo "</tbody>
+        </table>
+        <div>
+</div>
     </div>
+</div>
 </div>
 
 <script>var array1 = '".json_encode($array_fuels_count)."'; var array2 = '".json_encode($array_orders_count)."'</script>

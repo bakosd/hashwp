@@ -29,14 +29,14 @@ if ($queryS->getResult() != null) {
     $newsletter_string = "";
 
 if (isset($_POST['newsletter_send']) && $_POST['newsletter_send'] == 1){
-    $mails_query = new SQLQuery("SELECT u.email as email, n.email as email FROM users u JOIN newslettermails n",[]);
+    $mails_query = new SQLQuery("(SELECT email FROM users) UNION (SELECT email FROM newslettermails)",[]);
     $mails = $mails_query->getResult();
     $counter = 0;
     if (isset($mails)){
         foreach ($mails as $mail){
             if (filter_var($mail->email, FILTER_VALIDATE_EMAIL)){
                 if (UserSystem::sendEmail('newsletter', $mail->email, "", "", null, $newsletter_string))
-                    $counter ++;
+                    $counter++;
             }
         }
         redirection('index.php?message=20&count='.$counter);

@@ -1,7 +1,7 @@
 <?php
 require_once "config.php";
 $session = new Session();
-if(!empty($session->get('userID'))) {
+if(!empty($session->get('userID')) && !empty($_GET['car'])) {
 $temp = tryGetResultToOrderPage();
 $carID = $temp[0];
 $result = $temp[1];

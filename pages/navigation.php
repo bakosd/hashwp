@@ -19,7 +19,7 @@ else
         $session->set('edit', 0);
     }
 
-if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $session->exists('admin') rész mivel a get-ben checkelem hogy létezik-e xd
+if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $session->exists('admin') rész mivel a get-ben checkelem hogy létezik-e xd
             if($currentFile == "index.php")
             {
                 $session->set('edit', 0);
@@ -36,27 +36,32 @@ if ($session->get('level') == 3 && $session->get('edit') == 1) { //NEM KELL A $s
             echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
                 <a href='admin_index.php' class='nav-item d-flex align-items-center link ";
             if ($currentFile == "admin_index.php") echo "active-page";
-            echo "'><i class='me-1 fa-solid fa-house'></i><span>Áttekintés</span></a>
-                    <a href='cars.php' class='nav-item d-flex align-items-center link ";
-            if ($currentFile == "cars.php") echo "active-page";
-            echo " '><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
+            echo "'><i class='me-1 fa-solid fa-house'></i><span>Áttekintés</span></a>";
+
+            if ($session->get('level') > 2) {
+                echo "<a href='cars.php' class='nav-item d-flex align-items-center link ";
+                if ($currentFile == "cars.php") echo "active-page";
+                echo "'><i class='me-1 fa-solid fa-car'></i><span>Járművek</span></a>
                     <a href='destinations.php' class='nav-item d-flex align-items-center link ";
-            if ($currentFile == "destinations.php") echo "active-page";
-            echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>
-                    <a href='admin_employee.php' class='nav-item d-flex align-items-center link ";
-            if ($currentFile == "admin_employee.php") echo "active-page";
-            echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Alkalmazatak</span></a>
-                    <a href='admin_customers.php' class='nav-item d-flex align-items-center link ";
-            if ($currentFile == "admin_customers.php") echo "active-page";
-            echo "'><i class='me-1 fa-solid fa-comment'></i><span>Felhasználok</span></a>
+                if ($currentFile == "destinations.php") echo "active-page";
+                echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>";
+                echo "<a href='admin_newsletter.php' class='nav-item d-flex align-items-center link ";
+                if ($currentFile == "admin_newsletter.php") echo "active-page";
+
+                echo "'><i class='me-1 fa-solid fa-newspaper'></i><span>Hírlevél</span></a>";
+            }
+                   echo "<a href='admin_users.php' class='nav-item d-flex align-items-center link ";
+                if ($currentFile == "admin_users.php") echo "active-page";
+
+            echo "'><i class='me-1 fa-solid fa-users'></i><span>Fiókok</span></a>
                 </div>"; 
             echo "<div id='search-wrap' class='d-flex flex-nowrap align-items-center gap-2 px-1 py-1'>";
         }
         else
         {
-            if($currentFile == "admin_index.php" || $currentFile == "admin_customers.php" || $currentFile == "admin_employee.php")
+            if($currentFile == "admin_index.php" || $currentFile == "admin_users.php")
             {
-                if($session->get('level') == 3){
+                if($session->get('level') >= 2){
                     $session->set('edit', 1);
                     echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
                 }
@@ -207,7 +212,7 @@ else
     if ($currentFile == "favorites.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-heart'></i><span>Kedvenceim</span></a>
             <a href='history.php' class='sub-link d-flex align-items-center link w-100 ";
     if ($currentFile == "history.php") echo "active-page"; echo "'><i class='me-1 fa-solid fa-chart-line'></i><span>Előzmények</span></a>";
-            if($session->get('level') == 3)
+            if($session->get('level') >= 2)
             {
                 if($session->get('edit') == 0)
                 {

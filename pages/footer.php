@@ -1,4 +1,7 @@
 <?php
+require_once "config.php";
+$query = new SQLQuery("SELECT city, address, phone FROM places GROUP BY placesID LIMIT 1",[]);
+$result = $query->getResult()[0];
 echo "<footer>
     <div class='container px-4'>
         <div class='row'>
@@ -6,8 +9,8 @@ echo "<footer>
                 <span><b>Hash.</b></span><br>
                 <div style='font-size: .85rem; font-weight: lighter;'>Béreljen gyorsan és egyszerűen!</div>
                     <div class='d-flex flex-column gap-1 py-3'>
-                        <small>Jovana Mikića 28, <b>Subotica</b></small>
-                        <small><i class='fa-solid fa-phone'></i>&nbsp;+381 66 255 255</small>
+                        <small>$result->address, <b>$result->city</b></small>
+                        <small><i class='fa-solid fa-phone'></i>&nbsp;$result->phone</small>
                     </div>
             </div>
 

@@ -2,8 +2,8 @@
 
 include "config.php";
 
-
-    if(isset($_POST['email']))
+$session = new Session();
+    if(isset($_POST['email']) && $session->get('level') > 2)
     {
         $id = $_POST['id'];
         $email = $_POST['email'];
@@ -24,3 +24,5 @@ include "config.php";
             return "Data";
         }
     }
+    else
+        redirection('index.php');

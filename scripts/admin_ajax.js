@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(document).on('click','a[data-role=update]', function(){
+    $(document).on('click','button[data-role=update]', function(){
         var id = $(this).data('id');
         var level = $('#'+id).children('td[data-target=level]').text();
         var lastname = $('#'+id).children('td[data-target=lastname]').text();

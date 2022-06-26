@@ -46,17 +46,17 @@ echo "<main class='container' style='margin-top: 4.5rem'>
                 <h6 class='mx-4 title'>Vegye fel a kapcsolatot űrlap formájában!</h6>
                 <form class='d-flex flex-column gap-2 px-4' method='post' id='contact-form'>
                     
-               <div class='d-flex justify-content-between gap-2 flex-wrap'> <div class='col'>    <label class='text-nowrap'>Vezetéknév <span>*</span></label><br>
-                    <input type='text' class='input-with-icon w-100' name='last_name' $last_name></div>
+               <div class='d-flex justify-content-between gap-2 flex-wrap'> <div class='col'>    <label for='last_name' class='text-nowrap'>Vezetéknév <span>*</span></label><br>
+                    <input type='text' class='input-with-icon w-100' name='last_name' id='last_name' $last_name></div>
                
-                   <div class='col'> <label class='text-nowrap'>Keresztnév <span>*</span></label>
-                    <input type='text' class='input-with-icon w-100' name='first_name' $first_name></div></div>
+                   <div class='col'> <label for='first_name' class='text-nowrap'>Keresztnév <span>*</span></label>
+                    <input type='text' class='input-with-icon w-100' name='first_name' id='first_name' $first_name></div></div>
                     
-                    <label>Email <span>*</span></label>
-                    <input type='email' class='input-with-icon w-100' name='email' $email>
+                    <label for='email'>Email <span>*</span></label>
+                    <input type='email' class='input-with-icon w-100' name='email' id='email' $email>
                     
-                    <label>Üzenet <span>*</span></label>
-                    <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;' name='message'></textarea><br>
+                    <label for='message'>Üzenet <span>*</span></label>
+                    <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;' name='message' id='message'></textarea><br>
                     <input type='submit' class='button w-100 mt-4' value='Küldés'>
                 </form>
             </div>
@@ -68,6 +68,6 @@ echo "<main class='container' style='margin-top: 4.5rem'>
         </div>
 </main>";
     include_once "footer.php";
-    echo '<script src="../scripts/button-events.js"></script><script src="../scripts/events.js"></script></body></html>';
+    echo '<script src="../scripts/ajax.js"></script><script src="../scripts/button-events.js"></script></body></html>';
 ?>
 

@@ -4,13 +4,11 @@ $(document).ready(function (){
     let array_1 = JSON.parse(array1);
     let array_2 = JSON.parse(array2);
 
-    console.log(array_1);
-    console.log(array_2);
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         datatype: "json",
         data: {
-            labels: ['Benzin', 'Dízel', 'Elektromos', 'Hybrid'],
+            labels: ['Benzin', 'Dízel', 'Hybrid', 'Elektromos'],
             datasets: [{
                 label: 'Rendelések száma',
                 data: array_1,
