@@ -19,8 +19,9 @@
                 }
             } else
                 $images = "<div class='carousel-item active'><div class='slider-img'><img src='images/cars/default.jpg' class='d-block w-100 mx-auto' alt='default-image'></div></div>";
-                
-            $destinations .= "<div class='d-flex row' style='margin-top: 4.5rem'>
+                $editButton = ($session->get('level') == 3 && $session->get('edit') == 1) ? "<button id='".$item->placesID."' data-id='".$item->placesID."' data-role='destUPD' style='box-shadow: 0 0 4px gray;background: rgb(190,190,190) ;border: 1px solid gray; border-radius: 1rem; padding: .5rem 0'>Szerkesztés<p style='display:none' data-target='city'>".$item->city."</p><p style='display:none' data-target='address'>".$item->address."</p><p style='display:none' data-target='phone'>".$item->phone."</p><p style='display:none' data-target='email'>".$item->email."</p><p style='display:none' data-target='workday'>".$item->workday."</p><p style='display:none' data-target='weekend'>".$item->weekend. "</p></button>" : "";
+        
+                $destinations .= "<div class='d-flex row' style='margin-top: 4.5rem'>
 <div class='col-12 d-flex align-items-center gap-2 mb-4'><div class='manufacturer-logo d-flex align-items-center'><img src='images/icons/map.png' alt='map-icon' style='width: 45px;' class='p-1'></div>
             <h2>" . $item->city . "i átvételi pont</h2></div>
             <div class='col width-270 col-lg-6 col-sm-12'>
@@ -36,7 +37,7 @@
                 </button>
             </div>
         </div>
-        <div class='col-lg-6 col-sm-12 p-3 d-flex flex-column gap-2'><button id='".$item->placesID."' data-id='".$item->placesID."' data-role='destUPD' style='box-shadow: 0 0 4px gray;background: rgb(190,190,190) ;border: 1px solid gray; border-radius: 1rem; padding: .5rem 0'>Szerkesztés<p style='display:none' data-target='city'>".$item->city."</p><p style='display:none' data-target='address'>".$item->address."</p><p style='display:none' data-target='phone'>".$item->phone."</p><p style='display:none' data-target='email'>".$item->email."</p><p style='display:none' data-target='workday'>".$item->workday."</p><p style='display:none' data-target='weekend'>".$item->weekend. "</p></button>
+        <div class='col-lg-6 col-sm-12 p-3 d-flex flex-column gap-2'>$editButton
             <h3 class='w-100 text-italic text-center'>Átvételi pont adatok</h3>
             <div class='d-flex gap-2 align-items-center flex-wrap link car-specs-wrap' style='width: 100% !important;'>
                 <div class='specs-img d-flex align-items-center justify-content-center'><img src='images/icons/map.png' alt='google-map'></div>
