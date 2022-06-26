@@ -160,7 +160,7 @@ $(document).ready(function () {
 
     function validateInput(input, regex = 'string') {
         if (regex === 'number')
-            return /[0-9]+/.test(input.val());
+            return /^\d+$/.test(input.val());
         else
             return /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(input.val());
     }
@@ -319,7 +319,7 @@ $(document).ready(function () {
             input.prop("disabled", false);
             clickedButton = $(this).attr('id');
         } else if (clickedButton === $(this).attr('id')) {
-            if (validateInput(input)) {
+            if (validateInput2(input)) {
                 let value = input.val();
                 $.ajax({
                     type: "POST",
@@ -350,22 +350,29 @@ $(document).ready(function () {
             $('#message-modal').modal('show');
         }
 
-        function validateInput(input, _length = 3) {
-            let error = false;
+        function validateInput2(input, _length = 3) {
+            let error = '';
             if (input.attr('id') === 'birthdate') {
                 var given = new Date(input.val()).getFullYear();
                 var now = (new Date).getFullYear();
                 if (!(given <= now - 16 && given >= now - 80))
-                    error = true;
+                    error = "Nem megfelelő születési év! Min. 16 év!";
             } else {
-                console.log(input.val());
-                if (!(input.val().length >= _length))
-                    error = true;
+                console.log(input.val(), input.attr('id'));
+                if (input.attr('id') === 'phonenumber' || input.attr('id') === 'idcardNumber' || input.attr('id') === 'licensecardNumber') {
+                    if (!(input.val().length >= 8) || !validateInput(input, 'number')) {
+                        error = "Az adat nem megfelelő! Minimum " + _length + " karakter, és csak számokat tartalmazhat!";
+                        console.log("wtf")
+                    }
+                } else
+                    if (!(input.val().length >= _length) || !validateInput(input))
+                        error = "Az adat nem megfelelő! Minimum " + _length + " karakter, és csak betűket tartalmazhat!";
+
             }
-            if (error) {
-                let msg = "Az adat nem megfelelő! Minimum " + _length + " karakter!";
-                if (input.attr('id') === 'birthdate') msg = "Nem megfelelő születési év! Min. 16 év!";
-                $('#update-alert').html(msg);
+            if (error.length > 0) {
+                input.attr('disabled', 'disabled');
+                console.log(input.attr('id'))
+                $('#update-alert').html(error);
                 $('#message-modal').modal('show');
                 return false;
             } else

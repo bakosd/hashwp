@@ -1,5 +1,6 @@
 <?php
 define('HASH_MAIL', 'hash_support@gmail.hu');
+$DELIVERY_PRICE = 18.99;
 function redirection($url)
 {
     header("Location:$url");

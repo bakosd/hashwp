@@ -32,7 +32,7 @@ if (!empty($_POST)) {
     $drop_place = "";
     $pick_deliver_needed = false;
     $drop_deliver_needed = false;
-    $DELIVERY_PRICE = 18.99;
+
 
     if (isset($_POST)) {
         $data[0] = "";

@@ -173,7 +173,7 @@ if(!empty($_POST) && !empty($_POST['subscribe'])){
                     <div class='d-flex align-items-center w-100'>
                         <div class='d-flex align-items-center gap-1 input-with-icon m-1 w-100'>
                             <i class='px-2 fa-solid fa-cake-candles'></i>
-                            <input id='birthdate' type='text' value='$result->birthdate' disabled>
+                            <input id='birthdate' type='datetime' value='$result->birthdate' placeholder='éééé-hh-nn' disabled>
                         </div>
                     </div>
                     <button class='button' id='birthdate-btn' data-d-btn='true' data-d='birthdate'><i class='fa-lg fa-solid fa-floppy-disk fa-wrench'></i></button>
