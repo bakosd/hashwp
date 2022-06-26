@@ -74,7 +74,6 @@ $color17: rgba(0, 0, 0, 0.75);*/
   border: none !important;
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
-  height: 100%;
   position: relative;
   background-color: var(--col2);
 }
@@ -342,8 +341,16 @@ footer .col {
   margin-bottom: 20px;
 }
 
-.carousel #modalopen {
+#modalopen {
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0 0 10px var(--col17);
+          box-shadow: 0 0 10px var(--col17);
+  border: none !important;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  background-color: var(--col2);
   width: 100%;
+  height: 100%;
 }
 
 .form-group {

@@ -24,7 +24,7 @@
   box-shadow: 0 0 10px $color17;
   border: none !important;
   transition: all $transition-1*2 ease-in-out;
-  height: 100%;
+  
   position: relative;
   background-color: $color2;
 
@@ -278,8 +278,14 @@ footer .col {
   margin-bottom: 20px;
 }
 
-.carousel #modalopen{
+#modalopen{
+  border-radius: $border-rad-1;
+  box-shadow: 0 0 10px $color17;
+  border: none !important;
+  transition: all $transition-1*2 ease-in-out;
+  background-color: $color2;
   width: 100%;
+  height: 100%;
 }
 
 .form-group{

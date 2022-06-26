@@ -40,7 +40,8 @@ $(document).ready(function(){
         var licenseplace = $('#licenseplace').val();
         var idcardNum = $('#idNum').val();
         var licenseNum = $('#licensenum').val();
-        
+
+       
         $.ajax({
             url : 'admin_update.php',
             method : 'post',
@@ -62,7 +63,6 @@ $(document).ready(function(){
 
     $('button[name="del"]').click(function(){
         var id = $('#ID').val();
-
         $.ajax({
             url:'admin_delete.php',
             method: 'post',
@@ -74,3 +74,6 @@ $(document).ready(function(){
         });
     });
 });
+
+
+    
