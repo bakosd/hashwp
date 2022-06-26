@@ -79,8 +79,7 @@ if(isset($_POST['upload_car']))
 
         $directorName = $manufacturName;
 
-        $path = dirname(getcwd()).'/'.'images/cars/'.$directorName;
-
+        $path = dirname(getcwd()).'/public_html/images/cars/'.$directorName;
 
         if(!is_dir($path))
         {
@@ -97,7 +96,7 @@ if(isset($_POST['upload_car']))
         $indeximageSize = $_FILES['indexp']['size'];
         $indeximageTmp = $_FILES['indexp']['tmp_name'];
 
-        if(str_contains($indeximageName, '.png'))
+        if(strpos($indeximageName, '.png') != false)
         {
             move_uploaded_file($indeximageTmp,$path.'/'.$indeximageName);
         }
@@ -204,8 +203,8 @@ if(isset($_POST['upload_car']))
         {
             $originalmanname = $_POST['originalmanname'];
             $directorName = $manufacturName;
-            $paths = dirname(getcwd()).'/'.'images/cars/'.$directorName; 
-            $fromCopy =  dirname(getcwd()).'/'.'images/cars/'.$originalmanname;
+            $paths = dirname(getcwd()).'/public_html/images/cars/'.$directorName;
+            $fromCopy =  dirname(getcwd()).'/public_html/images/cars/'.$originalmanname;
             
             if(!is_dir($paths))
             {
@@ -228,7 +227,7 @@ if(isset($_POST['upload_car']))
             rmdir($fromCopy.'/'.$originalName);
         }
         
-     //   header('Location: car.php?car='.$carID.'');
+        header('Location: car.php?car='.$carID.'');
     }
 
 
@@ -256,7 +255,7 @@ if(isset($_POST['upload_car']))
 
         $originalName = $_POST['originalName'];
         $folderName = $carID." ".$year." ".$manufacturName." ".$modell;
-        $fromdel =  dirname(getcwd()).'/'.'images/cars/'.$manufacturName;
+        $fromdel =  dirname(getcwd()).'/public_html/images/cars/'.$manufacturName;
 
         $imgCount = count(glob($fromdel.'/'.$folderName."/*"));
 
@@ -274,8 +273,6 @@ if(isset($_POST['upload_car']))
         $sql = new SQLQuery("DELETE FROM cars WHERE carsID = :id",[':id'=>$carID]);
         $result = $sql->getResult();
 
-
-
-        
+        header('Location: cars.php');
     }
 

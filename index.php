@@ -47,6 +47,6 @@ if (isset($_GET['message'])){
     $modal_msg = "<div class='m-2 p-2 text-center'>".$messages[$_GET['message']]."$count</div>";
     $modal_message = new Modal("message", "Értesítés", $modal_msg, [['name'=>'dismiss', 'type'=>'button', 'icon'=>'fa-circle-xmark', 'text'=>'Bezárás']]);
     $modal_message->showModal();
-    echo "<script>window.history.replaceState({}, '','../pages/index.php');</script>";
+    echo "<script>window.history.replaceState({}, '','index.php');</script>";
 }
 echo "<script src='scripts/button-events.js'></script><script src='scripts/events.js'></script><script src='scripts/auto-swipe.js'></script></body></html>";
