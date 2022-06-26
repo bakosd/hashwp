@@ -45,6 +45,10 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
                     <a href='destinations.php' class='nav-item d-flex align-items-center link ";
                 if ($currentFile == "destinations.php") echo "active-page";
                 echo "'><i class='me-1 fa-solid fa-location-dot'></i><span>Átvételi pontok</span></a>";
+                echo "<a href='admin_newsletter.php' class='nav-item d-flex align-items-center link ";
+                if ($currentFile == "admin_newsletter.php") echo "active-page";
+
+                echo "'><i class='me-1 fa-solid fa-newspaper'></i><span>Hírlevél</span></a>";
             }
                    echo "<a href='admin_users.php' class='nav-item d-flex align-items-center link ";
                 if ($currentFile == "admin_users.php") echo "active-page";
