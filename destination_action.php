@@ -4,6 +4,8 @@ include "config.php";
 
 if(isset($_POST['add_dest']))
 {
+    if(!empty($_POST['city']) && !empty($_POST['address']) && !empty($_POST['phone']) && !empty($_POST['email']) && !empty($_POST['workday_start']) && !empty($_POST['workday_end']) && !empty($_POST['weekend_start']) && !empty($_POST['weekend_end']))
+    {
     $city = $_POST['city'];
     $address = $_POST['address'];
     $phone = $_POST['phone'];
@@ -59,10 +61,17 @@ if(isset($_POST['add_dest']))
     }
     header('Location: destinations.php');
 }
+else
+{
+    redirection("index.php?message=22");
+}
+}
 
 
 if(isset($_POST['upd_dest']))
 {
+    if(!empty($_POST['city']) && !empty($_POST['address']) && !empty($_POST['phone']) && !empty($_POST['email']) && !empty($_POST['workday_start']) && !empty($_POST['workday_end']) && !empty($_POST['weekend_start']) && !empty($_POST['weekend_end']))
+    {
     $id = $_POST['ID'];
     $city = $_POST['city'];
     $address = $_POST['address'];
@@ -106,6 +115,10 @@ if(isset($_POST['upd_dest']))
             rmdir($fromCopy);
     }
     header('Location: destinations.php');
+}
+else{
+    redirection("index.php?message=22");
+}
 }
 
 if(isset($_POST['del_dest']))

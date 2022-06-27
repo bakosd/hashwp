@@ -3,9 +3,12 @@
     require_once "config.php";
     
     
+    
 
 if(isset($_POST['upload_car']))
     {
+        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['emission']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['consumtions']) && !empty($_POST['discount']) && !empty($_POST['price']) && !empty($_FILES['indexp']['size']))
+        {
         $manufacturer = $_POST['manufacturer'];
         $modell = $_POST['modell'];
         $motor = $_POST['motor'];
@@ -95,10 +98,11 @@ if(isset($_POST['upload_car']))
         $indeximageName = $_FILES['indexp']['name'];
         $indeximageSize = $_FILES['indexp']['size'];
         $indeximageTmp = $_FILES['indexp']['tmp_name'];
+         
 
         if(strpos($indeximageName, '.png') != false)
         {
-            move_uploaded_file($indeximageTmp,$path.'/'.$indeximageName);
+            move_uploaded_file($indeximageTmp,$path.'/'.$id." ".$indeximageName);
         }
 
         $finalpath = $path.'/'.$folderName.'/';
@@ -125,11 +129,17 @@ if(isset($_POST['upload_car']))
         }
 
         header('Location: cars.php');
+    }
+    else{
+        redirection("index.php?message=22");
+    }
         
     }
 
     if(isset($_POST['edit_car']))
     {
+        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['emission']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['consumtions']) && !empty($_POST['discount']) && !empty($_POST['price']))
+        {
         $carID = $_POST['carID'];
 
         $manufacturer = $_POST['manufacturer'];
@@ -203,8 +213,10 @@ if(isset($_POST['upload_car']))
         {
             $originalmanname = $_POST['originalmanname'];
             $directorName = $manufacturName;
+            
             $paths = dirname(getcwd()).'/public_html/images/cars/'.$directorName;
             $fromCopy =  dirname(getcwd()).'/public_html/images/cars/'.$originalmanname;
+            $newDirectory = dirname(getcwd()).'/public_html/images/cars/'.$manufacturName;
             
             if(!is_dir($paths))
             {
@@ -215,6 +227,9 @@ if(isset($_POST['upload_car']))
             {
                 mkdir($paths.'/'.$newName, 0777);
             }
+
+            copy($fromCopy.'/'.$originalName.'.png', $newDirectory.'/'.$newName.'.png');
+            unlink($fromCopy.'/'.$originalName.'.png');
 
             $imgCount = count(glob($fromCopy.'/'.$originalName . "/*"));
 
@@ -228,6 +243,11 @@ if(isset($_POST['upload_car']))
         }
         
         header('Location: car.php?car='.$carID.'');
+    }
+    else
+    {
+        redirection("index.php?message=22");
+    }
     }
 
 
@@ -265,9 +285,12 @@ if(isset($_POST['upload_car']))
         }
 
         rmdir($fromdel.'/'.$originalName);
-        
 
-        
+        $originalName = $_POST['originalName'];
+        $originalmanname = $_POST['originalmanname'];
+        $fromCopy =  dirname(getcwd()).'/public_html/images/cars/'.$originalmanname;
+
+        unlink($fromCopy.'/'.$originalName.'.png');
         
 
         $sql = new SQLQuery("DELETE FROM cars WHERE carsID = :id",[':id'=>$carID]);

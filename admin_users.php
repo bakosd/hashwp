@@ -63,7 +63,7 @@
                             <td style="display: none;" data-target = "idNum">' . $row->idcardNumber . '</td>
                             <td style="display: none;" data-target = "licenseNum">' . $row->licensecardNumber . '</td>
                             <td style="display: none;" data-target = "level">' . $row->level . '</td>
-                            <td data-target = "usname">' . $row->username . '</td>
+                            <td data-target = "usname" id="usname">' . $row->username . '</td>
                             <td data-target = "lastname">' . $row->lastname . '</td>
                             <td data-target = "firstname">' . $row->firstname . '</td>
                             <td data-target = "birthdate">' . $row->birthdate . '</td>
