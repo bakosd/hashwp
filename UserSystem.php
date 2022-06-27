@@ -87,7 +87,7 @@ class UserSystem
                     $query_array = [':password' => $password, ':usersID' => $session->get('userID'), ':username' => $session->get('username')];
                 } else {
                     require_once "config.php";
-                    redirection('index.php?rec=9');
+                    redirection('index.php?message=9');
                     exit();
                 }
         }
