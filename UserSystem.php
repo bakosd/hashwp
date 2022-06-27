@@ -128,15 +128,18 @@ class UserSystem
             if ($query->getDbq()->rowCount() > 0) {
                 $result = $query->getResult()[0];
                 if (password_verify($password, $result->password)) {
-                    if ((int)$result->state > 0) {
-                        $session = new Session();
-                        $result_array = array_values((array)$result);
-                        unset($result_array[8]);
-                        ksort($result_array);
-                        $session->createUser(...$result_array);
-                        return "Sikeresen bejelentkeztél!";
-                    } else
-                        return "Hiba, aktiváld a fiókot!";
+                    if ((int)$result->level > 0)
+                        if ((int)$result->state > 0) {
+                            $session = new Session();
+                            $result_array = array_values((array)$result);
+                            unset($result_array[8]);
+                            ksort($result_array);
+                            $session->createUser(...$result_array);
+                            return "Sikeresen bejelentkeztél!";
+                        } else
+                            return "Hiba, aktiváld a fiókot!";
+                    else
+                        return "Sajnáljuk, de ki lettél tiltva!";
                 } else
                     return "Hibás bejelentkezési adatok!";
             } else
