@@ -10,12 +10,12 @@
         foreach ($result as $item) {
 
             $place_full_name = $item->city .''.$item->placesID;
-            $images_count = count(glob("../images/offices/$place_full_name/*.jpg"));
+            $images_count = count(glob("images/offices/$place_full_name/*.jpg"));
             if ($images_count > 0) {
                 $images = "";
                 for ($i = 1; $i < $images_count; $i++) {
                     $i == 1 ? $images .= "<div class='carousel-item active'>" : $images .= "<div class='carousel-item'>";
-                    $images .= "<div class='slider-img'><img src='../images/offices/$place_full_name/$i.jpg' class='d-block w-100 mx-auto' alt='$place_full_name - kep#$i'></div></div>";
+                    $images .= "<div class='slider-img'><img src='images/offices/$place_full_name/$i.jpg' class='d-block w-100 mx-auto' alt='$place_full_name - kep#$i'></div></div>";
                 }
             } else
                 $images = "<div class='carousel-item active'><div class='slider-img'><img src='images/cars/default.jpg' class='d-block w-100 mx-auto' alt='default-image'></div></div>";

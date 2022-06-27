@@ -30,7 +30,7 @@ if(isset($_POST['add_dest']))
     }
     $folderName = $cityname.$id;
 
-    $path = dirname(getcwd()).'/'.'images/offices/'.$folderName;
+    $path = dirname(getcwd()).'/public_html/images/offices/'.$folderName;
 
     if(!is_dir($path))
     {
@@ -57,9 +57,7 @@ if(isset($_POST['add_dest']))
             move_uploaded_file($imageTmp, $path.'/'.$newName);
         }
     }
-
-
-   
+    header('Location: destinations.php');
 }
 
 
@@ -89,8 +87,8 @@ if(isset($_POST['upd_dest']))
 
     if($originalname != $newName)
     {
-        $path = dirname(getcwd()).'/'.'images/offices/'.$newName; 
-        $fromCopy =  dirname(getcwd()).'/'.'images/offices/'.$originalname;
+        $path = dirname(getcwd()).'/public_html/images/offices/'.$newName;
+        $fromCopy =  dirname(getcwd()).'/public_html/images/offices/'.$originalname;
 
         if(!is_dir($path))
             {
@@ -107,7 +105,7 @@ if(isset($_POST['upd_dest']))
             }
             rmdir($fromCopy);
     }
-
+    header('Location: destinations.php');
 }
 
 if(isset($_POST['del_dest']))
@@ -122,7 +120,7 @@ if(isset($_POST['del_dest']))
         $city = $select->city;
     }
     $folderName = $city.$id;
-    $mainfolder = dirname(getcwd()).'/'.'images/offices/'.$folderName;
+    $mainfolder = dirname(getcwd()).'/public_html/images/offices/'.$folderName;
     $imgCount = count(glob($mainfolder. "/*"));
     for($i = 1;$i<=$imgCount;$i++)
     {
@@ -135,7 +133,7 @@ if(isset($_POST['del_dest']))
     $result = $sql -> getResult();
 
 
-    
+    header('Location: destinations.php');
 }
 
 
