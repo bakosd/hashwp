@@ -248,11 +248,11 @@ class UserSystem
             'contact' => "$lastname $firstname üzent",
             'newsletter' => "Hash - hírlevél",
         ];
-        $header = "From: Hash - do not reply <no-reply@hash.proj.vts.su.ac.rs>\n";
-        $header .= "X-Sender: no-reply@hash.proj.vts.su.ac.rs/\n";
+        $header = "From: Hash-Support <".HASH_MAIL.">\n";
+        $header .= "X-Sender: ".HASH_MAIL."/\n";
         $header .= "X-Mailer: PHP/" . phpversion();
         $header .= "X-Priority: 1\n";
-        $header .= "Reply-To: no-reply@hash.proj.vts.su.ac.rs\r\n";
+        $header .= "Reply-To: ".HASH_MAIL."\r\n";
         $header .= "Content-Type: text/html; charset=UTF-8\n";
         require_once "config.php";
         if (!empty($mail_type))
