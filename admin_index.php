@@ -207,7 +207,7 @@ $query = new SQLQuery("SELECT COUNT(*) as orders FROM orders WHERE MONTH(orderda
 $total_orders = $query->getResult()[0];
 $query = new SQLQuery("SELECT COUNT(*) as cars FROM cars ORDER BY carsID", []);
 $total_cars = $query->getResult()[0];
-$query = new SQLQuery("SELECT SUM(price) as total FROM orders WHERE YEAR(orderdate) = YEAR(current_date);", []);
+$query = new SQLQuery("SELECT SUM(price) as total FROM orders WHERE YEAR(orderdate) = YEAR(current_date) AND status > 2;", []);
 $total_income = $query->getResult()[0];
 $query = new SQLQuery("SELECT COUNT(*) as employees FROM users WHERE level = 2 ORDER BY usersID;", []);
 $total_employee = $query->getResult()[0];
