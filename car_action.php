@@ -7,7 +7,7 @@
 
 if(isset($_POST['upload_car']))
     {
-        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['emission']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['consumtions']) && !empty($_POST['discount']) && !empty($_POST['price']) && !empty($_FILES['indexp']['size']))
+        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['price']) && $_POST['horsepower'] > 0 && $_POST['seats'] > 0 && $_POST['doors'] > 0 && $_POST['emission'] >= 0 && $_POST['servisdistance'] > 0 && $_POST['distance'] > 0 && $_POST['consumtions'] >= 0 && $_POST['discount'] >= 0 && $_POST['price'] > 0)
         {
         $manufacturer = $_POST['manufacturer'];
         $modell = $_POST['modell'];
@@ -138,7 +138,7 @@ if(isset($_POST['upload_car']))
 
     if(isset($_POST['edit_car']))
     {
-        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['emission']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['consumtions']) && !empty($_POST['discount']) && !empty($_POST['price']))
+        if(!empty($_POST['manufacturer']) && !empty($_POST['modell']) && !empty($_POST['motor']) && !empty($_POST['horsepower']) && !empty($_POST['gear']) && !empty($_POST['fuel']) && !empty($_POST['doors']) && !empty($_POST['seats']) && !empty($_POST['airconditioner']) && !empty($_POST['year']) && !empty($_POST['bodywork']) && !empty($_POST['distance']) && !empty($_POST['servisdistance']) && !empty($_POST['price'])  && $_POST['horsepower'] > 0 && $_POST['seats'] > 0 && $_POST['doors'] > 0 && $_POST['emission'] >= 0 && $_POST['servisdistance'] > 0 && $_POST['distance'] > 0 && $_POST['consumtions'] >= 0 && $_POST['discount'] >= 0 && $_POST['price'] > 0)
         {
         $carID = $_POST['carID'];
 
