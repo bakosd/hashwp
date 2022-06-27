@@ -12,7 +12,7 @@ else
 
     echo "<nav id='navbar' class='navbar navbar-expand-xl position-fixed fixed-top'>
     <button id='nav-toggle'
-            class='button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none' onclick='toggleNav()'><i class='fa-solid fa-bars'></i></button>
+            class='button position-absolute me-3 mt-3 top-0 end-0 align-items-center justify-content-center d-none'><i class='fa-solid fa-bars'></i></button>
     <div id='navToggle' class='container-fluid d-flex user-select-none '>";
     if(empty($session->get('edit')))
     {
@@ -23,7 +23,8 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
             if($currentFile == "index.php")
             {
                 $session->set('edit', 0);
-                echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
+                header('Location: '.$_SERVER['REQUEST_URI']);
+                //echo "<script>$('#navbar').load(location.href + ' #navbar'); $(document).ready(function (){ $('#nav-toggle').on('click', function (){toggleNav();}); }) </script>";
             }
 
             echo "
@@ -33,7 +34,7 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
                     <span class='fw-bold fs-6'>Hash.</span>
                 </div>
             </a>";
-            echo "<div class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
+            echo "<div id='navbar-links' class='d-flex flex-nowrap align-items-center justify-content-between gap-2 navbar-nav px-1 py-1'>
                 <a href='admin_index.php' class='nav-item d-flex align-items-center link ";
             if ($currentFile == "admin_index.php") echo "active-page";
             echo "'><i class='me-1 fa-solid fa-house'></i><span>Áttekintés</span></a>";
@@ -63,7 +64,8 @@ if ($session->get('level') >= 2 && $session->get('edit') == 1) { //NEM KELL A $s
             {
                 if($session->get('level') >= 2){
                     $session->set('edit', 1);
-                    echo "<script>$('#navbar').load(location.href + ' #navbar');</script>";
+                    header('Location: '.$_SERVER['REQUEST_URI']);
+                    //echo "<script>$('#navbar').load(location.href + ' #navbar'); $(document).ready(function (){ $('#nav-toggle').on('click', function (){toggleNav();}); }) </script>";
                 }
                 else{
                     header('Location: index.php');

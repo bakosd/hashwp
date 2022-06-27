@@ -19,7 +19,7 @@
                 }
             } else
                 $images = "<div class='carousel-item active'><div class='slider-img'><img src='images/cars/default.jpg' class='d-block w-100 mx-auto' alt='default-image'></div></div>";
-                $editButton = ($session->get('level') == 3 && $session->get('edit') == 1) ? "<button id='".$item->placesID."' data-id='".$item->placesID."' data-role='destUPD' style='box-shadow: 0 0 4px gray;background: rgb(190,190,190) ;border: 1px solid gray; border-radius: 1rem; padding: .5rem 0'>Szerkesztés<p style='display:none' data-target='city'>".$item->city."</p><p style='display:none' data-target='address'>".$item->address."</p><p style='display:none' data-target='phone'>".$item->phone."</p><p style='display:none' data-target='email'>".$item->email."</p><p style='display:none' data-target='workday'>".$item->workday."</p><p style='display:none' data-target='weekend'>".$item->weekend. "</p></button>" : "";
+                $editButton = ($session->get('level') == 3 && $session->get('edit') == 1) ? "<button id='".$item->placesID."' data-id='".$item->placesID."' data-role='destUPD' class='button'>Szerkesztés<p style='display:none' data-target='city'>".$item->city."</p><p style='display:none' data-target='address'>".$item->address."</p><p style='display:none' data-target='phone'>".$item->phone."</p><p style='display:none' data-target='email'>".$item->email."</p><p style='display:none' data-target='workday'>".$item->workday."</p><p style='display:none' data-target='weekend'>".$item->weekend. "</p></button>" : "";
         
                 $destinations .= "<div class='d-flex row' style='margin-top: 4.5rem'>
 <div class='col-12 d-flex align-items-center gap-2 mb-4'><div class='manufacturer-logo d-flex align-items-center'><img src='images/icons/map.png' alt='map-icon' style='width: 45px;' class='p-1'></div>
@@ -80,7 +80,7 @@
 
 
 
-$admin = ($session->get('level') == 3 && $session->get('edit') == 1) ? '<button class="mt-5" style="width: 100%; padding: .5rem; border: 1px solid gray; box-shadow: 0 0 10px gray; border-radius: .5rem; background: rgb(200,200,200);" data-bs-toggle="modal" data-bs-target="#newdest-modal">Átvétli pont hozzáadás</button>' : '';
+$admin = ($session->get('level') == 3 && $session->get('edit') == 1) ? '<div class="w-100 px-5"><button class="mt-5 button w-100" data-bs-toggle="modal" data-bs-target="#newdest-modal">Átvétli pont hozzáadás</button></div>' : '';
 echo "<main class='container'>$admin $destinations</main>";
 require_once "footer.php";
     echo "<script src='scripts/button-events.js'></script><script src='scripts/events.js'></script><script src='scripts/dest_ajax.js'></script></body></html>";

@@ -29,7 +29,7 @@ if ($queryS->getResult() != null) {
     $newsletter_string = "";
 
 if (isset($_POST['newsletter_send']) && $_POST['newsletter_send'] == 1){
-    $mails_query = new SQLQuery("(SELECT email FROM users) UNION (SELECT email FROM newslettermails)",[]);
+    $mails_query = new SQLQuery("(SELECT email FROM users WHERE subscribed >= 0) UNION (SELECT email FROM newslettermails)",[]);
     $mails = $mails_query->getResult();
     $counter = 0;
     if (isset($mails)){
