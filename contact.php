@@ -52,8 +52,8 @@ echo "<main class='container' style='margin-top: 4.5rem'>
                    <div class='col'> <label for='first_name' class='text-nowrap'>Keresztnév <span>*</span></label>
                     <input type='text' class='input-with-icon w-100' name='first_name' id='first_name' $first_name></div></div>
                     
-                    <label for='email'>Email <span>*</span></label>
-                    <input type='email' class='input-with-icon w-100' name='email' id='email' $email>
+                    <label for='email1'>Email <span>*</span></label>
+                    <input type='email' class='input-with-icon w-100' name='email' id='email1' $email>
                     
                     <label for='message'>Üzenet <span>*</span></label>
                     <textarea class='input-with-icon' style='width: 100%; height:120px; resize: none;' name='message' id='message'></textarea><br>

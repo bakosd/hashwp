@@ -667,14 +667,14 @@ $(document).ready(function () {
         });
     }
     $('#contact-form').on('submit', function (e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
+        //e.preventDefault();
+        //e.stopImmediatePropagation();
         let f_name = $('#first_name');
         let l_name = $('#last_name');
-        let email = $('#email');
+        let email = $('#email1');
         let message = $('#message');
-        let error = false;
-        if (!email.val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        let error = '';
+        if (!/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i.test(email.val())){
             error = "Nem megfelelő e-mail formátum!";
         }
         if (validateInput(l_name)) {
@@ -682,14 +682,24 @@ $(document).ready(function () {
                 error = "A keresztnév nem megfelelő hosszúságú!";
         } else
                 error = "A keresznév nem tartalmazhat csak betűket.";
+
         if (validateInput(f_name)) {
             if (f_name.val().length < 3)
                 error = "A vezetéknév nem megfelelő hosszúságú!";
         } else
             error = "A vezetéknév nem tartalmazhat csak betűket.";
+
         if (message.val().length < 15)
             error = "A szöveg legyen bár 16 karakter hosszú!";
-        Alert($(this), error, 'error');
+
+        if (error.length === 0) {
+            //$(this).submit();
+            return true;
+        } else {
+            Alert($(this), error, 'error');
+            return false;
+        }
+
     });
     $('.modal').on('shown', function () {
 
