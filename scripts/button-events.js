@@ -1,7 +1,12 @@
-"use strict";
-$(window).on("load", mediaqueryFunction);
+$(document).ready(function (){
+    NAVBAR = document.getElementById("navToggle");
+    navbarShown = false;
+    $('#nav-toggle').on('click', function (){toggleNav();});
+});
 
-const NAVBAR = document.getElementById("navToggle");
+$(document).ready(mediaqueryFunction);
+
+var NAVBAR = document.getElementById("navToggle");
 var navbarShown = false;
 
 function toggleNav() {
@@ -19,6 +24,7 @@ function toggleNav() {
         navbarShown = false;
     }
 }
+
 
 function mediaqueryFunction(x) {
     if (x.matches) {
