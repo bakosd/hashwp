@@ -124,29 +124,29 @@ foreach ($query->getResult() as $value) {
             $rating = "<button class='button px-2' data-bs-toggle='modal' data-bs-target='#rating_$value->ordersID-modal'>Értékelés</button>";
             $rating_modal = "<form id='rating_$value->ordersID-form' data-rat='1'><input type='hidden' name='carID' value='$value->carID'><input type='hidden' name='orderID' value='$value->ordersID'></form>
     <div class='d-flex flex-column align-items-center m-4 gap-3 justify-content-center'>
-    <div class='px-1 py-1'>
+    <div class='px-1 py-1 w-100'>
         <label for='order-key' class='user-select-none'>E-mailban kapott megerősító kód</label>
-        <div class='login-input input-with-icon d-flex align-items-center'>
+        <div class='login-input input-with-icon d-flex align-items-center w-100'>
             <i class='px-2 fa-solid fa-key'></i>
-            <input type='text' id='order-key' name='order-key' form='rating_$value->ordersID-form' data-ordk='rating_$value->ordersID-form' minlength='8' placeholder='1234-1234-1234' autocomplete='false'>
+            <input type='text' id='order-key' class='w-100' name='order-key' form='rating_$value->ordersID-form' data-ordk='rating_$value->ordersID-form' minlength='8' placeholder='1234-1234-1234' autocomplete='false'>
         </div>
-    </div><div class='px-1 py-1'>
+    </div><div class='px-1 py-1 w-100'>
         <label for='comment-title' class='user-select-none'>Hozzászólás címe</label>
-        <div class='login-input input-with-icon d-flex align-items-center'>
+        <div class='login-input input-with-icon d-flex align-items-center w-100'>
             <i class='px-2 fa-solid fa-heading'></i>
-            <input type='text' id='comment-title' name='comment-title' form='rating_$value->ordersID-form' data-ct='rating_$value->ordersID-form' minlength='8' placeholder='Hozzászólás címe' autocomplete='false'>
+            <input type='text' id='comment-title' class='w-100' name='comment-title' form='rating_$value->ordersID-form' data-ct='rating_$value->ordersID-form' minlength='8' placeholder='Hozzászólás címe' autocomplete='false'>
         </div>
     </div>
-    <div class='px-1 py-1'>
+    <div class='px-1 py-1 w-100'>
         <label for='comment-body' class='user-select-none'>Hozzászólás szövege</label>
-        <div class='login-input input-with-icon d-flex align-items-center'>
+        <div class='login-input input-with-icon d-flex align-items-center w-100'>
             <i class='px-2 fa-solid fa-message'></i>
-            <textarea id='comment-body' name='comment-body' form='rating_$value->ordersID-form' data-cb='rating_$value->ordersID-form' minlength='10' placeholder='Hozzászólás szövege' autocomplete='false'></textarea>
+            <textarea id='comment-body' class='w-100' name='comment-body' form='rating_$value->ordersID-form' data-cb='rating_$value->ordersID-form' minlength='10' placeholder='Hozzászólás szövege' autocomplete='false'></textarea>
         </div>
     </div>
-    <div class='px-1 py-1'>
-        <label for='rpassword2' class='user-select-none'>Jármű értékelése</label>
-        <div class='d-flex gap-4 justify-content-center align-items-center'>
+    <div class='px-1 py-1 w-100'>
+        <label class='user-select-none'>Jármű értékelése</label>
+        <div class='d-flex gap-3 justify-content-between align-items-center w-100 flex-wrap'>
         ";
             for ($i = 1; $i <= 5; $i += 0.5) {
                 if ($i == 5)
